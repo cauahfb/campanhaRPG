@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0710">
+  <meta name="description" content="Campanha RPG — nosso ponto de encontro para tudo o que nasce à mesa.">
+  <title>Campanha RPG — Um universo além dos dados</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0b0710;
+      --surface: #160e1d;
+      --purple: #852b9b;
+      --magenta: #d52bd0;
+      --crimson: #e51d58;
+      --lilac: #e7c9f2;
+      --text: #f5edf8;
+      --muted: #b6a5bd;
+    }
+
+    * { box-sizing: border-box; }
+    html { min-height: 100%; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 50% 34%, rgba(111, 25, 129, .23), transparent 36rem),
+        radial-gradient(ellipse at 85% 85%, rgba(174, 15, 67, .11), transparent 30rem),
+        linear-gradient(145deg, #0b0710 0%, #100a17 48%, #09070d 100%);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      display: grid;
+      place-items: center;
+      position: relative;
+      isolation: isolate;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: .16;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.86' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
+      mix-blend-mode: soft-light;
+    }
+
+    .ambient {
+      position: fixed;
+      width: min(78vw, 820px);
+      aspect-ratio: 1;
+      border: 1px solid rgba(208, 92, 225, .09);
+      border-radius: 50%;
+      left: 50%;
+      top: 49%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: -1;
+      box-shadow: 0 0 100px rgba(157, 39, 180, .045), inset 0 0 100px rgba(157, 39, 180, .035);
+    }
+    .ambient::before, .ambient::after {
+      content: "";
+      position: absolute;
+      border: 1px solid rgba(208, 92, 225, .075);
+      border-radius: 50%;
+      inset: 7%;
+    }
+    .ambient::after { inset: 15%; border-color: rgba(229, 29, 88, .07); }
+
+    .page {
+      width: min(100% - 40px, 900px);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 64px 0 34px;
+      position: relative;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 13px;
+      color: #d9a9e8;
+      text-transform: uppercase;
+      letter-spacing: .25em;
+      font-size: 10px;
+      font-weight: 650;
+      opacity: .9;
+      animation: rise .9s ease both;
+    }
+    .eyebrow::before, .eyebrow::after {
+      content: "";
+      width: 34px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #a64ab7);
+    }
+    .eyebrow::after { transform: rotate(180deg); }
+
+    .emblem-wrap {
+      width: clamp(178px, 27vw, 270px);
+      margin: 24px 0 7px;
+      position: relative;
+      animation: emblem-in 1.2s cubic-bezier(.2,.8,.2,1) both;
+    }
+    .emblem-wrap::before {
+      content: "";
+      position: absolute;
+      inset: 13%;
+      border-radius: 50%;
+      background: rgba(190, 29, 204, .2);
+      filter: blur(44px);
+      z-index: -1;
+    }
+    .emblem {
+      width: 100%;
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 0 18px rgba(202, 40, 213, .25)) drop-shadow(0 0 42px rgba(163, 23, 113, .12));
+    }
+
+    h1 {
+      margin: 8px 0 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(42px, 7vw, 76px);
+      line-height: .98;
+      font-weight: 500;
+      letter-spacing: .015em;
+      text-shadow: 0 0 36px rgba(198, 62, 215, .17);
+      animation: rise 1s .12s ease both;
+    }
+    h1 span {
+      background: linear-gradient(105deg, #f2d7fa 5%, #d75be0 53%, #f04d82 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .tagline {
+      margin: 17px 0 0;
+      color: #c88bd7;
+      text-transform: uppercase;
+      letter-spacing: .28em;
+      font-size: 10px;
+      font-weight: 700;
+      animation: rise 1s .2s ease both;
+    }
+
+    .divider {
+      width: 110px;
+      height: 1px;
+      margin: 30px auto 25px;
+      background: linear-gradient(90deg, transparent, rgba(209, 91, 222, .8), transparent);
+      position: relative;
+      animation: rise 1s .26s ease both;
+    }
+    .divider::after {
+      content: "✦";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -53%);
+      padding: 0 10px;
+      color: #d77be2;
+      background: #100a17;
+      font-size: 10px;
+    }
+
+    .welcome {
+      max-width: 690px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: clamp(15px, 1.8vw, 17px);
+      line-height: 1.9;
+      font-weight: 350;
+      animation: rise 1s .32s ease both;
+    }
+    .welcome strong {
+      color: #f0d9f6;
+      font-weight: 600;
+    }
+
+    .teasers {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin: 26px auto 0;
+      max-width: 650px;
+      animation: rise 1s .4s ease both;
+    }
+    .teaser {
+      border: 1px solid rgba(198, 105, 212, .22);
+      background: linear-gradient(135deg, rgba(89, 37, 103, .22), rgba(36, 18, 43, .22));
+      color: #d8c2df;
+      padding: 8px 13px;
+      border-radius: 999px;
+      font-size: 11px;
+      letter-spacing: .035em;
+      white-space: nowrap;
+      box-shadow: inset 0 1px rgba(255,255,255,.025);
+    }
+    .teaser em {
+      color: #f18be7;
+      font-style: normal;
+    }
+
+    .closing {
+      margin: 31px 0 0;
+      color: #ead1f0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-style: italic;
+      font-size: clamp(17px, 2vw, 20px);
+      letter-spacing: .02em;
+      animation: rise 1s .48s ease both;
+    }
+
+    .status {
+      margin-top: 43px;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: #8e7a96;
+      text-transform: uppercase;
+      letter-spacing: .2em;
+      font-size: 9px;
+      animation: rise 1s .56s ease both;
+    }
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #d64bcf;
+      box-shadow: 0 0 12px rgba(214, 75, 207, .8);
+      animation: pulse 2.2s infinite;
+    }
+
+    footer {
+      margin-top: auto;
+      padding-top: 46px;
+      color: #65576d;
+      font-size: 10px;
+      letter-spacing: .08em;
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes emblem-in {
+      from { opacity: 0; transform: scale(.94); filter: blur(5px); }
+      to { opacity: 1; transform: scale(1); filter: blur(0); }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: .65; box-shadow: 0 0 7px rgba(214,75,207,.45); }
+      50% { opacity: 1; box-shadow: 0 0 15px rgba(214,75,207,1); }
+    }
+
+    @media (max-width: 600px) {
+      .page { width: min(100% - 32px, 520px); padding-top: 48px; }
+      .eyebrow { font-size: 8px; letter-spacing: .18em; gap: 8px; }
+      .eyebrow::before, .eyebrow::after { width: 19px; }
+      .emblem-wrap { margin-top: 28px; }
+      .tagline { font-size: 9px; letter-spacing: .2em; }
+      .divider { margin: 25px auto 20px; }
+      .welcome { line-height: 1.75; }
+      .teasers { gap: 7px; margin-top: 22px; }
+      .teaser { font-size: 10px; padding: 7px 10px; }
+      .status { margin-top: 34px; font-size: 8px; }
+      footer { padding-top: 36px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="ambient" aria-hidden="true"></div>
+  <main class="page">
+    <div class="eyebrow">Algo novo está tomando forma</div>
+
+    <div class="emblem-wrap">
+      <img class="emblem" src="assets/emblema-campanha-rpg.png" alt="Emblema oficial da Campanha RPG">
+    </div>
+
+    <h1><span>Campanha RPG</span></h1>
+    <p class="tagline">Um universo além dos dados</p>
+
+    <div class="divider" aria-hidden="true"></div>
+
+    <p class="welcome">
+      Sejam bem-vindos ao <strong>nosso novo ponto de encontro</strong>.<br>
+      Um lugar para reunir tudo aquilo que nasce das nossas aventuras:
+      projetos, documentos, histórias, descobertas e criações feitas à mesa.
+      <br><br>
+      <strong>Tradutor de Grung?</strong> Aqui. &nbsp;
+      <strong>Crônicas da mesa?</strong> Aqui também.
+      <strong>Patch notes, regras da casa e muito mais?</strong>
+      Tudo em um só lugar.
+    </p>
+
+    <div class="teasers" aria-label="O que poderá ser encontrado no portal">
+      <span class="teaser">Arquivos <em>perdidos</em></span>
+      <span class="teaser">Criações da mesa</span>
+      <span class="teaser">Crônicas</span>
+      <span class="teaser">Regras da casa</span>
+      <span class="teaser">E outras descobertas...</span>
+    </div>
+
+    <p class="closing">Mas isso é apenas o começo.</p>
+
+    <div class="status">
+      <span class="status-dot" aria-hidden="true"></span>
+      Um novo capítulo está sendo escrito
+    </div>
+
+    <footer>FEITO PARA A NOSSA MESA · CAMPANHA RPG</footer>
+  </main>
+</body>
+</html>
