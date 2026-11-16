@@ -1,12 +1,7 @@
-<!doctype html>
-<html lang="pt-BR">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0b0710">
-  <meta name="description" content="Campanha RPG — nosso ponto de encontro para tudo o que nasce à mesa.">
-  <title>Campanha RPG — Um universo além dos dados</title>
-  <style>
+@import "tailwindcss";
+
+/* Identidade visual original da landing page preservada durante a migração. */
+
     :root {
       color-scheme: dark;
       --bg: #0b0710;
@@ -279,49 +274,4 @@
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
     }
-  </style>
-</head>
-<body>
-  <div class="ambient" aria-hidden="true"></div>
-  <main class="page">
-    <div class="eyebrow">Algo novo está tomando forma</div>
-
-    <div class="emblem-wrap">
-      <img class="emblem" src="assets/emblema-campanha-rpg.png" alt="Emblema oficial da Campanha RPG">
-    </div>
-
-    <h1><span>Campanha RPG</span></h1>
-    <p class="tagline">Um universo além dos dados</p>
-
-    <div class="divider" aria-hidden="true"></div>
-
-    <p class="welcome">
-      Sejam bem-vindos ao <strong>nosso novo ponto de encontro</strong>.<br>
-      Um lugar para reunir tudo aquilo que nasce das nossas aventuras:
-      projetos, documentos, histórias, descobertas e criações feitas à mesa.
-      <br><br>
-      <strong>Tradutor de Grung?</strong> Aqui. &nbsp;
-      <strong>Crônicas da mesa?</strong> Aqui também.
-      <strong>Patch notes, regras da casa e muito mais?</strong>
-      Tudo em um só lugar.
-    </p>
-
-    <div class="teasers" aria-label="O que poderá ser encontrado no portal">
-      <span class="teaser">Arquivos <em>perdidos</em></span>
-      <span class="teaser">Criações da mesa</span>
-      <span class="teaser">Crônicas</span>
-      <span class="teaser">Regras da casa</span>
-      <span class="teaser">E outras descobertas...</span>
-    </div>
-
-    <p class="closing">Mas isso é apenas o começo.</p>
-
-    <div class="status">
-      <span class="status-dot" aria-hidden="true"></span>
-      Um novo capítulo está sendo escrito
-    </div>
-
-    <footer>FEITO PARA A NOSSA MESA · CAMPANHA RPG</footer>
-  </main>
-</body>
-</html>
+  
