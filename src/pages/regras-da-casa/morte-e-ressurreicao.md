@@ -17,7 +17,7 @@ description: "Dano excedente, limite de morte, estabilização e cura seguem reg
   </div>
 </div>
 <article class="rule-prose">
-## Nova Regra de Morte e Ressurreição
+<h2>Nova Regra de Morte e Ressurreição</h2>
 
 <p>A partir de agora, adotamos uma versão da regra de morte do <strong>D&amp;D 3.5</strong>, adaptada para nossa 5e.</p>
 <h3>PV Negativos</h3>

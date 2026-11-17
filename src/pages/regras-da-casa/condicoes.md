@@ -17,8 +17,7 @@ description: "Atordoamento preserva alguma capacidade de ação; paralisia permi
   </div>
 </div>
 <article class="rule-prose">
-## Nova Condição Atordoado
-
+<h2>Nova Condição Atordoado</h2>
 <p>A condição <strong>Atordoado</strong> foi reformulada para representar uma criatura desorientada e vulnerável, mas <strong>ainda capaz de agir</strong>.</p>
 <h3>Efeitos</h3>
 <p>Uma criatura <strong>Atordoada</strong>:</p>

@@ -51,20 +51,27 @@ description: "Armas, armaduras e itens especiais podem sofrer desgaste durante a
 <p>Exemplo: uma espada mágica +2 com 3 pontos de desgaste pode passar a ser apenas +1 ou até perder completamente esse bônus.</p>
 </blockquote>
 <h3>Avaria de adamantina não mágicas (ou semelhantes)</h3>
-<ul>
-<li>Podem acumular até <strong>9 pontos de Desgaste</strong>.
-| Pontos de avaria | Consequência | Reparo |
-|---:|---|---|
-| 1 | Nada acontece | 10% do valor da armadura ou magia Mending/Reparo |
-| 2 | Nada acontece | 10% do valor da armadura ou magia Mending/Reparo |
-| 3 | –1 na CA | 25% do valor da armadura |
-| 4 | –1 na CA | 25% do valor da armadura |
-| 5 | –1 na CA | 25% do valor da armadura |
-| 6 | –2 na CA | 50% do valor da armadura |
-| 7 | –2 na CA | 50% do valor da armadura |
-| 8 | –2 na CA | 50% do valor da armadura |
-| 9 | Não fornece mais proteção | 70% do valor da armadura |</li>
-</ul>
+<p>Podem acumular até <strong>9 pontos de Desgaste</strong>.</p>
+<table>
+<thead>
+<tr>
+  <th style="text-align:right">Pontos de avaria</th>
+  <th>Consequência</th>
+  <th>Reparo</th>
+</tr>
+</thead>
+<tbody>
+<tr><td style="text-align:right">1</td><td>Nada acontece</td><td>10% do valor da armadura ou magia Mending/Reparo</td></tr>
+<tr><td style="text-align:right">2</td><td>Nada acontece</td><td>10% do valor da armadura ou magia Mending/Reparo</td></tr>
+<tr><td style="text-align:right">3</td><td>–1 na CA</td><td>25% do valor da armadura</td></tr>
+<tr><td style="text-align:right">4</td><td>–1 na CA</td><td>25% do valor da armadura</td></tr>
+<tr><td style="text-align:right">5</td><td>–1 na CA</td><td>25% do valor da armadura</td></tr>
+<tr><td style="text-align:right">6</td><td>–2 na CA</td><td>50% do valor da armadura</td></tr>
+<tr><td style="text-align:right">7</td><td>–2 na CA</td><td>50% do valor da armadura</td></tr>
+<tr><td style="text-align:right">8</td><td>–2 na CA</td><td>50% do valor da armadura</td></tr>
+<tr><td style="text-align:right">9</td><td>Não fornece mais proteção</td><td>70% do valor da armadura</td></tr>
+</tbody>
+</table>
 <h3>Avaria de Adamantina Mágicas</h3>
 <table>
 <thead>

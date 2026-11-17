@@ -12,12 +12,14 @@ description: "Níveis épicos, bônus de proficiência estendido e artefatos de 
   </div>
   <div class="rule-detail-heading">
     <span class="rule-category">Progressão</span>
-    <h1>Progressão Épica e Itens de Ascensão</h1>
+    <h1>Progressão Épica</h1>
     <p>Do nível 1 ao 30</p>
   </div>
 </div>
+
 <article class="rule-prose">
-## <strong>Progressão Épica e Itens de Ascensão</strong>
+<h2>Progressão Épica</h2>
+
 A progressão convencional de personagens em D&D 5e termina no nível 20. Entretanto, devido à escala de poder alcançada pelos aventureiros e aos acontecimentos que moldam o mundo, nossa campanha adota um sistema de progressão épica que permite alcançar o <strong>nível 30</strong>.
 
 <p>Para acompanhar essa evolução, determinados artefatos e recursos extraordinários tornaram-se disponíveis, permitindo o desenvolvimento de novas capacidades, a aquisição de conhecimentos permanentes e a expansão dos limites convencionais de progressão.</p>
