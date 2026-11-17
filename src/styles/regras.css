@@ -1,6 +1,6 @@
 /* ==========================================================================
    COMPÊNDIO — Regras da Casa, Venenos e páginas de detalhe
-   Usa os tokens definidos em global.css (--gold, --wine, --crimson, etc.)
+   Usa exclusivamente os tokens compartilhados definidos em global.css.
    ========================================================================== */
 
 body:has(.rules-home),

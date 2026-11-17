@@ -25,17 +25,28 @@
   --line-soft: rgba(201, 167, 124, .09);
   --line-strong: rgba(201, 167, 124, .42);
 
-  /* Cores do emblema */
+  /* Identidade da interface — paleta complementar ao emblema */
   --wine: #6e2339;
   --crimson: #a02f4c;
-  --plum: #4b2a57;
+  --plum: #3b1728;
   --rose: #d09aa6;
 
-  /* Texto */
+  /* Cores originais do emblema — referência da marca; não aplicar filtros
+     nem recolorir o SVG. Estes tokens documentam a arte, não a UI. */
+  --emblem-wine-deep: #3b0317;
+  --emblem-wine: #671237;
+  --emblem-wine-mid: #790730;
+  --emblem-crimson: #830932;
+  --emblem-rose-dark: #73163d;
+  --emblem-rose: #8d1639;
+  --emblem-rose-light: #a84c5e;
+  --emblem-cream: #f5dcc3;
+
+  /* Texto — tons ajustados para leitura em fundos escuros */
   --text: #f0e8e2;
   --text-soft: #d3c7c4;
-  --muted: #a99b9d;
-  --dim: #7f7276;
+  --muted: #b7a9ab;
+  --dim: #9b8e92;
 
   /* Tipografia */
   --font-display: "Cormorant Garamond", "Cormorant", "Palatino Linotype", Palatino, Georgia, serif;
@@ -65,7 +76,7 @@ body {
   -webkit-font-smoothing: antialiased;
   background:
     radial-gradient(ellipse 60rem 38rem at 50% 18%, rgba(110, 35, 57, .26), transparent 70%),
-    radial-gradient(ellipse 44rem 30rem at 8% 96%, rgba(75, 42, 87, .20), transparent 70%),
+    radial-gradient(ellipse 44rem 30rem at 8% 96%, rgba(59, 23, 40, .22), transparent 70%),
     radial-gradient(ellipse 40rem 28rem at 96% 70%, rgba(110, 35, 57, .10), transparent 70%),
     linear-gradient(180deg, #0a060c 0%, #0d080f 50%, #070509 100%);
 }
@@ -362,7 +373,7 @@ h1 span {
   white-space: nowrap;
   border: 1px solid var(--line);
   border-radius: 999px;
-  background: linear-gradient(135deg, rgba(75, 42, 87, .16), rgba(18, 11, 20, .5));
+  background: linear-gradient(135deg, rgba(59, 23, 40, .18), rgba(18, 11, 20, .5));
 }
 .teaser em {
   color: var(--gold);
