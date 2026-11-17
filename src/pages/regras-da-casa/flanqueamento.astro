@@ -1,0 +1,339 @@
+---
+import RulesLayout from "../../layouts/RulesLayout.astro";
+---
+
+<RulesLayout
+  title="Flanqueamento Tático | Regras da Casa"
+  description="Entenda o posicionamento adjacente e a redução de Classe de Armadura concedida pelo flanqueamento."
+>
+  <main class="rules-shell flanking-page">
+    <div class="rule-detail-hero">
+      <a class="back-link" href="/regras-da-casa/">← Todas as regras</a>
+      <div class="rule-art rule-art--flanqueamento">
+        <img src="/images/regras/flanqueamento/flanqueamento-tatico.png" alt="Dois aventureiros atacam um inimigo por lados diferentes, coordenando um flanqueamento." />
+      </div>
+      <div class="rule-detail-heading">
+        <span class="rule-category">Combate</span>
+        <h1>Flanqueamento Tático</h1>
+        <p>O posicionamento adjacente dos aliados cria aberturas na defesa do adversário.</p>
+      </div>
+    </div>
+
+    <section class="rule-prose">
+      <h2>Como flanquear</h2>
+      <p>Para flanquear uma criatura, os aliados precisam ocupar quadrados <strong>imediatamente adjacentes ao alvo</strong>. A adjacência inclui quadrados ortogonais e diagonais.</p>
+      <ul>
+        <li>Pelo menos <strong>2 aliados</strong> devem estar em quadrados adjacentes ao alvo.</li>
+        <li>Os aliados que contam para o efeito precisam estar participando ativamente do flanqueamento.</li>
+        <li>Apenas ataques <strong>corpo a corpo</strong> dos flanqueadores recebem o benefício.</li>
+      </ul>
+      <p>Não é necessário deixar quadrados vazios entre os aliados. O importante é que cada flanqueador esteja em um espaço adjacente ao alvo.</p>
+
+      <h2>Exemplos de posicionamento</h2>
+      <p>Os dois arranjos abaixo são válidos: os aliados podem ocupar posições diagonais ou posições ortogonais, desde que estejam imediatamente ao redor do alvo.</p>
+    </section>
+
+    <section class="formation-examples" aria-label="Exemplos de flanqueamento adjacente">
+      <article class="formation-example">
+        <div class="formation-example-heading">
+          <span class="example-index">EXEMPLO 01</span>
+          <h3>Flanqueamento diagonal</h3>
+          <p>Os aliados ocupam os quatro quadrados diagonais adjacentes ao alvo.</p>
+        </div>
+        <svg class="formation-board" viewBox="0 0 420 330" role="img" aria-label="Alvo central e quatro aliados nos quadrados diagonais imediatamente adjacentes.">
+          <defs>
+            <pattern id="diag-grid" width="70" height="70" patternUnits="userSpaceOnUse"><path d="M70 0H0V70" fill="none" stroke="#82788a" stroke-opacity=".42" stroke-width="1.5"/></pattern>
+          </defs>
+          <rect x="35" y="15" width="350" height="280" rx="8" fill="#0a080e"/>
+          <rect x="35" y="15" width="350" height="280" rx="8" fill="url(#diag-grid)"/>
+          <rect x="175" y="85" width="70" height="70" class="target-cell"/>
+          <rect x="105" y="15" width="70" height="70" class="ally-cell"/>
+          <rect x="245" y="15" width="70" height="70" class="ally-cell"/>
+          <rect x="105" y="155" width="70" height="70" class="ally-cell"/>
+          <rect x="245" y="155" width="70" height="70" class="ally-cell"/>
+          <g class="example-target" transform="translate(210 120)"><circle r="22"/><path d="M-9 -8L0 -17L9 -8L8 10L0 17L-8 10Z"/><text y="39">ALVO</text></g>
+          <g class="example-ally" transform="translate(140 50)"><circle r="18"/><path d="M0 -10L7 -2L6 8L0 11L-6 8L-7 -2Z"/><text y="31">A1</text></g>
+          <g class="example-ally" transform="translate(280 50)"><circle r="18"/><path d="M0 -10L7 -2L6 8L0 11L-6 8L-7 -2Z"/><text y="31">A2</text></g>
+          <g class="example-ally" transform="translate(140 190)"><circle r="18"/><path d="M0 -10L7 -2L6 8L0 11L-6 8L-7 -2Z"/><text y="31">A3</text></g>
+          <g class="example-ally" transform="translate(280 190)"><circle r="18"/><path d="M0 -10L7 -2L6 8L0 11L-6 8L-7 -2Z"/><text y="31">A4</text></g>
+        </svg>
+        <div class="example-caption"><span class="example-valid-mark"></span> Todos os quatro aliados estão adjacentes ao alvo.</div>
+      </article>
+
+      <article class="formation-example">
+        <div class="formation-example-heading">
+          <span class="example-index">EXEMPLO 02</span>
+          <h3>Flanqueamento ortogonal</h3>
+          <p>Os aliados ocupam os quadrados adjacentes acima, abaixo e nas laterais.</p>
+        </div>
+        <svg class="formation-board" viewBox="0 0 420 330" role="img" aria-label="Alvo central e quatro aliados nos quadrados ortogonais imediatamente adjacentes.">
+          <defs>
+            <pattern id="ortho-grid" width="70" height="70" patternUnits="userSpaceOnUse"><path d="M70 0H0V70" fill="none" stroke="#82788a" stroke-opacity=".42" stroke-width="1.5"/></pattern>
+          </defs>
+          <rect x="35" y="15" width="350" height="280" rx="8" fill="#0a080e"/>
+          <rect x="35" y="15" width="350" height="280" rx="8" fill="url(#ortho-grid)"/>
+          <rect x="175" y="85" width="70" height="70" class="target-cell"/>
+          <rect x="175" y="15" width="70" height="70" class="ally-cell"/>
+          <rect x="245" y="85" width="70" height="70" class="ally-cell"/>
+          <rect x="175" y="155" width="70" height="70" class="ally-cell"/>
+          <rect x="105" y="85" width="70" height="70" class="ally-cell"/>
+          <g class="example-target" transform="translate(210 120)"><circle r="22"/><path d="M-9 -8L0 -17L9 -8L8 10L0 17L-8 10Z"/><text y="39">ALVO</text></g>
+          <g class="example-ally" transform="translate(210 50)"><circle r="18"/><path d="M0 -10L7 -2L6 8L0 11L-6 8L-7 -2Z"/><text y="31">A1</text></g>
+          <g class="example-ally" transform="translate(280 120)"><circle r="18"/><path d="M0 -10L7 -2L6 8L0 11L-6 8L-7 -2Z"/><text y="31">A2</text></g>
+          <g class="example-ally" transform="translate(210 190)"><circle r="18"/><path d="M0 -10L7 -2L6 8L0 11L-6 8L-7 -2Z"/><text y="31">A3</text></g>
+          <g class="example-ally" transform="translate(140 120)"><circle r="18"/><path d="M0 -10L7 -2L6 8L0 11L-6 8L-7 -2Z"/><text y="31">A4</text></g>
+        </svg>
+        <div class="example-caption"><span class="example-valid-mark"></span> Todos os quatro aliados estão adjacentes ao alvo.</div>
+      </article>
+    </section>
+
+    <section class="rule-prose">
+      <h2>Simulador de flanqueamento</h2>
+      <p>Escolha o tamanho do alvo e a quantidade de aliados adjacentes. O campo tático destaca os flanqueadores e calcula a redução de CA aplicável.</p>
+    </section>
+
+    <section class="flanking-demo" aria-labelledby="flanking-demo-title">
+      <div class="demo-heading">
+        <div>
+          <span class="demo-kicker">Campo tático interativo</span>
+          <h2 id="flanking-demo-title">Monte a formação</h2>
+          <p>Os aliados são posicionados nos oito quadrados imediatamente adjacentes ao alvo.</p>
+        </div>
+        <span class="demo-live">Simulação</span>
+      </div>
+
+      <div class="demo-controls">
+        <fieldset class="demo-control">
+          <legend>Tamanho do alvo</legend>
+          <div class="choice-group" id="target-sizes">
+            <button type="button" class="choice-button is-selected" data-size="medium" aria-pressed="true">Médio ou menor</button>
+            <button type="button" class="choice-button" data-size="large" aria-pressed="false">Grande</button>
+            <button type="button" class="choice-button" data-size="huge" aria-pressed="false">Enorme</button>
+            <button type="button" class="choice-button" data-size="colossal" aria-pressed="false">Colossal</button>
+          </div>
+        </fieldset>
+        <fieldset class="demo-control">
+          <legend>Quantidade de flanqueadores</legend>
+          <div class="count-control">
+            <button type="button" id="decrease-flankers" class="step-button" aria-label="Diminuir flanqueadores">−</button>
+            <output id="flanker-count" for="decrease-flankers increase-flankers">2</output>
+            <button type="button" id="increase-flankers" class="step-button" aria-label="Aumentar flanqueadores">+</button>
+            <span>aliados</span>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="demo-layout">
+        <div class="battlefield-wrap">
+          <div class="battlefield-topline">
+            <span>VISTA SUPERIOR</span>
+            <span>Quadrados adjacentes ao alvo</span>
+          </div>
+          <svg class="battlefield" id="battlefield" viewBox="0 0 600 420" role="img" aria-labelledby="battlefield-title battlefield-desc">
+            <title id="battlefield-title">Diagrama de flanqueamento adjacente</title>
+            <desc id="battlefield-desc">Alvo no centro e aliados ocupando quadrados imediatamente adjacentes.</desc>
+            <defs>
+              <pattern id="battle-grid" width="72" height="72" patternUnits="userSpaceOnUse">
+                <path d="M72 0H0V72" fill="none" stroke="rgba(204,174,220,.24)" stroke-width="1.2"/>
+              </pattern>
+              <radialGradient id="target-glow">
+                <stop offset="0%" stop-color="#a54ac1" stop-opacity=".28"/>
+                <stop offset="100%" stop-color="#a54ac1" stop-opacity="0"/>
+              </radialGradient>
+              <linearGradient id="ally-fill" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#d9a7eb"/>
+                <stop offset="100%" stop-color="#71358b"/>
+              </linearGradient>
+              <linearGradient id="target-fill" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#d9d0df"/>
+                <stop offset="100%" stop-color="#746a7b"/>
+              </linearGradient>
+            </defs>
+            <rect x="12" y="12" width="576" height="396" rx="10" fill="#09070d"/>
+            <rect x="12" y="12" width="576" height="396" rx="10" fill="url(#battle-grid)"/>
+            <circle cx="300" cy="210" r="140" fill="url(#target-glow)"/>
+            <g id="flanking-lines"></g>
+            <g id="flanker-tokens"></g>
+            <g id="target-token" transform="translate(300 210)">
+              <rect x="-36" y="-36" width="72" height="72" rx="5" fill="rgba(183,145,198,.12)" stroke="#d8c0e2" stroke-width="1.5"/>
+              <circle r="25" fill="#1c1421" stroke="#d8c0e2" stroke-width="2"/>
+              <circle r="19" fill="url(#target-fill)" opacity=".95"/>
+              <path d="M-9 -7L0 -15L9 -7L8 9L0 15L-8 9Z" fill="#332b38" stroke="#17121b" stroke-width="1.5"/>
+              <text x="0" y="52" text-anchor="middle" fill="#e7d9ed" font-size="10" font-weight="700">ALVO</text>
+            </g>
+          </svg>
+          <div class="battlefield-legend">
+            <span><i class="legend-dot ally-dot"></i> Flanqueadores</span>
+            <span><i class="legend-dot target-dot"></i> Alvo</span>
+            <span><i class="legend-line"></i> Adjacência</span>
+          </div>
+        </div>
+
+        <aside class="result-panel" aria-live="polite">
+          <span class="result-label">Redução da CA</span>
+          <strong class="result-value" id="ca-result">−2</strong>
+          <span class="result-unit">pontos de Classe de Armadura</span>
+          <div class="result-divider"></div>
+          <p class="result-status" id="result-status">Flanqueamento válido</p>
+          <p class="result-explanation" id="result-explanation">Dois aliados estão em quadrados adjacentes. A CA do alvo é reduzida em 2 contra esses atacantes.</p>
+          <div class="result-facts">
+            <div><span>Tamanho do alvo</span><strong id="result-size">Médio ou menor</strong></div>
+            <div><span>Flanqueadores</span><strong id="result-count">2 aliados</strong></div>
+            <div><span>Limite da regra</span><strong id="result-cap">−4 CA</strong></div>
+          </div>
+        </aside>
+      </div>
+      <p class="demo-note">O campo representa uma criatura ocupando um quadrado. Para criaturas maiores, a quantidade mínima e o limite de redução seguem os critérios indicados na regra.</p>
+    </section>
+
+    <section class="rule-prose">
+      <h2>Efeito do flanqueamento</h2>
+      <p>Em vez de conceder vantagem, o flanqueamento <strong>reduz a Classe de Armadura (CA) do alvo contra os atacantes que o flanqueiam</strong>.</p>
+      <div class="flanking-rules-grid">
+        <article class="flanking-rule">
+          <span class="rule-category">Médio ou menor</span>
+          <h3>Redução proporcional</h3>
+          <p>A redução é igual ao número de flanqueadores, até o limite de <strong>−4 CA</strong>.</p>
+        </article>
+        <article class="flanking-rule">
+          <span class="rule-category">Grande</span>
+          <h3>Mínimo de 3 aliados</h3>
+          <p>É necessário reunir pelo menos <strong>3 flanqueadores</strong>. A redução máxima é de <strong>−2 CA</strong>.</p>
+        </article>
+        <article class="flanking-rule">
+          <span class="rule-category">Enorme</span>
+          <h3>Mínimo de 6 aliados</h3>
+          <p>É necessário reunir pelo menos <strong>6 flanqueadores</strong>. A redução máxima é de <strong>−2 CA</strong>.</p>
+        </article>
+        <article class="flanking-rule is-unavailable">
+          <span class="rule-category">Colossal</span>
+          <h3>Não pode ser flanqueado</h3>
+          <p>Criaturas colossais não podem sofrer os efeitos desta regra.</p>
+        </article>
+      </div>
+      <h2>Limites importantes</h2>
+      <ul>
+        <li>A redução de CA não se aplica a ataques à distância.</li>
+        <li>A redução só vale para criaturas participando ativamente do flanqueamento.</li>
+        <li>Se um flanqueador sair de posição, o efeito é recalculado imediatamente.</li>
+      </ul>
+    </section>
+  </main>
+
+  <script>
+    const sizeRules = {
+      medium: { label: "Médio ou menor", minimum: 2, cap: 4, capLabel: "−4 CA" },
+      large: { label: "Grande", minimum: 3, cap: 2, capLabel: "−2 CA" },
+      huge: { label: "Enorme", minimum: 6, cap: 2, capLabel: "−2 CA" },
+      colossal: { label: "Colossal", minimum: Infinity, cap: 0, capLabel: "Não se aplica" },
+    };
+
+    const positions = [
+      [264, 138], [336, 138], [372, 210], [336, 282],
+      [264, 282], [228, 210], [228, 138], [372, 282],
+    ];
+
+    const svgNS = "http://www.w3.org/2000/svg";
+    const lines = document.querySelector("#flanking-lines");
+    const tokens = document.querySelector("#flanker-tokens");
+    const sizeButtons = [...document.querySelectorAll("[data-size]")];
+    const countOutput = document.querySelector("#flanker-count");
+    const caResult = document.querySelector("#ca-result");
+    const status = document.querySelector("#result-status");
+    const explanation = document.querySelector("#result-explanation");
+    const resultSize = document.querySelector("#result-size");
+    const resultCount = document.querySelector("#result-count");
+    const resultCap = document.querySelector("#result-cap");
+    const battlefieldDescription = document.querySelector("#battlefield-desc");
+
+    let selectedSize = "medium";
+    let flankerCount = 2;
+
+    function svgElement(name, attributes = {}) {
+      const element = document.createElementNS(svgNS, name);
+      for (const [key, value] of Object.entries(attributes)) element.setAttribute(key, value);
+      return element;
+    }
+
+    function drawFormation(valid) {
+      lines.replaceChildren();
+      tokens.replaceChildren();
+
+      positions.forEach(([x, y], index) => {
+        if (index < flankerCount) {
+          lines.append(svgElement("line", {
+            x1: x, y1: y, x2: 300, y2: 210,
+            class: valid ? "pressure-line is-active" : "pressure-line",
+          }));
+        }
+
+        const token = svgElement("g", {
+          transform: `translate(${x} ${y})`,
+          class: index < flankerCount && valid ? "ally-token is-active" : "ally-token",
+        });
+        token.append(svgElement("rect", { x: -32, y: -32, width: 64, height: 64, rx: 5, class: "ally-cell-outline" }));
+        token.append(svgElement("circle", { r: 20, class: "ally-token-ring" }));
+        token.append(svgElement("circle", { r: 14, class: "ally-token-core" }));
+        token.append(svgElement("path", {
+          d: "M0 -9L6 -2L5 7L0 10L-5 7L-6 -2Z",
+          class: "ally-token-figure",
+        }));
+        const label = svgElement("text", { x: 0, y: 29, "text-anchor": "middle", class: "ally-token-label" });
+        label.textContent = `A${index + 1}`;
+        token.append(label);
+        tokens.append(token);
+      });
+
+      battlefieldDescription.textContent = `${flankerCount} aliados ocupam quadrados imediatamente adjacentes ao alvo. ${valid ? "O flanqueamento está válido." : "O flanqueamento não atende aos requisitos para este tamanho."}`;
+    }
+
+    function update() {
+      const rule = sizeRules[selectedSize];
+      const valid = selectedSize !== "colossal" && flankerCount >= rule.minimum;
+      const reduction = valid ? (selectedSize === "medium" ? Math.min(flankerCount, rule.cap) : rule.cap) : 0;
+
+      countOutput.textContent = String(flankerCount);
+      caResult.textContent = selectedSize === "colossal" ? "—" : (reduction > 0 ? `−${reduction}` : "0");
+      caResult.classList.toggle("is-inactive", !valid);
+      status.textContent = selectedSize === "colossal" ? "Não pode ser flanqueado" : (valid ? "Flanqueamento válido" : "Flanqueamento não válido");
+      status.classList.toggle("is-valid", valid);
+      status.classList.toggle("is-invalid", !valid);
+      resultSize.textContent = rule.label;
+      resultCount.textContent = `${flankerCount} ${flankerCount === 1 ? "aliado" : "aliados"}`;
+      resultCap.textContent = rule.capLabel;
+
+      if (selectedSize === "colossal") {
+        explanation.textContent = "Não é possível flanquear uma criatura colossal. O efeito de flanqueamento não se aplica a esse tamanho.";
+      } else if (!valid) {
+        explanation.textContent = `São necessários pelo menos ${rule.minimum} flanqueadores em quadrados adjacentes para afetar uma criatura ${rule.label.toLowerCase()}.`;
+      } else if (selectedSize === "medium") {
+        explanation.textContent = `A CA do alvo é reduzida em ${reduction} contra os ${flankerCount} aliados que ocupam quadrados adjacentes. O limite é de −4 CA.`;
+      } else {
+        explanation.textContent = `O mínimo de ${rule.minimum} flanqueadores adjacentes foi atingido. A redução aplicada é de −${reduction} CA contra esses atacantes.`;
+      }
+
+      drawFormation(valid);
+    }
+
+    sizeButtons.forEach((button) => button.addEventListener("click", () => {
+      selectedSize = button.dataset.size;
+      sizeButtons.forEach((item) => {
+        const active = item === button;
+        item.classList.toggle("is-selected", active);
+        item.setAttribute("aria-pressed", String(active));
+      });
+      update();
+    }));
+
+    document.querySelector("#decrease-flankers").addEventListener("click", () => {
+      flankerCount = Math.max(2, flankerCount - 1);
+      update();
+    });
+    document.querySelector("#increase-flankers").addEventListener("click", () => {
+      flankerCount = Math.min(8, flankerCount + 1);
+      update();
+    });
+
+    update();
+  </script>
+</RulesLayout>

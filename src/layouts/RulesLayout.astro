@@ -1,0 +1,10 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import "../styles/regras.css";
+
+const { title = "Regras da Casa | Campanha RPG", description = "Regras e sistemas próprios adotados na campanha." } = Astro.props;
+---
+
+<BaseLayout title={title} description={description}>
+  <slot />
+</BaseLayout>

@@ -1,0 +1,35 @@
+---
+import RulesLayout from "../../layouts/RulesLayout.astro";
+import venenos from "../../data/venenos.json";
+import "../../styles/regras.css";
+export function getStaticPaths() {
+  return venenos.map((veneno) => ({ params: { slug: veneno.slug }, props: { veneno } }));
+}
+const { veneno } = Astro.props;
+---
+<RulesLayout title={`${veneno.name} | Tipos de Venenos`} description={`Informações sobre ${veneno.name}: aplicação, categoria, preço e descrição.`}>
+  <main class="rules-shell venom-detail">
+    <a class="back-link" href="/tipos-de-venenos/">← Voltar ao catálogo de venenos</a>
+    <div class="rule-detail-hero venom-detail-hero">
+      <div class="venom-detail-icon" aria-hidden="true">
+        <svg viewBox="0 0 120 120"><path d="M45 12h30M49 12v28L23 82a17 17 0 0 0 15 26h44a17 17 0 0 0 15-26L71 40V12" /><path d="M31 78h58M41 67h38" /></svg>
+      </div>
+      <div class="rule-detail-heading">
+        <span class="rule-category">Catálogo de alquimia</span>
+        <h1>{veneno.name}</h1>
+        <p>{veneno.applicationLabel} · {veneno.categoryLabel}</p>
+        <div class="venom-price"><span>Preço registrado</span><strong>{veneno.price.toLocaleString("pt-BR")} PO</strong></div>
+      </div>
+    </div>
+    <article class="rule-prose venom-description">
+      <h2>Descrição e efeitos</h2>
+      <p>{veneno.description}</p>
+      <div class="venom-facts">
+        <div><span>Forma de aplicação</span><strong>{veneno.applicationLabel}</strong></div>
+        <div><span>Tipo</span><strong>{veneno.categoryLabel}</strong></div>
+        <div><span>Preço</span><strong>{veneno.price.toLocaleString("pt-BR")} PO</strong></div>
+      </div>
+    </article>
+    <footer class="rules-footer"><span>CAMPANHA RPG</span><span>Compêndio de Alquimia</span><a href="/tipos-de-venenos/">Todos os venenos</a></footer>
+  </main>
+</RulesLayout>

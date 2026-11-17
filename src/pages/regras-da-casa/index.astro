@@ -1,0 +1,118 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import "../../styles/regras.css";
+
+const rules = [
+  { slug: "overcast", title: "OverCast", category: "Magia", description: "Permite tentar conjurar mesmo depois de esgotar os espaços de magia, assumindo consequências definidas pelo Mestre.", visual: "sigil" },
+  { slug: "runomancia", title: "RunoMancia", category: "Magia", description: "Runas podem alterar, ampliar ou produzir efeitos quando são interpretadas e combinadas.", image: "/images/regras/runas/runa-invocar-ev.png" },
+  { slug: "pocao-de-cura", title: "Poções de Cura", category: "Recursos", description: "A forma de consumir uma poção determina se a cura será máxima ou rolada.", visual: "potion" },
+  { slug: "equipamento-danificado", title: "Equipamento Danificado", category: "Equipamentos", description: "Armas, armaduras e itens especiais acumulam desgaste e podem exigir reparos.", visual: "weapon" },
+  { slug: "inspiracao", title: "Sistema de Inspiração", category: "Combate", description: "A Inspiração pode ser usada de diferentes maneiras para influenciar momentos importantes da aventura.", visual: "inspiration" },
+  { slug: "flanqueamento", title: "Flanqueamento Tático", category: "Combate", description: "O posicionamento coordenado reduz a CA do alvo contra os aliados que o flanqueiam.", image: "/images/regras/flanqueamento/flanqueamento-tatico.png" },
+  { slug: "condicoes", title: "Condições Especiais", category: "Combate", description: "Regras específicas para os estados Atordoado e Paralisado.", visual: "conditions" },
+  { slug: "morte-e-ressurreicao", title: "Morte e Ressurreição", category: "Sobrevivência", description: "Define como funcionam o dano além de zero pontos de vida, a morte e o retorno à vida.", visual: "fate" },
+  { slug: "venenos", title: "Sistema de Venenos", category: "Alquimia", description: "Organiza os venenos por aplicação e origem, além de definir sua criação e neutralização.", visual: "venom" },
+  { slug: "progressao-epica", title: "Progressão Épica", category: "Progressão", description: "Amplia a evolução dos personagens até o nível 30 e introduz recursos de ascensão.", visual: "ascension" },
+  { slug: "promessa-velada", title: "Promessa Velada", category: "Sistemas especiais", description: "Juramentos individuais ou compartilhados trocam restrições voluntárias por benefícios.", visual: "vow" },
+];
+
+const categories = ["Todas", "Magia", "Combate", "Recursos", "Equipamentos", "Alquimia", "Sobrevivência", "Progressão", "Sistemas especiais"];
+---
+<BaseLayout
+  title="Regras da Casa | Campanha RPG"
+  description="Consulte as regras, adaptações e sistemas utilizados na campanha."
+>
+  <main class="rules-home">
+    <header class="rules-topbar">
+      <a href="/" class="site-mark"><img src="/images/logo/emblema-campanha-rpg.svg" alt="" /> <span>Campanha RPG</span></a>
+      <nav class="rules-nav" aria-label="Navegação principal">
+        <a href="/">Início</a>
+        <a class="is-current" href="/regras-da-casa/">Regras da Casa</a>
+      </nav>
+    </header>
+
+    <section class="rules-intro">
+      <div class="intro-copy">
+        <span class="eyebrow">Compêndio da Campanha</span>
+        <h1>Regras da <em>Casa</em></h1>
+        <p>Este é o guia das regras e dos sistemas adotados em nossa mesa. Consulte cada tema para conhecer seus efeitos, condições e exemplos de aplicação durante a aventura.</p>
+        <div class="intro-meta"><span>11 REGRAS DISPONÍVEIS</span><span class="meta-divider"></span><span>D&amp;D 5ª EDIÇÃO · ADAPTAÇÕES DA CAMPANHA</span></div>
+      </div>
+      <div class="intro-art" aria-hidden="true">
+        <div class="book-emblem"></div>
+        <span>Conhecimento · Acordos · Consequências</span>
+      </div>
+    </section>
+
+    <section class="catalog-controls" aria-label="Busca e filtros de regras">
+      <label class="search-field">
+        <span class="search-icon" aria-hidden="true"></span>
+        <input id="rule-search" type="search" placeholder="Buscar por nome, tema ou palavra-chave..." autocomplete="off" />
+      </label>
+      <div class="filter-list" role="group" aria-label="Filtrar por categoria">
+        {categories.map((category, index) => (
+          <button class:list={["filter-button", { "is-active": index === 0 }]} type="button" data-category={category}>{category}</button>
+        ))}
+      </div>
+      <p class="result-count" aria-live="polite"><span id="visible-count">11</span> regras encontradas</p>
+    </section>
+
+    <section class="rules-grid" id="rules-grid" aria-label="Regras da Casa">
+      {rules.map((rule, i) => (
+        <a class="rule-card" href={`/regras-da-casa/${rule.slug}/`} data-category={rule.category} data-search={`${rule.title} ${rule.category} ${rule.description}`.toLocaleLowerCase("pt-BR")}>
+          <div class={`rule-card-art rule-card-art--${rule.visual ?? rule.slug}`}>
+            {rule.image ? <img src={rule.image} alt="" loading="lazy" /> : <span class="art-mark" aria-hidden="true"></span>}
+            <span class="art-index">{String(i + 1).padStart(2, "0")}</span>
+          </div>
+          <div class="rule-card-copy">
+            <span class="rule-category">{rule.category}</span>
+            <h2>{rule.title}</h2>
+            <p>{rule.description}</p>
+            <span class="rule-open">Consultar regra <span aria-hidden="true">→</span></span>
+          </div>
+        </a>
+      ))}
+      <p class="empty-state" id="empty-state" hidden>Nenhuma regra corresponde à sua busca. Tente outro termo ou categoria.</p>
+    </section>
+
+    <footer class="rules-footer">
+      <span>CAMPANHA RPG</span>
+      <span>Um universo além dos dados</span>
+      <a href="/">Voltar ao início</a>
+    </footer>
+  </main>
+  <script>
+    const search = document.querySelector("#rule-search");
+    const cards = [...document.querySelectorAll(".rule-card")];
+    const filters = [...document.querySelectorAll(".filter-button")];
+    const count = document.querySelector("#visible-count");
+    const empty = document.querySelector("#empty-state");
+    let activeCategory = "Todas";
+
+    function updateCatalog() {
+      const query = search.value.trim().toLocaleLowerCase("pt-BR");
+      let visible = 0;
+      for (const card of cards) {
+        const matchesCategory = activeCategory === "Todas" || card.dataset.category === activeCategory;
+        const matchesSearch = card.dataset.search.includes(query);
+        const show = matchesCategory && matchesSearch;
+        card.hidden = !show;
+        if (show) visible += 1;
+      }
+      count.textContent = String(visible);
+      empty.hidden = visible !== 0;
+    }
+
+    search.addEventListener("input", updateCatalog);
+    filters.forEach((button) => button.addEventListener("click", () => {
+      activeCategory = button.dataset.category;
+      filters.forEach((item) => {
+        const selected = item === button;
+        item.classList.toggle("is-active", selected);
+        item.setAttribute("aria-pressed", String(selected));
+      });
+      updateCatalog();
+    }));
+    filters[0].setAttribute("aria-pressed", "true");
+  </script>
+</BaseLayout>

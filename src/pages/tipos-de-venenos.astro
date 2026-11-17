@@ -1,0 +1,91 @@
+---
+import RulesLayout from "../layouts/RulesLayout.astro";
+import venenos from "../data/venenos.json";
+import "../styles/regras.css";
+---
+<RulesLayout title="Tipos de Venenos | Campanha RPG" description="Catálogo de venenos, formas de aplicação, categorias, preços e efeitos.">
+  <main class="rules-home venom-catalog">
+    <header class="rules-topbar">
+      <a href="/" class="site-mark"><img src="/images/logo/emblema-campanha-rpg.svg" alt="" /> <span>Campanha RPG</span></a>
+      <nav class="rules-nav" aria-label="Navegação principal">
+        <a href="/">Início</a>
+        <a href="/regras-da-casa/">Regras da Casa</a>
+        <a class="is-current" href="/tipos-de-venenos/">Tipos de Venenos</a>
+      </nav>
+    </header>
+    <section class="rules-intro venom-intro">
+      <div class="intro-copy">
+        <span class="eyebrow">Compêndio de Alquimia</span>
+        <h1>Tipos de <em>Venenos</em></h1>
+        <p>Um catálogo de substâncias conhecidas, suas formas de aplicação, origens, valores e efeitos descritos nos registros alquímicos.</p>
+        <div class="intro-meta"><span>{venenos.length} VENENOS CATALOGADOS</span><span class="meta-divider"></span><span>CONSULTA E PESQUISA</span></div>
+      </div>
+      <div class="intro-art" aria-hidden="true"><div class="venom-vial-large"><span></span></div><span>Substâncias · Aplicações · Efeitos</span></div>
+    </section>
+    <section class="catalog-controls" aria-label="Busca e filtros de venenos">
+      <label class="search-field">
+        <span class="search-icon" aria-hidden="true"></span>
+        <input id="venom-search" type="search" placeholder="Buscar por nome, aplicação, categoria ou efeito..." autocomplete="off" />
+      </label>
+      <div class="venom-filter-groups">
+        <div><span class="filter-caption">Forma de aplicação</span><div class="filter-list" role="group" aria-label="Filtrar por aplicação">
+          {["Todas", ...new Set(venenos.map((v) => v.applicationLabel))].map((value,index)=><button class:list={["filter-button",{ "is-active":index===0 }]} type="button" data-filter="application" data-value={value}>{value}</button>)}
+        </div></div>
+        <div><span class="filter-caption">Categoria</span><div class="filter-list" role="group" aria-label="Filtrar por categoria">
+          {["Todas", ...new Set(venenos.map((v) => v.categoryLabel))].map((value,index)=><button class:list={["filter-button",{ "is-active":index===0 }]} type="button" data-filter="category" data-value={value}>{value}</button>)}
+        </div></div>
+      </div>
+      <p class="result-count" aria-live="polite"><span id="venom-count">{venenos.length}</span> venenos encontrados</p>
+    </section>
+    <section class="venom-grid" id="venom-grid" aria-label="Catálogo de venenos">
+      {venenos.map((v,index)=>(
+        <a class="venom-card" href={`/tipos-de-venenos/${v.slug}/`} data-name={v.name.toLocaleLowerCase("pt-BR")} data-application={v.applicationLabel} data-category={v.categoryLabel} data-search={`${v.name} ${v.application} ${v.category} ${v.description}`.toLocaleLowerCase("pt-BR")}>
+          <span class="venom-card-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48"><path d="M18 5h12M20 5v10L10 30a8 8 0 0 0 7 12h14a8 8 0 0 0 7-12L28 15V5" /><path d="M14 30h20M18 25h12" /></svg>
+          </span>
+          <span class="venom-card-name">{v.name}</span>
+          <span class="venom-tooltip" role="tooltip">
+            <strong>{v.name}</strong>
+            <span>{v.applicationLabel} · {v.categoryLabel}</span>
+            <b>{v.price.toLocaleString("pt-BR")} PO</b>
+          </span>
+        </a>
+      ))}
+      <p class="empty-state" id="venom-empty" hidden>Nenhum veneno corresponde à sua busca. Tente outro nome ou filtro.</p>
+    </section>
+    <footer class="rules-footer"><span>CAMPANHA RPG</span><span>Compêndio de Alquimia</span><a href="/regras-da-casa/">Voltar às Regras da Casa</a></footer>
+  </main>
+  <script>
+    const search=document.querySelector("#venom-search");
+    const cards=[...document.querySelectorAll(".venom-card")];
+    const buttons=[...document.querySelectorAll("[data-filter]")];
+    const count=document.querySelector("#venom-count");
+    const empty=document.querySelector("#venom-empty");
+    const filters={application:"Todas",category:"Todas"};
+    function update(){
+      const query=search.value.trim().toLocaleLowerCase("pt-BR");
+      let visible=0;
+      cards.forEach(card=>{
+        const show=(filters.application==="Todas"||card.dataset.application===filters.application)
+          &&(filters.category==="Todas"||card.dataset.category===filters.category)
+          &&card.dataset.search.includes(query);
+        card.hidden=!show;
+        if(show)visible++;
+      });
+      count.textContent=String(visible);
+      empty.hidden=visible!==0;
+    }
+    search.addEventListener("input",update);
+    buttons.forEach(button=>button.addEventListener("click",()=>{
+      const group=button.dataset.filter;
+      filters[group]=button.dataset.value;
+      buttons.filter(item=>item.dataset.filter===group).forEach(item=>{
+        const active=item===button;
+        item.classList.toggle("is-active",active);
+        item.setAttribute("aria-pressed",String(active));
+      });
+      update();
+    }));
+    buttons.forEach(button=>button.setAttribute("aria-pressed",String(button.dataset.value==="Todas")));
+  </script>
+</RulesLayout>
