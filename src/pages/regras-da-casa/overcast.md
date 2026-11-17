@@ -17,14 +17,12 @@ description: "Conjurar mesmo sem espaços de magia tem um preço decidido pelo M
   </div>
 </div>
 <article class="rule-prose">
-- Se você estiver <strong>sem slots de magia</strong>, não se preocupe !! Ainda sim é possível conjurar feitiços.
-
-<ul>
-<li>Contudo, ao fazer isso, o mestre decidirá <strong>uma consequência apropriada</strong>, baseada na magia usada e no <strong>estado físico e mental do personagem</strong>.</li>
-</ul>
-<blockquote>
-<p>Pode envolver exaustão, dano, efeitos colaterais mágicos, falhas selvagens, entre outros.</p>
+  <ul>
+    <li>Se você estiver <strong>sem espaços de magia</strong>, ainda será possível tentar conjurar feitiços.</li>
+    <li>Ao fazer isso, o Mestre decidirá <strong>uma consequência apropriada</strong>, baseada na magia usada e no <strong>estado físico e mental do personagem</strong>.</li>
+  </ul>
+  <blockquote>
+    <p>Pode envolver exaustão, dano, efeitos colaterais mágicos, falhas selvagens, entre outros.</p>
+  </blockquote>
 </article>
 </div>
-
-</blockquote>

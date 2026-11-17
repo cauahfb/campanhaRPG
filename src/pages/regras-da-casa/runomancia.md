@@ -47,7 +47,8 @@ Runas existem — e <strong>qualquer um pode usá-las</strong>, desde que saiba 
 </li>
 <li><p>Gravar runas em objetos para que outros possam ativá-las.</p>
 </li>
-<li><p>Utilizar runas com segurança, <strong>sem sofrer fadiga</strong>.</p>
+<li><p>Utilizar runas com segurança, <strong>sem sofrer fadiga</strong>.</p></li>
+</ul>
 </article>
 
 <div class="rule-source-credit">
@@ -55,6 +56,3 @@ Runas existem — e <strong>qualquer um pode usá-las</strong>, desde que saiba 
 </div>
 
 </div>
-
-</li>
-</ul>

@@ -124,9 +124,7 @@ O jogador declara um flashback <strong>plausível</strong> para justificar algo 
 </li>
 <li><p>Resolver situações com criatividade coerente com o mundo.</p>
 </li>
-<li><p>Interagir de forma marcante com NPCs, facções ou temas centrais da campanha.</p>
+<li><p>Interagir de forma marcante com NPCs, facções ou temas centrais da campanha.</p></li>
+</ul>
 </article>
 </div>
-
-</li>
-</ul>

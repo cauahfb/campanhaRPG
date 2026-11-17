@@ -17,14 +17,12 @@ description: "Escolha entre cura máxima ou rolar os dados normalmente."
   </div>
 </div>
 <article class="rule-prose">
-- <strong>Como Ação:</strong> A poção cura o valor <strong>máximo possível</strong>.
-
-<ul>
-<li><strong>Como Ação Bônus:</strong> Role os dados normalmente para determinar a cura.</li>
-</ul>
-<blockquote>
-<p>Exemplo: uma Poção de Cura (2d4+2) cura sempre 10 pontos se usada como Ação, ou entre 4 e 10 se usada como Ação Bônus.</p>
+  <ul>
+    <li><strong>Como Ação:</strong> A poção cura o valor <strong>máximo possível</strong>.</li>
+    <li><strong>Como Ação Bônus:</strong> Role os dados normalmente para determinar a cura.</li>
+  </ul>
+  <blockquote>
+    <p>Exemplo: uma Poção de Cura (2d4+2) cura sempre 10 pontos se usada como Ação, ou entre 4 e 10 se usada como Ação Bônus.</p>
+  </blockquote>
 </article>
 </div>
-
-</blockquote>

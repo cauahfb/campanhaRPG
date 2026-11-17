@@ -43,8 +43,7 @@ description: "Atordoamento preserva alguma capacidade de ação; paralisia permi
 </li>
 <li>Ataques contra ela têm <strong>VANTAGEM</strong>.</li>
 <li>Falha automaticamente em <strong>testes de resistência e testes de habilidade baseados em FOR ou DES</strong>.</li>
-<li>Qualquer ataque que <strong>atinja</strong> a criatura é um <strong>ACERTO CRÍTICO</strong> se o atacante estiver a até <strong>1,5 m</strong> dela.</article>
-</div>
-
-</li>
+<li>Qualquer ataque que <strong>atinja</strong> a criatura é um <strong>ACERTO CRÍTICO</strong> se o atacante estiver a até <strong>1,5 m</strong> dela.</li>
 </ul>
+</article>
+</div>
