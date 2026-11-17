@@ -100,7 +100,7 @@ body:has(.page) {
   place-items: center;
 }
 
-/* Círculos concêntricos ao fundo */
+/* Círculos concêntricos ao fundo (suavizados no centro para não cruzar o título) */
 .ambient {
   position: fixed;
   left: 50%;
@@ -113,6 +113,8 @@ body:has(.page) {
   pointer-events: none;
   z-index: -1;
   box-shadow: 0 0 120px rgba(110, 35, 57, .10), inset 0 0 120px rgba(110, 35, 57, .06);
+  -webkit-mask-image: radial-gradient(ellipse 52% 28% at 50% 42%, rgba(0, 0, 0, .12) 0%, rgba(0, 0, 0, .45) 55%, #000 100%);
+  mask-image: radial-gradient(ellipse 52% 28% at 50% 42%, rgba(0, 0, 0, .12) 0%, rgba(0, 0, 0, .45) 55%, #000 100%);
 }
 .ambient::before,
 .ambient::after {
@@ -122,7 +124,7 @@ body:has(.page) {
   border: 1px solid var(--line-soft);
 }
 .ambient::before { inset: 8%; }
-.ambient::after { inset: 17%; border-color: rgba(160, 47, 76, .10); border-style: dashed; }
+.ambient::after { inset: 17%; border-color: rgba(160, 47, 76, .08); border-style: dashed; }
 
 .page {
   position: relative;
@@ -219,7 +221,9 @@ body:has(.page) {
 }
 
 h1 {
-  margin: clamp(6px, 1vh, 12px) 0 0;
+  position: relative;
+  z-index: 1;
+  margin: clamp(10px, 1.5vh, 18px) 0 0;
   font-family: var(--font-display);
   font-size: clamp(46px, 8.2vh, 84px);
   font-weight: 500;
@@ -227,22 +231,34 @@ h1 {
   letter-spacing: .035em;
   animation: rise 1s .12s var(--ease) both;
 }
+/* Halo escuro atrás do título e subtítulo para leitura limpa */
+h1::before {
+  content: "";
+  position: absolute;
+  inset: -24px -56px -44px;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(ellipse 68% 60% at 50% 52%, rgba(9, 5, 11, .92) 0%, rgba(9, 5, 11, .55) 55%, transparent 80%);
+}
 h1 span {
   color: var(--gold-bright);
-  background: linear-gradient(100deg, #f4e6d0 8%, #d8b88c 46%, #b8586c 100%);
+  background: linear-gradient(100deg, #f7ecda 8%, #e4c69b 52%, #cf7486 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 2px 24px rgba(160, 47, 76, .25));
+  filter: drop-shadow(0 3px 14px rgba(5, 2, 7, .9)) drop-shadow(0 2px 24px rgba(160, 47, 76, .28));
 }
 
 .tagline {
-  margin: clamp(10px, 1.6vh, 18px) 0 0;
-  color: var(--rose);
+  position: relative;
+  z-index: 1;
+  margin: clamp(12px, 1.8vh, 20px) 0 0;
+  color: #e2b4be;
   font-size: clamp(10px, 1.3vh, 12px);
   font-weight: 600;
   letter-spacing: .36em;
   text-transform: uppercase;
+  text-shadow: 0 2px 12px rgba(7, 5, 9, .95);
   animation: rise 1s .2s var(--ease) both;
 }
 
