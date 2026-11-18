@@ -3,7 +3,7 @@ layout: ../../layouts/RulesLayout.astro
 title: "Progressão Épica e Itens de Ascensão | Regras da Casa"
 description: "Níveis épicos, bônus de proficiência estendido e artefatos de ascensão."
 ---
-<div class="rules-shell">
+<div class="section-shell section-shell--detail">
 <div class="rule-detail-hero">
   <a class="back-link" href="/regras-da-casa/">← Todas as regras</a>
   <div class="rule-art rule-art--progressao-epica" role="img" aria-label="Área de representação visual de Progressão Épica e Itens de Ascensão">

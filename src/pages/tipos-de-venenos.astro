@@ -1,27 +1,25 @@
 ---
 import RulesLayout from "../layouts/RulesLayout.astro";
 import venenos from "../data/venenos.json";
-import "../styles/regras.css";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import SectionIntro from "../components/SectionIntro.astro";
 ---
 <RulesLayout title="Tipos de Venenos | Campanha RPG" description="Catálogo de venenos, formas de aplicação, categorias, preços e efeitos.">
-  <main class="rules-home venom-catalog">
-    <header class="rules-topbar">
-      <a href="/" class="site-mark"><img src="/images/logo/emblema-campanha-rpg.svg" alt="" /> <span>Campanha RPG</span></a>
-      <nav class="rules-nav" aria-label="Navegação principal">
-        <a href="/">Início</a>
-        <a href="/regras-da-casa/">Regras da Casa</a>
-        <a class="is-current" href="/tipos-de-venenos/">Tipos de Venenos</a>
-      </nav>
-    </header>
-    <section class="rules-intro venom-intro">
-      <div class="intro-copy">
-        <span class="eyebrow">Compêndio de Alquimia</span>
-        <h1>Tipos de <em>Venenos</em></h1>
-        <p>Um catálogo de substâncias conhecidas, suas formas de aplicação, origens, valores e efeitos descritos nos registros alquímicos.</p>
-        <div class="intro-meta"><span>{venenos.length} VENENOS CATALOGADOS</span><span class="meta-divider"></span><span>CONSULTA E PESQUISA</span></div>
+  <main class="section-shell venom-catalog">
+    <SiteHeader currentPath="/regras-da-casa/" />
+    <SectionIntro
+      eyebrow="Compêndio de Alquimia"
+      title="Tipos de"
+      emphasis="Venenos"
+      description="Um catálogo de substâncias conhecidas, suas formas de aplicação, origens, valores e efeitos descritos nos registros alquímicos."
+      meta={[`${venenos.length} VENENOS CATALOGADOS`, "CONSULTA E PESQUISA"]}
+    >
+      <div slot="art">
+        <div class="venom-vial-large"><span></span></div>
+        <span>Substâncias · Aplicações · Efeitos</span>
       </div>
-      <div class="intro-art" aria-hidden="true"><div class="venom-vial-large"><span></span></div><span>Substâncias · Aplicações · Efeitos</span></div>
-    </section>
+    </SectionIntro>
     <section class="catalog-controls" aria-label="Busca e filtros de venenos">
       <label class="search-field">
         <span class="search-icon" aria-hidden="true"></span>
@@ -53,7 +51,7 @@ import "../styles/regras.css";
       ))}
       <p class="empty-state" id="venom-empty" hidden>Nenhum veneno corresponde à sua busca. Tente outro nome ou filtro.</p>
     </section>
-    <footer class="rules-footer"><span>CAMPANHA RPG</span><span>Compêndio de Alquimia</span><a href="/regras-da-casa/">Voltar às Regras da Casa</a></footer>
+    <SiteFooter />
   </main>
   <script>
     const search=document.querySelector("#venom-search");

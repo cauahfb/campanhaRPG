@@ -1,0 +1,36 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import SiteHeader from "../../../components/SiteHeader.astro";
+import SiteFooter from "../../../components/SiteFooter.astro";
+import SectionIntro from "../../../components/SectionIntro.astro";
+import Breadcrumb from "../../../components/Breadcrumb.astro";
+import { personagens } from "../../../data/personagens";
+import "../../../styles/section.css";
+import "../../../styles/corvonescos.css";
+---
+<BaseLayout title="Personagens | Os Corvonescos" description="Retratos e fichas dos integrantes dos Corvonescos.">
+  <main class="section-shell">
+    <SiteHeader />
+    <Breadcrumb items={[{ label: "Os Corvonescos", href: "/corvonescos/" }, { label: "Personagens" }]} />
+    <a class="back-link" href="/corvonescos/">← Voltar aos Corvonescos</a>
+    <SectionIntro eyebrow="O Grupo" title="Os" emphasis="Personagens" description="Retratos e informações dos integrantes do grupo." />
+    <section class="character-grid" aria-label="Personagens dos Corvonescos">
+      {personagens.map((personagem) => (
+        <a class="section-card card-lift character-card" href={`/corvonescos/personagens/${personagem.slug}/`}>
+          <div class="character-portrait">
+            {personagem.imagem
+              ? <img src={personagem.imagem} alt={`Retrato de ${personagem.nome}`} loading="lazy" />
+              : <span class="character-placeholder" aria-hidden="true">{personagem.nome.charAt(0)}</span>}
+          </div>
+          <div class="character-card-copy">
+            {personagem.classe && <span class="rule-category">{personagem.classe}</span>}
+            <h2>{personagem.nome}</h2>
+            {(personagem.raca || personagem.jogador) && <span class="character-meta">{[personagem.raca, personagem.jogador].filter(Boolean).join(" · ")}</span>}
+            <span class="character-open">Ver ficha <span aria-hidden="true">→</span></span>
+          </div>
+        </a>
+      ))}
+    </section>
+    <SiteFooter />
+  </main>
+</BaseLayout>

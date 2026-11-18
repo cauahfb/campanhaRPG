@@ -1,0 +1,66 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import SiteHeader from "../../../components/SiteHeader.astro";
+import SiteFooter from "../../../components/SiteFooter.astro";
+import Breadcrumb from "../../../components/Breadcrumb.astro";
+import { personagens } from "../../../data/personagens";
+import type { Personagem } from "../../../data/personagens";
+import { vinculos } from "../../../data/vinculos";
+import { sessoes } from "../../../data/sessoes";
+import { misterios } from "../../../data/misterios";
+import "../../../styles/section.css";
+import "../../../styles/regras.css";
+import "../../../styles/corvonescos.css";
+
+interface Props { personagem: Personagem }
+
+export function getStaticPaths() {
+  return personagens.map((personagem) => ({ params: { slug: personagem.slug }, props: { personagem } }));
+}
+const { personagem } = Astro.props as Props;
+const personagemVinculos = vinculos.filter((item) => item.ligadoA.includes(personagem.slug));
+const sessoesDoPersonagem = sessoes.filter((item) => item.personagens?.includes(personagem.slug));
+const misteriosDoPersonagem = misterios.filter((item) => item.personagens?.includes(personagem.slug));
+---
+<BaseLayout title={`${personagem.nome} | Os Corvonescos`} description={`Ficha de ${personagem.nome}.`}>
+  <main class="section-shell section-shell--detail">
+    <SiteHeader />
+    <Breadcrumb items={[{ label: "Os Corvonescos", href: "/corvonescos/" }, { label: "Personagens", href: "/corvonescos/personagens/" }, { label: personagem.nome }]} />
+    <a class="back-link" href="/corvonescos/">← Voltar aos Corvonescos</a>
+    <section class="rule-detail-hero character-detail-hero">
+      <div class="character-detail-portrait">
+        {personagem.imagem
+          ? <img src={personagem.imagem} alt={`Retrato de ${personagem.nome}`} />
+          : <span aria-hidden="true">{personagem.nome.charAt(0)}</span>}
+      </div>
+      <div class="rule-detail-heading">
+        {personagem.classe && <span class="rule-category">{personagem.classe}</span>}
+        <h1>{personagem.nome}</h1>
+        {personagem.resumo && <p>{personagem.resumo}</p>}
+        {(personagem.raca || personagem.jogador) && <p class="character-detail-meta">{[personagem.raca, personagem.jogador].filter(Boolean).join(" · ")}</p>}
+      </div>
+    </section>
+    {personagemVinculos.length > 0 && (
+      <section class="character-related">
+        <h2>Vínculos deste personagem</h2>
+        <ul>{personagemVinculos.map((item) => <li><a href="/corvonescos/vinculos/">{item.nome}</a></li>)}</ul>
+      </section>
+    )}
+    {sessoesDoPersonagem.length > 0 && (
+      <section class="character-related">
+        <h2>Presente nas sessões</h2>
+        <ul>{sessoesDoPersonagem.map((item) => <li><a href={`/corvonescos/diario-de-bordo/#sessoes`}>Sessão {String(item.numero).padStart(2, "0")} — {item.titulo}</a></li>)}</ul>
+      </section>
+    )}
+    {misteriosDoPersonagem.length > 0 && (
+      <section class="character-related">
+        <h2>Mistérios em que participa</h2>
+        <ul>{misteriosDoPersonagem.map((item) => <li><a href="/corvonescos/diario-de-bordo/#misterios">{item.pergunta}</a></li>)}</ul>
+      </section>
+    )}
+    { !personagem.resumo && !personagem.classe && !personagem.raca && !personagem.jogador && !personagem.imagem && personagemVinculos.length === 0 && sessoesDoPersonagem.length === 0 && misteriosDoPersonagem.length === 0 && (
+      <p class="empty-state">Ficha em construção.</p>
+    )}
+    <SiteFooter />
+  </main>
+</BaseLayout>

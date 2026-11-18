@@ -3,7 +3,7 @@ layout: ../../layouts/RulesLayout.astro
 title: "Promessa Velada | Regras da Casa"
 description: "Votos individuais e compartilhados, magnitude, benefícios e consequências."
 ---
-<div class="rules-shell">
+<div class="section-shell section-shell--detail">
 <div class="rule-detail-hero">
   <a class="back-link" href="/regras-da-casa/">← Todas as regras</a>
   <div class="rule-art rule-art--promessa-velada" role="img" aria-label="Área de representação visual de Promessa Velada">

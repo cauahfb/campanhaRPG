@@ -1,0 +1,41 @@
+---
+import { Network, ScrollText, Users } from "@lucide/astro";
+import type { CorvonescosHubItem } from "../data/corvonescos";
+
+interface Props {
+  item: CorvonescosHubItem;
+  index: number;
+}
+
+const { item, index } = Astro.props;
+const Icon = item.icon === "users" ? Users : item.icon === "network" ? Network : ScrollText;
+const isAvailable = item.status === "available";
+---
+{isAvailable ? (
+  <a class="section-card card-lift hub-card" href={item.href}>
+    <div class="hub-card-art">
+      <Icon class="hub-card-icon" aria-hidden="true" />
+      <span class="hub-card-index">{String(index + 1).padStart(2, "0")}</span>
+    </div>
+    <div class="hub-card-copy">
+      <span class="hub-card-eyebrow">Os Corvonescos</span>
+      <h2>{item.title}</h2>
+      <p>{item.description}</p>
+      {item.count !== undefined && <span class="hub-card-status">{item.count} registros</span>}
+      <span class="hub-card-open">Entrar <span aria-hidden="true">→</span></span>
+    </div>
+  </a>
+) : (
+  <div class="section-card hub-card hub-card--soon" aria-disabled="true">
+    <div class="hub-card-art">
+      <Icon class="hub-card-icon" aria-hidden="true" />
+      <span class="hub-card-index">{String(index + 1).padStart(2, "0")}</span>
+    </div>
+    <div class="hub-card-copy">
+      <span class="hub-card-eyebrow">Os Corvonescos</span>
+      <h2>{item.title}</h2>
+      <p>{item.description}</p>
+      <span class="hub-card-status">Em breve</span>
+    </div>
+  </div>
+)}

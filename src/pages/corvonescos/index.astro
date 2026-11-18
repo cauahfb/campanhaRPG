@@ -1,0 +1,38 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import SectionIntro from "../../components/SectionIntro.astro";
+import SectionHub from "../../components/SectionHub.astro";
+import { corvonescosHub } from "../../data/corvonescos";
+import { personagens } from "../../data/personagens";
+import { vinculos } from "../../data/vinculos";
+import { sessoes } from "../../data/sessoes";
+const counts = [personagens.length, vinculos.length, sessoes.length];
+const hubItems = corvonescosHub.map((item, index) => ({
+  ...item,
+  ...(counts[index] > 0 ? { count: counts[index] } : {}),
+}));
+import "../../styles/section.css";
+---
+<BaseLayout
+  title="Os Corvonescos | Campanha RPG"
+  description="Área dedicada ao grupo Os Corvonescos."
+>
+  <main class="section-shell">
+    <SiteHeader />
+    <SectionIntro
+      eyebrow="Quem são?"
+      title="Os"
+      emphasis="Corvonescos"
+      description="Os Corvonescos são o grupo de aventureiros desta campanha. Conheça seus integrantes, os vínculos que os cercam e os registros da jornada que compartilham."
+    >
+      <div slot="art" class="intro-art-content">
+        <div class="book-emblem"></div>
+        <span>Personagens · Vínculos · Jornada</span>
+      </div>
+    </SectionIntro>
+    <SectionHub items={hubItems} />
+    <SiteFooter />
+  </main>
+</BaseLayout>

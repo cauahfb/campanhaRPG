@@ -3,7 +3,7 @@ layout: ../../layouts/RulesLayout.astro
 title: "RunoMancia | Regras da Casa"
 description: "Descoberta, combinação e uso de runas por qualquer pessoa capaz de interpretá-las."
 ---
-<div class="rules-shell">
+<div class="section-shell section-shell--detail">
 <div class="rule-detail-hero">
   <a class="back-link" href="/regras-da-casa/">← Todas as regras</a>
   <div class="rule-art rule-art--runomancia" role="img" aria-label="Área de representação visual de RunoMancia">

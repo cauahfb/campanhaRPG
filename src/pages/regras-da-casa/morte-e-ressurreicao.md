@@ -3,7 +3,7 @@ layout: ../../layouts/RulesLayout.astro
 title: "Morte e Ressurreição | Regras da Casa"
 description: "Dano excedente, limite de morte, estabilização e cura seguem regras próprias."
 ---
-<div class="rules-shell">
+<div class="section-shell section-shell--detail">
 <div class="rule-detail-hero">
   <a class="back-link" href="/regras-da-casa/">← Todas as regras</a>
   <div class="rule-art rule-art--morte-e-ressurreicao" role="img" aria-label="Área de representação visual de Morte e Ressurreição">

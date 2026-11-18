@@ -3,7 +3,7 @@ layout: ../../layouts/RulesLayout.astro
 title: "Condições: Atordoado e Paralisado | Regras da Casa"
 description: "Atordoamento preserva alguma capacidade de ação; paralisia permite uma tentativa de recuperação."
 ---
-<div class="rules-shell">
+<div class="section-shell section-shell--detail">
 <div class="rule-detail-hero">
   <a class="back-link" href="/regras-da-casa/">← Todas as regras</a>
   <div class="rule-art rule-art--condicoes" role="img" aria-label="Área de representação visual de Condições: Atordoado e Paralisado">

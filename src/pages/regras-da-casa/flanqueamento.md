@@ -3,7 +3,7 @@ layout: ../../layouts/RulesLayout.astro
 title: "Novo Flanqueamento Tático | Regras da Casa"
 description: "O flanqueamento reduz a CA do alvo conforme seu tamanho e a formação dos atacantes."
 ---
-<div class="rules-shell">\n<div class="rule-detail-hero">
+<div class="section-shell section-shell--detail">\n<div class="rule-detail-hero">
   <a class="back-link" href="/regras-da-casa/">← Todas as regras</a>
   <div class="rule-art rule-art--flanqueamento" role="img" aria-label="Área de representação visual de Novo Flanqueamento Tático">
     <span class="rule-art-symbol">⚔</span>

@@ -3,7 +3,7 @@ layout: ../../layouts/RulesLayout.astro
 title: "Equipamento Danificado | Regras da Casa"
 description: "Armas, armaduras e itens especiais podem sofrer desgaste durante as aventuras."
 ---
-<div class="rules-shell">
+<div class="section-shell section-shell--detail">
 <div class="rule-detail-hero">
   <a class="back-link" href="/regras-da-casa/">← Todas as regras</a>
   <div class="rule-art rule-art--equipamento-danificado" role="img" aria-label="Área de representação visual de Equipamento Danificado">

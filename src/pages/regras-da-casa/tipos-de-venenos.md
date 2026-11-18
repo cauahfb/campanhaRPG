@@ -3,7 +3,7 @@ layout: ../../layouts/RulesLayout.astro
 title: "Tipos de Venenos | Regras da Casa"
 description: "Catálogo de tipos de venenos utilizados na campanha."
 ---
-<div class="rules-shell">
+<div class="section-shell section-shell--detail">
   <div class="rule-detail-hero">
     <a class="back-link" href="/regras-da-casa/venenos/">← Sistema de Venenos</a>
     <div class="rule-art rule-art--venenos">

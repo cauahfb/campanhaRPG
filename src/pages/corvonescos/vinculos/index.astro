@@ -1,0 +1,78 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import SiteHeader from "../../../components/SiteHeader.astro";
+import SiteFooter from "../../../components/SiteFooter.astro";
+import SectionIntro from "../../../components/SectionIntro.astro";
+import Breadcrumb from "../../../components/Breadcrumb.astro";
+import { vinculos } from "../../../data/vinculos";
+import { personagens } from "../../../data/personagens";
+import "../../../styles/section.css";
+import "../../../styles/regras.css";
+import "../../../styles/corvonescos.css";
+const tipoFilters = [{ label: "Todos", value: "todos" }, { label: "Aliados", value: "aliado" }, { label: "Inimigos", value: "inimigo" }, { label: "Especiais", value: "especial" }];
+---
+<BaseLayout title="Vínculos | Os Corvonescos" description="Aliados, inimigos e figuras especiais ligados aos Corvonescos.">
+  <main class="section-shell">
+    <SiteHeader />
+    <Breadcrumb items={[{ label: "Os Corvonescos", href: "/corvonescos/" }, { label: "Vínculos" }]} />
+    <a class="back-link" href="/corvonescos/">← Voltar aos Corvonescos</a>
+    <SectionIntro eyebrow="O Grupo" title="Seus" emphasis="Vínculos" description="Pessoas e organizações relevantes para o grupo e suas relações conhecidas." />
+    <section class="catalog-controls" aria-label="Busca e filtros de vínculos">
+      <label class="search-field">
+        <span class="search-icon" aria-hidden="true"></span>
+        <input id="vinculo-search" type="search" placeholder="Buscar por nome ou papel..." autocomplete="off" />
+      </label>
+      <div class="filter-group">
+        <span class="filter-group-label">Tipo</span>
+        <div class="filter-list" role="group" aria-label="Filtrar por tipo">
+          {tipoFilters.map((filter, i) => <button class:list={["filter-button", { "is-active": i === 0 }]} type="button" data-filter-tipo data-value={filter.value}>{filter.label}</button>)}
+        </div>
+      </div>
+      <div class="filter-group">
+        <span class="filter-group-label">Personagem</span>
+        <div class="filter-list" role="group" aria-label="Filtrar por personagem">
+          <button class="filter-button is-active" type="button" data-filter-personagem data-value="todos">Todos</button>
+          {personagens.map((p) => <button class="filter-button" type="button" data-filter-personagem data-value={p.slug}>{p.nome}</button>)}
+        </div>
+      </div>
+      <p class="result-count" aria-live="polite"><span id="vinculo-count">{vinculos.length}</span> vínculos encontrados</p>
+    </section>
+    <section class="vinculo-grid" aria-label="Catálogo de vínculos">
+      {vinculos.map((item) => (
+        <article class="section-card card-lift vinculo-card" data-vinculo-card data-tipo={item.tipo} data-personagens={item.ligadoA.join(" ")} data-search={`${item.nome} ${item.papel} ${item.descricao ?? ""}`}>
+          {item.imagem ? <img class="vinculo-image" src={item.imagem} alt="" loading="lazy" /> : <div class="vinculo-image vinculo-placeholder" aria-hidden="true">{item.nome.charAt(0)}</div>}
+          <div class="vinculo-copy">
+            <span class="rule-category">{item.tipo}</span>
+            <h2>{item.nome}</h2>
+            <p class="vinculo-role">{item.papel}</p>
+            {item.descricao && <p>{item.descricao}</p>}
+            <div class="character-chips">{item.ligadoA.map((slug) => <span>{personagens.find((p) => p.slug === slug)?.nome ?? slug}</span>)}</div>
+            {item.npcSlug && <span class="vinculo-full-link">Ver ficha completa</span>}
+          </div>
+          {item.spoiler && <div class="spoiler-cover"><span>Conteúdo revelado</span><button type="button" class="spoiler-reveal">Revelar</button></div>}
+        </article>
+      ))}
+      <p class="empty-state" id="vinculo-empty">Em construção.</p>
+    </section>
+    <SiteFooter />
+  </main>
+  <script>
+    import { initCatalogFilter } from "../../../scripts/catalog-filter";
+    initCatalogFilter({
+      searchSelector: "#vinculo-search",
+      cardSelector: "[data-vinculo-card]",
+      countSelector: "#vinculo-count",
+      emptySelector: "#vinculo-empty",
+      filterGroups: [
+        { filterSelector: "[data-filter-tipo]", filterAttribute: "data-tipo", allValue: "todos" },
+        { filterSelector: "[data-filter-personagem]", filterAttribute: "data-personagens", allValue: "todos" },
+      ],
+    });
+    document.querySelectorAll<HTMLElement>(".vinculo-card[data-personagens]").forEach((card) => {
+      const reveal = card.querySelector<HTMLButtonElement>(".spoiler-reveal");
+      if (!reveal) return;
+      card.classList.add("is-spoiler");
+      reveal.addEventListener("click", () => card.classList.add("is-revealed"));
+    });
+  </script>
+</BaseLayout>

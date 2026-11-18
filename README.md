@@ -74,3 +74,15 @@ A arquitetura foi pensada para permitir:
 - Separação entre conteúdo, apresentação e lógica.
 - Boa performance e carregamento eficiente.
 - Facilidade de manutenção e evolução do projeto.
+
+
+## Fase 2 — Os Corvonescos
+
+Foram adicionadas as rotas:
+- `/corvonescos/personagens/` e fichas estáticas por slug;
+- `/corvonescos/vinculos/`;
+- `/corvonescos/diario-de-bordo/` com abas Sessões e Mistérios.
+
+Os dados ficam em `src/data/personagens.ts`, `vinculos.ts`, `sessoes.ts` e `misterios.ts`.
+Os arrays de vínculos, sessões e mistérios começam vazios. O filtro reutilizável está em
+`src/scripts/catalog-filter.ts` e aceita grupos independentes de filtros.

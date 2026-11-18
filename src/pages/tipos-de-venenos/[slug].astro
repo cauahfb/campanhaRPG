@@ -1,14 +1,14 @@
 ---
 import RulesLayout from "../../layouts/RulesLayout.astro";
 import venenos from "../../data/venenos.json";
-import "../../styles/regras.css";
+import SiteFooter from "../../components/SiteFooter.astro";
 export function getStaticPaths() {
   return venenos.map((veneno) => ({ params: { slug: veneno.slug }, props: { veneno } }));
 }
 const { veneno } = Astro.props;
 ---
 <RulesLayout title={`${veneno.name} | Tipos de Venenos`} description={`Informações sobre ${veneno.name}: aplicação, categoria, preço e descrição.`}>
-  <main class="rules-shell venom-detail">
+  <main class="section-shell section-shell--detail venom-detail">
     <a class="back-link" href="/tipos-de-venenos/">← Voltar ao catálogo de venenos</a>
     <div class="rule-detail-hero venom-detail-hero">
       <div class="venom-detail-icon" aria-hidden="true">
@@ -30,6 +30,6 @@ const { veneno } = Astro.props;
         <div><span>Preço</span><strong>{veneno.price.toLocaleString("pt-BR")} PO</strong></div>
       </div>
     </article>
-    <footer class="rules-footer"><span>CAMPANHA RPG</span><span>Compêndio de Alquimia</span><a href="/tipos-de-venenos/">Todos os venenos</a></footer>
+    <SiteFooter />
   </main>
 </RulesLayout>

@@ -1,0 +1,33 @@
+---
+import { navigation } from "../data/navigation";
+
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = Astro.url.pathname } = Astro.props;
+const availableItems = navigation.filter((item) => item.status === "available");
+---
+<header class="section-topbar">
+  <a href="/" class="site-mark" aria-label="Campanha RPG — página inicial">
+    <img src="/images/logo/emblema-campanha-rpg.svg" alt="" />
+    <span>Campanha RPG</span>
+  </a>
+  <nav class="site-nav" aria-label="Navegação principal">
+    {availableItems.map((item) => {
+      const isCurrent = item.href === "/"
+        ? currentPath === "/"
+        : currentPath === item.href || currentPath.startsWith(item.href);
+      return (
+        <a
+          href={item.href}
+          class={isCurrent ? "is-current" : undefined}
+          aria-current={isCurrent ? "page" : undefined}
+          data-astro-prefetch={item.href === "/corvonescos/" ? "hover" : undefined}
+        >
+          {item.label}
+        </a>
+      );
+    })}
+  </nav>
+</header>

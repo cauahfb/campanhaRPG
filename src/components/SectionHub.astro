@@ -1,0 +1,13 @@
+---
+import HubCard from "./HubCard.astro";
+import type { CorvonescosHubItem } from "../data/corvonescos";
+
+interface Props {
+  items: CorvonescosHubItem[];
+}
+
+const { items } = Astro.props;
+---
+<section class="section-hub-grid" aria-label="Seções disponíveis">
+  {items.map((item, index) => <HubCard item={item} index={index} />)}
+</section>

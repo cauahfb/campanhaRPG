@@ -1,0 +1,179 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import SiteHeader from "../../../components/SiteHeader.astro";
+import SiteFooter from "../../../components/SiteFooter.astro";
+import SectionIntro from "../../../components/SectionIntro.astro";
+import Breadcrumb from "../../../components/Breadcrumb.astro";
+import { sessoes } from "../../../data/sessoes";
+import { misterios } from "../../../data/misterios";
+import { personagens } from "../../../data/personagens";
+import { vinculos } from "../../../data/vinculos";
+import "../../../styles/section.css";
+import "../../../styles/regras.css";
+import "../../../styles/corvonescos.css";
+const nomePersonagem = (slug: string) => personagens.find((item) => item.slug === slug)?.nome ?? slug;
+const nomeVinculo = (slug: string) => vinculos.find((item) => item.slug === slug)?.nome ?? slug;
+const misterioSessao = (id: string) => misterios.find((item) => item.id === id);
+const sessoesOrdenadas = [...sessoes].sort((a, b) => b.numero - a.numero);
+---
+<BaseLayout title="Diário de Bordo | Os Corvonescos" description="Registro de sessões e mistérios conhecidos pelo grupo.">
+  <main class="section-shell">
+    <SiteHeader />
+    <Breadcrumb items={[{ label: "Os Corvonescos", href: "/corvonescos/" }, { label: "Diário de Bordo" }]} />
+    <a class="back-link" href="/corvonescos/">← Voltar aos Corvonescos</a>
+    <SectionIntro eyebrow="O Grupo" title="Diário de" emphasis="Bordo" description="Um registro das sessões vividas e das perguntas que surgiram ao longo da campanha." />
+    <p class="diary-note">Este é o registro interno do grupo e não substitui a futura Crônica da Campanha, dedicada aos grandes marcos do mundo.</p>
+    <div class="diary-tabs" role="tablist" aria-label="Seções do Diário de Bordo">
+      <button id="tab-sessoes" class="diary-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="panel-sessoes" tabindex="0">Sessões</button>
+      <button id="tab-misterios" class="diary-tab" type="button" role="tab" aria-selected="false" aria-controls="panel-misterios" tabindex="-1">Mistérios</button>
+    </div>
+    <section id="panel-sessoes" class="diary-panel" role="tabpanel" aria-labelledby="tab-sessoes" tabindex="0">
+      <div class="diary-toolbar">
+        <p class="result-count"><span id="session-count">{sessoes.length}</span> sessões registradas</p>
+        <button type="button" class="filter-button" id="session-order" aria-pressed="false">Mais antigas primeiro</button>
+      </div>
+      {sessoes.length > 12 && (
+        <>
+          <input class="visually-hidden" id="session-search" type="search" value="" aria-label="Buscar sessões" />
+          <div class="filter-list" role="group" aria-label="Filtrar sessões por personagem">
+            <button class="filter-button is-active" type="button" data-session-filter data-value="todos">Todos</button>
+            {personagens.map((p) => <button class="filter-button" type="button" data-session-filter data-value={p.slug}>{p.nome}</button>)}
+          </div>
+        </>
+      )}
+      {sessoes.length > 0 ? (
+        <ol class="session-timeline" id="session-timeline">
+          {sessoesOrdenadas.map((sessao) => (
+            <li id={`sessao-${sessao.numero}`} class="session-entry" data-session-number={sessao.numero} data-personagens={sessao.personagens?.join(" ") ?? ""}>
+              <article class="section-card session-card">
+                <span class="session-number">Sessão {String(sessao.numero).padStart(2, "0")}</span>
+                {sessao.marco && <span class="session-milestone">Marco registrado</span>}
+                <h2>{sessao.titulo}</h2>
+                <p class="session-date">{sessao.dataSessao}{sessao.dataNoMundo ? ` · ${sessao.dataNoMundo}` : ""}</p>
+                <p>{sessao.resumo}</p>
+                {sessao.destaques && sessao.destaques.length > 0 && <ul class="session-highlights">{sessao.destaques.map((destaque) => <li>{destaque}</li>)}</ul>}
+                <div class="session-chips">
+                  {sessao.personagens?.map((slug) => <a href={`/corvonescos/personagens/${slug}/`}>{nomePersonagem(slug)}</a>)}
+                  {sessao.vinculos?.map((slug) => <a href="/corvonescos/vinculos/">{nomeVinculo(slug)}</a>)}
+                  {sessao.locais?.map((local) => <span>{local}</span>)}
+                </div>
+                {sessao.misterios && sessao.misterios.length > 0 && (
+                  <div class="session-questions">
+                    <strong>Perguntas desta sessão</strong>
+                    {sessao.misterios.map((id) => {
+                      const misterio = misterioSessao(id);
+                      return misterio ? <p>{misterio.pergunta}</p> : null;
+                    })}
+                    <a href="#misterios" data-open-tab="misterios">Ver Mistérios →</a>
+                  </div>
+                )}
+              </article>
+            </li>
+          ))}
+        </ol>
+      ) : <p class="empty-state">Em construção. As sessões aparecerão aqui quando forem registradas.</p>}
+      {sessoes.length > 12 && <p class="empty-state" id="session-filter-empty" hidden>Nenhuma sessão corresponde a este personagem.</p>}
+    </section>
+    <section id="panel-misterios" class="diary-panel" role="tabpanel" aria-labelledby="tab-misterios" tabindex="0" hidden>
+      <div class="filter-list mystery-filters" role="group" aria-label="Filtrar mistérios por situação">
+        <button class="filter-button is-active" type="button" data-mystery-filter data-value="aberta">Em aberto</button>
+        <button class="filter-button" type="button" data-mystery-filter data-value="respondida">Respondidas</button>
+        <button class="filter-button" type="button" data-mystery-filter data-value="todas">Todas</button>
+      </div>
+      <p class="result-count" aria-live="polite"><span id="mystery-count">{misterios.length}</span> mistérios</p>
+      <input class="visually-hidden" id="mystery-search" type="search" value="" aria-label="Buscar mistérios" />
+      <div class="mystery-grid">
+        {misterios.map((misterio) => (
+          <article class="section-card card-lift mystery-card" data-mystery-card data-status={misterio.status}>
+            <span class:list={["mystery-status", `mystery-status--${misterio.status}`]}>{misterio.status === "aberta" ? "Em aberto" : "Respondida"}</span>
+            <h2>{misterio.pergunta}</h2>
+            {misterio.pistas && misterio.pistas.length > 0 && <ul>{misterio.pistas.map((pista) => <li>{pista}</li>)}</ul>}
+            {misterio.sessaoSurgiu !== undefined && <p class="mystery-session">Surgiu na <a href={`#sessao-${misterio.sessaoSurgiu}`} data-open-tab="sessoes">sessão {misterio.sessaoSurgiu}</a></p>}
+            {misterio.status === "respondida" && <>
+              {misterio.sessaoResposta !== undefined && <p class="mystery-session">Respondida na <a href={`#sessao-${misterio.sessaoResposta}`} data-open-tab="sessoes">sessão {misterio.sessaoResposta}</a></p>}
+              <div class="mystery-answer"><span aria-hidden="true">◆</span><p>{misterio.resposta}</p></div>
+            </>}
+          </article>
+        ))}
+      </div>
+      <p class="empty-state" id="mystery-empty">Nenhum mistério neste filtro.</p>
+    </section>
+    <SiteFooter />
+  </main>
+  <script>
+    import { initCatalogFilter } from "../../../scripts/catalog-filter";
+    const tabButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
+    const panels = Array.from(document.querySelectorAll<HTMLElement>('[role="tabpanel"]'));
+    const activateTab = (name: string, updateHash = true) => {
+      const active = document.querySelector<HTMLButtonElement>(`#tab-${name}`);
+      if (!active) return;
+      tabButtons.forEach((button) => {
+        const selected = button === active;
+        button.setAttribute("aria-selected", String(selected));
+        button.tabIndex = selected ? 0 : -1;
+        button.classList.toggle("is-active", selected);
+      });
+      panels.forEach((panel) => { panel.hidden = panel.id !== `panel-${name}`; });
+      if (updateHash) history.replaceState(null, "", `#${name}`);
+    };
+    tabButtons.forEach((button, index) => {
+      button.addEventListener("click", () => activateTab(button.id.replace("tab-", "")));
+      button.addEventListener("keydown", (event) => {
+        if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
+        event.preventDefault();
+        const next = (index + (event.key === "ArrowRight" ? 1 : -1) + tabButtons.length) % tabButtons.length;
+        tabButtons[next].focus();
+        activateTab(tabButtons[next].id.replace("tab-", ""));
+      });
+    });
+    document.querySelectorAll<HTMLAnchorElement>("[data-open-tab]").forEach((link) => {
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        const target = link.getAttribute("href") ?? "#sessoes";
+        activateTab(link.dataset.openTab ?? "sessoes", false);
+        history.replaceState(null, "", target);
+        if (target.startsWith("#sessao-")) document.querySelector(target)?.scrollIntoView();
+      });
+    });
+    const initialTab = location.hash === "#misterios" ? "misterios" : "sessoes";
+    activateTab(initialTab, false);
+    window.addEventListener("hashchange", () => {
+      if (location.hash === "#misterios") activateTab("misterios", false);
+      else if (location.hash === "#sessoes" || location.hash.startsWith("#sessao-")) activateTab("sessoes", false);
+    });
+
+    const orderButton = document.querySelector<HTMLButtonElement>("#session-order");
+    const timeline = document.querySelector<HTMLOListElement>("#session-timeline");
+    let oldestFirst = false;
+    orderButton?.addEventListener("click", () => {
+      if (!timeline) return;
+      oldestFirst = !oldestFirst;
+      const entries = Array.from(timeline.children);
+      entries.sort((a, b) => {
+        const delta = Number((a as HTMLElement).dataset.sessionNumber) - Number((b as HTMLElement).dataset.sessionNumber);
+        return oldestFirst ? delta : -delta;
+      });
+      entries.forEach((entry) => timeline.append(entry));
+      orderButton.textContent = oldestFirst ? "Mais recentes primeiro" : "Mais antigas primeiro";
+      orderButton.setAttribute("aria-pressed", String(oldestFirst));
+    });
+
+    if (document.querySelector("[data-session-filter]")) {
+      initCatalogFilter({
+        searchSelector: "#session-search",
+        cardSelector: ".session-entry",
+        countSelector: "#session-count",
+        emptySelector: "#session-filter-empty",
+        filterGroups: [{ filterSelector: "[data-session-filter]", filterAttribute: "data-personagens", allValue: "todos" }],
+      });
+    }
+
+    initCatalogFilter({
+      searchSelector: "#mystery-search",
+      cardSelector: "[data-mystery-card]",
+      countSelector: "#mystery-count",
+      emptySelector: "#mystery-empty",
+      filterGroups: [{ filterSelector: "[data-mystery-filter]", filterAttribute: "data-status", allValue: "todas", initialValue: "aberta" }],
+    });
+  </script>
+</BaseLayout>

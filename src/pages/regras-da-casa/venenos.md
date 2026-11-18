@@ -3,7 +3,7 @@ layout: ../../layouts/RulesLayout.astro
 title: "Sistema de Venenos Reformulado | Regras da Casa"
 description: "Classificação por aplicação e origem, criação de venenos especiais e antídotos."
 ---
-<div class="rules-shell">
+<div class="section-shell section-shell--detail">
 <div class="rule-detail-hero">
   <a class="back-link" href="/regras-da-casa/">← Todas as regras</a>
   <div class="rule-art rule-art--venenos">
