@@ -193,6 +193,7 @@ body:has(.section-shell) {
   aspect-ratio: 1;
   border: 1px solid rgba(201, 167, 124, .55);
   transform: translate(-50%, -50%) rotate(45deg);
+  z-index: 0;
 }
 .book-emblem::before {
   width: 72px;
@@ -205,6 +206,26 @@ body:has(.section-shell) {
   box-shadow: 0 0 18px rgba(160, 47, 76, .28);
   transition: transform 850ms cubic-bezier(.2, .75, .25, 1);
   will-change: transform;
+}
+.book-emblem__symbol {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  width: 43px;
+  height: 43px;
+  overflow: visible;
+  color: rgba(224, 194, 145, .9);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(0 0 7px rgba(201, 167, 124, .18));
+}
+.book-emblem__symbol--raven { width: 47px; height: 47px; }
+.book-emblem__symbol--venom { width: 42px; height: 42px; }
+.book-emblem--venenos {
+  background:
+    radial-gradient(circle at 50% 52%, rgba(105, 145, 76, .2), transparent 40%),
+    linear-gradient(145deg, rgba(37, 29, 27, .96), rgba(13, 12, 16, .98));
 }
 .intro-art-content:hover .book-emblem::before,
 .intro-art-content:focus-within .book-emblem::before {
