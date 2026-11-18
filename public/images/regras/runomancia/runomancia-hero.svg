@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700">
+<defs>
+ <radialGradient id="bg"><stop stop-color="#47213b"/><stop offset="1" stop-color="#100a16"/></radialGradient>
+ <linearGradient id="gold" x2="1" y2="1"><stop stop-color="#fff0bd"/><stop offset=".45" stop-color="#d9a85f"/><stop offset="1" stop-color="#9d5b35"/></linearGradient>
+ <filter id="glow"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<rect width="900" height="700" fill="url(#bg)"/>
+<g fill="none" stroke="#a85d82" opacity=".22">
+ <circle cx="450" cy="350" r="285"/><circle cx="450" cy="350" r="250"/><path d="M450 45V655M145 350H755M235 135L665 565M665 135L235 565"/>
+</g>
+<g fill="none" stroke="url(#gold)" stroke-width="3" filter="url(#glow)" stroke-linecap="round" stroke-linejoin="round">
+ <path d="M450 110 C410 170 500 205 450 260 C400 315 500 350 450 410 C400 470 500 520 450 590"/>
+ <path d="M300 235 Q450 150 600 235 Q680 350 600 465 Q450 550 300 465 Q220 350 300 235Z"/>
+ <path d="M260 350 Q350 280 450 350 Q550 420 640 350"/>
+ <path d="M450 175 L420 230 L480 230 Z M450 525 L420 470 L480 470 Z"/>
+ <path d="M350 285 l-25 40 50 0z M550 415 l-25 -40 50 0z"/>
+ <path d="M360 350 l30 -35 30 35 -30 35z M480 350 l30 -35 30 35 -30 35z"/>
+</g>
+<g fill="#f2d79a" filter="url(#glow)">
+ <circle cx="450" cy="110" r="5"/><circle cx="450" cy="590" r="5"/><circle cx="300" cy="235" r="4"/><circle cx="600" cy="465" r="4"/>
+</g>
+<g fill="#d6b77c" font-family="serif" text-anchor="middle" opacity=".85">
+ <text x="450" y="665" font-size="18" letter-spacing="7">SCRIPTUM · TRAMA · INTENTIO</text>
+</g>
+</svg>

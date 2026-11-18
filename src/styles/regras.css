@@ -1180,3 +1180,113 @@
   .epic-item-meta { align-items: flex-start; flex-direction: column; gap: 5px; }
   .epic-item-meta strong { text-align: left; }
 }
+
+
+/* Runomancia — apresentação editorial */
+.runomancia-hero .rule-art {
+  background:
+    radial-gradient(circle at 50% 48%, rgba(166, 91, 143, .24), transparent 62%),
+    linear-gradient(145deg, #241226, #0d0811 72%);
+}
+.runomancia-hero .rule-art img {
+  object-fit: cover;
+  opacity: .94;
+}
+.runomancia-hero .rule-detail-heading p {
+  max-width: 520px;
+}
+.runomancia-toc {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+  margin: -8px 0 42px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  background: linear-gradient(100deg, rgba(110, 35, 57, .16), rgba(18, 11, 20, .72));
+}
+.runomancia-toc span {
+  margin-right: 8px;
+  color: var(--gold);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+.runomancia-toc a {
+  padding: 5px 9px;
+  border: 1px solid var(--line-soft);
+  color: var(--text-soft);
+  font-size: 10px;
+  text-decoration: none;
+  transition: border-color .2s, color .2s, background .2s;
+}
+.runomancia-toc a:hover {
+  border-color: var(--gold-dim);
+  color: var(--gold-bright);
+  background: rgba(201, 167, 124, .06);
+}
+.runomancia-prose section {
+  scroll-margin-top: 30px;
+}
+.runomancia-prose h2 {
+  padding-top: 12px;
+}
+.runomancia-illustration {
+  margin: 30px 0 38px;
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  background: #100a14;
+  box-shadow: inset 0 0 0 5px rgba(7, 5, 9, .45), inset 0 0 0 6px var(--line-soft);
+}
+.runomancia-illustration img {
+  display: block;
+  width: 100%;
+  max-height: 420px;
+  object-fit: contain;
+}
+.runomancia-illustration--wide img {
+  max-height: 330px;
+}
+.runomancia-illustration figcaption {
+  padding: 11px 16px 13px;
+  border-top: 1px solid var(--line);
+  color: var(--gold);
+  font-size: 10px;
+  letter-spacing: .08em;
+  text-align: center;
+}
+.runomancia-steps {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  padding: 0;
+  list-style: none;
+  counter-reset: runostep;
+}
+.runomancia-steps li {
+  position: relative;
+  min-height: 62px;
+  display: flex;
+  align-items: center;
+  padding: 13px 14px 13px 54px;
+  border: 1px solid var(--line);
+  background: linear-gradient(120deg, rgba(110, 35, 57, .14), rgba(18, 11, 20, .75));
+  counter-increment: runostep;
+}
+.runomancia-steps li::before {
+  content: counter(runostep, decimal-leading-zero);
+  position: absolute;
+  left: 15px;
+  color: var(--gold);
+  font: 600 16px var(--font-display);
+}
+.runomancia-prose table {
+  margin: 22px 0 28px;
+}
+@media (max-width: 700px) {
+  .runomancia-toc { gap: 7px; }
+  .runomancia-toc span { flex-basis: 100%; }
+  .runomancia-steps { grid-template-columns: 1fr; }
+  .runomancia-illustration { margin: 22px 0 28px; }
+}

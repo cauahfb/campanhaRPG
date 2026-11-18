@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 330">
+<rect width="900" height="330" rx="16" fill="#120b16"/>
+<g stroke="#c9a77c" fill="none" stroke-width="3">
+<path d="M80 165H820" stroke-dasharray="5 10"/>
+<path d="M155 80L235 165L155 250L75 165Z"/><path d="M450 80L530 165L450 250L370 165Z"/><path d="M745 80L825 165L745 250L665 165Z"/>
+<path d="M155 110V220M120 165H190M450 110V220M415 165H485M745 110V220M710 165H780"/>
+<path d="M235 165H370M530 165H665"/>
+</g><g fill="#e6cfa6" font-family="serif" font-size="18" text-anchor="middle"><text x="155" y="295">FUNÇÃO</text><text x="450" y="295">OBJETO</text><text x="745" y="295">CARACTERÍSTICA</text></g>
+</svg>
