@@ -6,9 +6,8 @@ description: "Rerrolar, ajudar um aliado, receber uma pista ou declarar um flash
 <div class="section-shell section-shell--detail">
 <div class="rule-detail-hero">
   <a class="back-link" href="/regras-da-casa/">← Todas as regras</a>
-  <div class="rule-art rule-art--inspiracao" role="img" aria-label="Área de representação visual de Novo Sistema de Inspiração">
-    <span class="rule-art-symbol"></span>
-    <span class="rule-art-caption">Representação visual · em breve</span>
+  <div class="rule-art rule-art--inspiracao">
+    <img src="/images/regras/apresentacao/sistema-de-inspiracao.png" alt="Ilustração do Sistema de Inspiração." loading="eager" />
   </div>
   <div class="rule-detail-heading">
     <span class="rule-category">Combate e narrativa</span>

@@ -6,9 +6,8 @@ description: "Armas, armaduras e itens especiais podem sofrer desgaste durante a
 <div class="section-shell section-shell--detail">
 <div class="rule-detail-hero">
   <a class="back-link" href="/regras-da-casa/">← Todas as regras</a>
-  <div class="rule-art rule-art--equipamento-danificado" role="img" aria-label="Área de representação visual de Equipamento Danificado">
-    <span class="rule-art-symbol"></span>
-    <span class="rule-art-caption">Representação visual · em breve</span>
+  <div class="rule-art rule-art--equipamento-danificado">
+    <img src="/images/regras/apresentacao/equipamento-danificado.png" alt="Ilustração de Equipamento Danificado." loading="eager" />
   </div>
   <div class="rule-detail-heading">
     <span class="rule-category">Equipamentos</span>

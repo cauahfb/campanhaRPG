@@ -6,9 +6,8 @@ description: "Níveis épicos, bônus de proficiência estendido e artefatos de 
 <div class="section-shell section-shell--detail">
 <div class="rule-detail-hero">
   <a class="back-link" href="/regras-da-casa/">← Todas as regras</a>
-  <div class="rule-art rule-art--progressao-epica" role="img" aria-label="Área de representação visual de Progressão Épica e Itens de Ascensão">
-    <span class="rule-art-symbol"></span>
-    <span class="rule-art-caption">Representação visual · em breve</span>
+  <div class="rule-art rule-art--progressao-epica">
+    <img src="/images/regras/apresentacao/progressao-epica.png" alt="Ilustração da Progressão Épica." loading="eager" />
   </div>
   <div class="rule-detail-heading">
     <span class="rule-category">Progressão</span>
@@ -23,110 +22,121 @@ description: "Níveis épicos, bônus de proficiência estendido e artefatos de 
 A progressão convencional de personagens em D&D 5e termina no nível 20. Entretanto, devido à escala de poder alcançada pelos aventureiros e aos acontecimentos que moldam o mundo, nossa campanha adota um sistema de progressão épica que permite alcançar o <strong>nível 30</strong>.
 
 <p>Para acompanhar essa evolução, determinados artefatos e recursos extraordinários tornaram-se disponíveis, permitindo o desenvolvimento de novas capacidades, a aquisição de conhecimentos permanentes e a expansão dos limites convencionais de progressão.</p>
-<h2><strong>1. Itens especiais disponíveis</strong></h2>
-<h3><strong>Doces da Santa Ascensão</strong></h3>
-<p>Uma coleção de iguarias mágicas extremamente raras, cuja essência concentra experiência, conhecimento e potencial de evolução. Cada doce foi desenvolvido para acelerar o desenvolvimento de indivíduos em diferentes estágios de poder.</p>
-<p><strong>Efeito:</strong> Ao consumir um doce, o personagem recebe experiência suficiente para avançar imediatamente um nível, adquirindo todos os benefícios correspondentes à nova classe ou às classes escolhidas.</p>
-<p>Existem quatro variedades:</p>
-<table>
-<thead>
-<tr>
-  <th>Item</th>
-  <th>Faixa de níveis</th>
-  <th>Preço</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-  <td>Doce da Ascensão Menor</td>
-  <td>1–10</td>
-  <td>20.000 PO</td>
-</tr>
-<tr>
-  <td>Doce da Ascensão Maior</td>
-  <td>11–20</td>
-  <td>100.000 PO</td>
-</tr>
-<tr>
-  <td>Doce da Ascensão Exaltada</td>
-  <td>21–25</td>
-  <td>500.000 PO</td>
-</tr>
-<tr>
-  <td>Doce da Ascensão Transcendente</td>
-  <td>26–30</td>
-  <td>1.000.000 PO</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Regras de utilização:</strong></p>
+<h2><strong>1. Itens Épicos</strong></h2>
+<p><strong>Descrição:</strong> artefatos e recursos extraordinários que permitem acelerar o desenvolvimento, ampliar aptidões e ultrapassar os limites convencionais de progressão.</p>
+
+<h3 class="epic-group-title">Doces da Evolução</h3>
+<div class="epic-items-grid">
+  <article class="epic-item-card">
+    <div class="epic-item-art"><img src="/images/itens-epicos/doce-ascensao-menor.png" alt="Doce da Ascensão Menor" loading="lazy" /></div>
+    <div class="epic-item-content">
+      <span class="epic-item-kicker">Consumível · Ascensão</span>
+      <h3>Doce da Ascensão Menor</h3>
+      <p>Uma iguaria mágica extremamente rara, cuja essência concentra experiência, conhecimento e potencial de evolução.</p>
+      <p><strong>Efeito:</strong> concede experiência suficiente para avançar imediatamente um nível, adquirindo os benefícios correspondentes à nova classe ou às classes escolhidas.</p>
+      <div class="epic-item-meta"><span>Níveis 1–10</span><strong>20.000 PO</strong></div>
+    </div>
+  </article>
+  <article class="epic-item-card">
+    <div class="epic-item-art"><img src="/images/itens-epicos/doce-ascensao-maior.png" alt="Doce da Ascensão Maior" loading="lazy" /></div>
+    <div class="epic-item-content">
+      <span class="epic-item-kicker">Consumível · Ascensão</span>
+      <h3>Doce da Ascensão Maior</h3>
+      <p>Uma iguaria mágica extremamente rara, cuja essência concentra experiência, conhecimento e potencial de evolução.</p>
+      <p><strong>Efeito:</strong> concede experiência suficiente para avançar imediatamente um nível, adquirindo os benefícios correspondentes à nova classe ou às classes escolhidas.</p>
+      <div class="epic-item-meta"><span>Níveis 11–20</span><strong>100.000 PO</strong></div>
+    </div>
+  </article>
+  <article class="epic-item-card">
+    <div class="epic-item-art"><img src="/images/itens-epicos/doce-ascensao-exaltada.png" alt="Doce da Ascensão Exaltada" loading="lazy" /></div>
+    <div class="epic-item-content">
+      <span class="epic-item-kicker">Consumível · Ascensão</span>
+      <h3>Doce da Ascensão Exaltada</h3>
+      <p>Uma iguaria mágica extremamente rara, cuja essência concentra experiência, conhecimento e potencial de evolução.</p>
+      <p><strong>Efeito:</strong> concede experiência suficiente para avançar imediatamente um nível, adquirindo os benefícios correspondentes à nova classe ou às classes escolhidas.</p>
+      <div class="epic-item-meta"><span>Níveis 21–25</span><strong>500.000 PO</strong></div>
+    </div>
+  </article>
+  <article class="epic-item-card">
+    <div class="epic-item-art"><img src="/images/itens-epicos/doce-ascensao-transcendente.png" alt="Doce da Ascensão Transcendente" loading="lazy" /></div>
+    <div class="epic-item-content">
+      <span class="epic-item-kicker">Consumível · Ascensão</span>
+      <h3>Doce da Ascensão Transcendente</h3>
+      <p>Uma iguaria mágica extremamente rara, cuja essência concentra experiência, conhecimento e potencial de evolução.</p>
+      <p><strong>Efeito:</strong> concede experiência suficiente para avançar imediatamente um nível, adquirindo os benefícios correspondentes à nova classe ou às classes escolhidas.</p>
+      <div class="epic-item-meta"><span>Níveis 26–30</span><strong>1.000.000 PO</strong></div>
+    </div>
+  </article>
+</div>
+
+<section class="epic-item-section" aria-labelledby="tomo-das-mil-aptidoes">
+  <h3 class="epic-group-title" id="tomo-das-mil-aptidoes">Tomo das Mil Aptidões</h3>
+  <div class="epic-items-grid epic-items-grid--single">
+    <article class="epic-item-card epic-item-card--wide epic-item-card--showcase">
+      <div class="epic-item-art"><img src="/images/itens-epicos/tomo-das-mil-aptidoes.png" alt="Tomo das Mil Aptidões" loading="lazy" /></div>
+      <div class="epic-item-content">
+        <span class="epic-item-kicker">Muito raro · Conhecimento</span>
+        <p>Um tomo ancestral que reúne conhecimentos, técnicas e experiências de incontáveis indivíduos. Suas páginas parecem se reorganizar de acordo com aquele que o consulta.</p>
+        <p><strong>Efeito:</strong> após estudar integralmente o tomo, o personagem adquire proficiência permanente em uma perícia à sua escolha. A aquisição não consome escolhas de proficiência concedidas por classe, antecedente ou outra característica. Caso já possua proficiência na perícia, o tomo não concede Especialização automaticamente. O benefício não pode ser transferido ou perdido.</p>
+        <div class="epic-item-meta"><span>Proficiência permanente</span><strong>500.000 PO</strong></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="epic-item-section epic-item-section--transcendence" aria-labelledby="nucleos-de-transcendencia">
+  <h3 class="epic-group-title epic-group-title--special" id="nucleos-de-transcendencia">Núcleos de Transcendência</h3>
+  <div class="epic-items-grid epic-items-grid--single">
+    <article class="epic-item-card epic-item-card--wide epic-item-card--showcase">
+      <div class="epic-item-art"><img src="/images/itens-epicos/nucleo-de-transcendencia-estagio-1.png" alt="Núcleo de Transcendência, estágio I" loading="lazy" /></div>
+      <div class="epic-item-content">
+        <span class="epic-item-kicker">Lendário · Artefato</span>
+        <h4>Estágio I</h4>
+        <p>Um artefato de natureza desconhecida, capaz de romper as limitações convencionais do desenvolvimento de um indivíduo. Sua energia permite que a essência de um aventureiro transcenda os limites de sua formação original, abrindo caminho para o domínio de novas classes.</p>
+        <p><strong>Efeito:</strong> permite ultrapassar o limite convencional de 20 níveis de personagem, possibilitando a aquisição de níveis adicionais em outras classes. Não concede níveis automaticamente.</p>
+        <div class="epic-item-meta"><span>Limite total 22</span><strong>Preço imensurável</strong></div>
+      </div>
+    </article>
+    <article class="epic-item-card epic-item-card--wide epic-item-card--showcase">
+      <div class="epic-item-art"><img src="/images/itens-epicos/nucleo-de-transcendencia-estagio-2.png" alt="Núcleo de Transcendência, estágio II" loading="lazy" /></div>
+      <div class="epic-item-content">
+        <span class="epic-item-kicker">Lendário · Artefato</span>
+        <h4>Estágio II</h4>
+        <p>Um artefato de natureza desconhecida, capaz de romper as limitações convencionais do desenvolvimento de um indivíduo. Sua energia permite que a essência de um aventureiro transcenda os limites de sua formação original, abrindo caminho para o domínio de novas classes.</p>
+        <p><strong>Efeito:</strong> permite ultrapassar o limite convencional de 20 níveis de personagem, possibilitando a aquisição de níveis adicionais em outras classes. Não concede níveis automaticamente.</p>
+        <div class="epic-item-meta"><span>Limite total 25</span><strong>Preço imensurável</strong></div>
+      </div>
+    </article>
+    <article class="epic-item-card epic-item-card--wide epic-item-card--showcase">
+      <div class="epic-item-art"><img src="/images/itens-epicos/nucleo-de-transcendencia-estagio-3.png" alt="Núcleo de Transcendência, estágio III" loading="lazy" /></div>
+      <div class="epic-item-content">
+        <span class="epic-item-kicker">Lendário · Artefato</span>
+        <h4>Estágio III</h4>
+        <p>Um artefato de natureza desconhecida, capaz de romper as limitações convencionais do desenvolvimento de um indivíduo. Sua energia permite que a essência de um aventureiro transcenda os limites de sua formação original, abrindo caminho para o domínio de novas classes.</p>
+        <p><strong>Efeito:</strong> permite ultrapassar o limite convencional de 20 níveis de personagem, possibilitando a aquisição de níveis adicionais em outras classes. Não concede níveis automaticamente.</p>
+        <div class="epic-item-meta"><span>Limite total 30</span><strong>Preço imensurável</strong></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<h3>Regras de utilização dos Doces da Santa Ascensão</h3>
 <ul>
-<li><p>Cada doce concede apenas um nível.</p>
-</li>
-<li><p>O personagem precisa estar dentro da faixa de níveis correspondente ao doce consumido.</p>
-</li>
-<li><p>O doce não permite ultrapassar o limite de nível estabelecido pelo Núcleo de Transferência.</p>
-</li>
-<li><p>O nível recebido pode ser distribuído entre as classes do personagem, respeitando as regras de multiclasse.</p>
-</li>
+<li><p>Cada doce concede apenas um nível.</p></li>
+<li><p>O personagem precisa estar dentro da faixa de níveis correspondente ao doce consumido.</p></li>
+<li><p>O doce não permite ultrapassar o limite de nível estabelecido pelo Núcleo de Transcendência.</p></li>
+<li><p>O nível recebido pode ser distribuído entre as classes do personagem, respeitando as regras de multiclasse.</p></li>
 </ul>
-<h3><strong>Tomo das Mil Aptidões</strong></h3>
-<p>Muito raro</p>
-<p>500.000 PO</p>
-<p>Um tomo ancestral que reúne conhecimentos, técnicas e experiências de incontáveis indivíduos. Suas páginas parecem se reorganizar de acordo com aquele que o consulta.</p>
-<p><strong>Efeito:</strong> Após estudar integralmente o tomo, o personagem adquire proficiência permanente em uma perícia à sua escolha.</p>
+
+<h3>Regras de utilização do Núcleo de Transcendência</h3>
 <ul>
-<li><p>A perícia escolhida passa a ser considerada proficiente permanentemente.</p>
-</li>
-<li><p>A aquisição não consome escolhas de proficiência concedidas por classe, antecedente ou outra característica.</p>
-</li>
-<li><p>Caso o personagem já possua proficiência na perícia escolhida, o tomo não concede Especialização (Expertise) automaticamente.</p>
-</li>
-<li><p>O benefício não pode ser transferido ou perdido.</p>
-</li>
+<li><p>O limite indicado representa a soma dos níveis de todas as classes do personagem.</p></li>
+<li><p>Nenhuma classe individual pode ultrapassar o nível 20.</p></li>
+<li><p>Os níveis adicionais devem ser distribuídos entre classes distintas, respeitando os pré-requisitos normais de multiclasse.</p></li>
+<li><p>O Núcleo não concede níveis automaticamente: apenas permite ultrapassar o limite convencional.</p></li>
+<li><p>Os benefícios de cada nível adquirido são recebidos normalmente, conforme o nível individual da classe correspondente.</p></li>
 </ul>
-<h3><strong>Núcleo de Transferência</strong></h3>
-<p>Item lendário</p>
-<p>Preço imensurável</p>
-<p>Um artefato de natureza desconhecida, capaz de romper as limitações convencionais do desenvolvimento de um indivíduo. Sua energia permite que a essência de um aventureiro transcenda os limites de sua formação original, abrindo caminho para o domínio de novas classes.</p>
-<p>O Núcleo de Transferência possui três estágios de potência:</p>
-<table>
-<thead>
-<tr>
-  <th>Potência</th>
-  <th>Limite de nível total</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-  <td>+1</td>
-  <td>22</td>
-</tr>
-<tr>
-  <td>+2</td>
-  <td>25</td>
-</tr>
-<tr>
-  <td>+3</td>
-  <td>30</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Efeito:</strong> O Núcleo permite ultrapassar o limite convencional de 20 níveis de personagem, possibilitando a aquisição de níveis adicionais em outras classes.</p>
-<p><strong>Regras de utilização:</strong></p>
-<ul>
-<li><p>O limite indicado representa a soma dos níveis de todas as classes do personagem.</p>
-</li>
-<li><p>Nenhuma classe individual pode ultrapassar o nível 20.</p>
-</li>
-<li><p>Os níveis adicionais devem ser distribuídos entre classes distintas, respeitando os pré-requisitos normais de multiclasse.</p>
-</li>
-<li><p>O Núcleo não concede níveis automaticamente: apenas permite ultrapassar o limite convencional.</p>
-</li>
-<li><p>Os benefícios de cada nível adquirido são recebidos normalmente, conforme o nível individual da classe correspondente.</p>
-</li>
-</ul>
-<p>Exemplo: Um personagem Guerreiro 20 que possua um Núcleo +3 poderá evoluir para Guerreiro 20 / Mago 10, alcançando o nível total 30.</p>
+
 <h2><strong>2. Progressão de personagem e bônus de proficiência</strong></h2>
 <p>Com a expansão do limite de níveis, o bônus de proficiência também recebe uma progressão estendida.</p>
 <p>O bônus de proficiência continua sendo determinado pelo nível total do personagem, independentemente da distribuição de níveis entre suas classes.</p>
@@ -200,7 +210,7 @@ A progressão convencional de personagens em D&D 5e termina no nível 20. Entret
 </li>
 </ul>
 <p><strong>Limites individuais:</strong></p>
-<p>O Núcleo de Transferência permite ultrapassar o limite total de 20 níveis, mas não permite ultrapassar o nível 20 em uma mesma classe.</p>
+<p>O Núcleo de Transcendência permite ultrapassar o limite total de 20 níveis, mas não permite ultrapassar o nível 20 em uma mesma classe.</p>
 <p>Exemplos de distribuições válidas para um personagem de nível 30:</p>
 <ul>
 <li><p>Paladino 20 / Feiticeiro 10.</p>
@@ -228,7 +238,7 @@ A progressão convencional de personagens em D&D 5e termina no nível 20. Entret
 </li>
 <li><p>Proficiências adquiridas por fontes diferentes não se acumulam.</p>
 </li>
-<li><p>O Núcleo de Transferência não concede benefícios retroativos além daqueles normalmente adquiridos pelos níveis escolhidos.</p>
+<li><p>O Núcleo de Transcendência não concede benefícios retroativos além daqueles normalmente adquiridos pelos níveis escolhidos.</p>
 </li>
 <li><p>Regras específicas de itens, habilidades e características que contrariem estas disposições prevalecem quando expressamente indicado.</p>
 </li>

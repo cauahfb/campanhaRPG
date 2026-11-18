@@ -6,9 +6,8 @@ description: "Escolha entre cura máxima ou rolar os dados normalmente."
 <div class="section-shell section-shell--detail">
 <div class="rule-detail-hero">
   <a class="back-link" href="/regras-da-casa/">← Todas as regras</a>
-  <div class="rule-art rule-art--pocao-de-cura" role="img" aria-label="Área de representação visual de Poções de Cura">
-    <span class="rule-art-symbol"></span>
-    <span class="rule-art-caption">Representação visual · em breve</span>
+  <div class="rule-art rule-art--pocao-de-cura">
+    <img src="/images/regras/apresentacao/pocoes-de-cura.png" alt="Ilustração das regras de Poções de Cura." loading="eager" />
   </div>
   <div class="rule-detail-heading">
     <span class="rule-category">Combate e recursos</span>

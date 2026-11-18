@@ -6,9 +6,8 @@ description: "Descoberta, combinação e uso de runas por qualquer pessoa capaz 
 <div class="section-shell section-shell--detail">
 <div class="rule-detail-hero">
   <a class="back-link" href="/regras-da-casa/">← Todas as regras</a>
-  <div class="rule-art rule-art--runomancia" role="img" aria-label="Área de representação visual de RunoMancia">
-    <span class="rule-art-symbol">ᚱ</span>
-    <span class="rule-art-caption">Representação visual · em breve</span>
+  <div class="rule-art rule-art--runomancia">
+    <img src="/images/regras/apresentacao/runomancia.png" alt="Ilustração de RunoMancia." loading="eager" />
   </div>
   <div class="rule-detail-heading">
     <span class="rule-category">Magia</span>

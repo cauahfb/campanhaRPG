@@ -5,9 +5,8 @@ description: "O flanqueamento reduz a CA do alvo conforme seu tamanho e a forma�
 ---
 <div class="section-shell section-shell--detail">\n<div class="rule-detail-hero">
   <a class="back-link" href="/regras-da-casa/">← Todas as regras</a>
-  <div class="rule-art rule-art--flanqueamento" role="img" aria-label="Área de representação visual de Novo Flanqueamento Tático">
-    <span class="rule-art-symbol">⚔</span>
-    <span class="rule-art-caption">Representação visual · em breve</span>
+  <div class="rule-art rule-art--flanqueamento">
+    <img src="/images/regras/apresentacao/flanqueamento.png" alt="Ilustração de Flanqueamento Tático." loading="eager" />
   </div>
   <div class="rule-detail-heading">
     <span class="rule-category">Combate</span>

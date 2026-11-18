@@ -15,9 +15,9 @@ import SectionIntro from "../components/SectionIntro.astro";
       description="Um catálogo de substâncias conhecidas, suas formas de aplicação, origens, valores e efeitos descritos nos registros alquímicos."
       meta={[`${venenos.length} VENENOS CATALOGADOS`, "CONSULTA E PESQUISA"]}
     >
-      <div slot="art">
-        <div class="venom-vial-large"><span></span></div>
-        <span>Substâncias · Aplicações · Efeitos</span>
+      <div slot="art" class="intro-art-content">
+        <div class="book-emblem"></div>
+        <span>Origens · Aplicações · Efeitos</span>
       </div>
     </SectionIntro>
     <section class="catalog-controls" aria-label="Busca e filtros de venenos">
@@ -38,8 +38,8 @@ import SectionIntro from "../components/SectionIntro.astro";
     <section class="venom-grid" id="venom-grid" aria-label="Catálogo de venenos">
       {venenos.map((v,index)=>(
         <a class="venom-card" href={`/tipos-de-venenos/${v.slug}/`} data-name={v.name.toLocaleLowerCase("pt-BR")} data-application={v.applicationLabel} data-category={v.categoryLabel} data-search={`${v.name} ${v.application} ${v.category} ${v.description}`.toLocaleLowerCase("pt-BR")}>
-          <span class="venom-card-icon" aria-hidden="true">
-            <svg viewBox="0 0 48 48"><path d="M18 5h12M20 5v10L10 30a8 8 0 0 0 7 12h14a8 8 0 0 0 7-12L28 15V5" /><path d="M14 30h20M18 25h12" /></svg>
+          <span class="venom-card-icon">
+            <img src={v.image} alt={`Categoria ${v.categoryLabel}`} loading="lazy" decoding="async" />
           </span>
           <span class="venom-card-name">{v.name}</span>
           <span class="venom-tooltip" role="tooltip">

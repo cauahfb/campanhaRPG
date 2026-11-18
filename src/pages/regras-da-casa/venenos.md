@@ -6,8 +6,8 @@ description: "Classificação por aplicação e origem, criação de venenos esp
 <div class="section-shell section-shell--detail">
 <div class="rule-detail-hero">
   <a class="back-link" href="/regras-da-casa/">← Todas as regras</a>
-  <div class="rule-art rule-art--venenos">
-    <img src="/images/regras/runas/runa-veneno-tox.png" alt="Carta da runa Veneno, identificada como TOX." />
+  <div class="rule-art rule-art--sistema-de-venenos">
+    <img src="/images/regras/apresentacao/sistema-de-venenos.png" alt="Ilustração do Sistema de Venenos." loading="eager" />
   </div>
   <div class="rule-detail-heading">
     <span class="rule-category">Alquimia</span>

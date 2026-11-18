@@ -11,8 +11,8 @@ const { veneno } = Astro.props;
   <main class="section-shell section-shell--detail venom-detail">
     <a class="back-link" href="/tipos-de-venenos/">← Voltar ao catálogo de venenos</a>
     <div class="rule-detail-hero venom-detail-hero">
-      <div class="venom-detail-icon" aria-hidden="true">
-        <svg viewBox="0 0 120 120"><path d="M45 12h30M49 12v28L23 82a17 17 0 0 0 15 26h44a17 17 0 0 0 15-26L71 40V12" /><path d="M31 78h58M41 67h38" /></svg>
+      <div class="venom-detail-icon">
+        <img src={veneno.image} alt={`Representação da categoria ${veneno.categoryLabel}`} loading="eager" decoding="async" />
       </div>
       <div class="rule-detail-heading">
         <span class="rule-category">Catálogo de alquimia</span>

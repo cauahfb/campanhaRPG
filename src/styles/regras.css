@@ -139,8 +139,7 @@
   height: 100%;
   object-fit: cover;
 }
-.rule-card-art--runomancia img { object-fit: contain; padding: 8px; }
-.rule-card-art--flanqueamento img { object-position: center; }
+.rule-card-art--promessa-velada img { object-position: 87% center; }
 .art-mark {
   z-index: 1;
   width: 40px;
@@ -272,9 +271,9 @@
   min-height: 290px;
   object-fit: cover;
 }
-.rule-art--runomancia img,
 .rule-art--venenos img { object-fit: contain; padding: 14px; }
 .rule-art--flanqueamento img { object-position: center; }
+.rule-art--promessa-velada img { object-position: 100% center; }
 .rule-art-symbol {
   color: var(--gold);
   font-family: var(--font-display);
@@ -855,6 +854,16 @@
   border-radius: 50%;
   background: radial-gradient(circle, rgba(160, 47, 76, .3), rgba(18, 11, 20, .8));
 }
+.venom-card-icon {
+  overflow: hidden;
+  border-radius: 4px;
+}
+.venom-card-icon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 .venom-card-icon svg {
   width: 24px;
   height: 24px;
@@ -907,6 +916,18 @@
   background: radial-gradient(circle, rgba(160, 47, 76, .3), transparent 72%), #130a12;
   box-shadow: 0 24px 60px rgba(0, 0, 0, .45), inset 0 0 0 6px rgba(7, 5, 9, .6), inset 0 0 0 7px var(--line-soft);
 }
+.venom-detail-icon {
+  overflow: hidden;
+  padding: 16px;
+}
+.venom-detail-icon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-height: 230px;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, .38));
+}
 .venom-detail-icon svg {
   width: 140px;
   height: 140px;
@@ -941,6 +962,133 @@
 }
 .venom-facts span { color: var(--dim); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; }
 .venom-facts strong { color: var(--text); font-family: var(--font-display); font-size: 20px; font-weight: 600; }
+
+/* Itens épicos: cards editoriais com arte e descrição */
+.epic-items-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin: 28px 0 42px;
+}
+.epic-item-card {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(132px, 36%) minmax(0, 1fr);
+  align-items: stretch;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: linear-gradient(145deg, rgba(39, 19, 34, .96), rgba(12, 8, 14, .98));
+  box-shadow: 0 14px 34px rgba(0, 0, 0, .2), inset 0 0 0 4px rgba(7, 5, 9, .32);
+  transition: transform .25s var(--ease), border-color .25s, box-shadow .25s;
+}
+.epic-item-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--line-strong);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, .32), 0 0 26px rgba(110, 35, 57, .15);
+}
+.epic-item-art {
+  min-height: 220px;
+  display: grid;
+  place-items: center;
+  padding: 12px;
+  border-right: 1px solid var(--line);
+  background: radial-gradient(circle at 50% 45%, rgba(126, 48, 103, .25), transparent 68%), rgba(5, 4, 8, .42);
+}
+.epic-item-art img {
+  display: block;
+  width: 100%;
+  max-height: 250px;
+  aspect-ratio: 1;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 20px rgba(0, 0, 0, .38));
+}
+.epic-item-content {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px 20px 16px;
+}
+.epic-item-kicker {
+  color: var(--gold);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+.epic-item-content h3 {
+  margin: 8px 0 10px;
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 23px;
+  line-height: 1.2;
+}
+.epic-item-content p {
+  margin: 7px 0;
+  color: var(--text-soft);
+  font-size: 13px;
+  line-height: 1.7;
+}
+.epic-item-content p strong { color: var(--gold-bright); }
+.epic-item-meta {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 14px;
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+.epic-item-meta strong {
+  color: var(--gold-bright);
+  font-size: 11px;
+  text-align: right;
+}
+.epic-item-card--wide { grid-column: 1 / -1; }
+.epic-item-card--wide .epic-item-art { min-height: 260px; }
+.epic-item-card--wide .epic-item-art img { max-height: 310px; }
+.epic-item-section { margin-top: 42px; }
+.epic-items-grid--single { grid-template-columns: minmax(0, 1fr); margin-top: 18px; }
+.epic-item-card--showcase { grid-column: 1 / -1; }
+.epic-item-card--showcase .epic-item-content h4 {
+  margin: 8px 0 10px;
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 23px;
+  line-height: 1.2;
+}
+.epic-group-title {
+  position: relative;
+  margin: 34px 0 0;
+  color: var(--gold-bright);
+  font-family: var(--font-display);
+  font-size: 29px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+.epic-item-section--transcendence { margin-top: 54px; }
+.epic-group-title--special {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 9px;
+  margin-top: 0;
+}
+.epic-group-title--special::before {
+  content: "✦";
+  display: block;
+  color: var(--gold-bright);
+  font-family: var(--font-display);
+  font-size: 23px;
+  line-height: 1;
+  text-shadow: 0 0 18px rgba(201, 167, 124, .5);
+}
 
 /* --------------------------------------------------------------------------
    Responsivo
@@ -1015,4 +1163,20 @@
   .battlefield-topline { font-size: 8px; }
   .battlefield-legend { gap: 12px; font-size: 10px; }
   .rule-epigraph { font-size: 19px; padding: 18px 20px; }
+}
+
+@media (max-width: 760px) {
+  .epic-items-grid { grid-template-columns: 1fr; gap: 14px; }
+  .epic-item-card--wide,
+  .epic-item-card--showcase { grid-column: auto; }
+  .epic-item-card--wide .epic-item-art { min-height: 220px; }
+}
+@media (max-width: 520px) {
+  .epic-item-card { grid-template-columns: 112px minmax(0, 1fr); }
+  .epic-item-art { min-height: 170px; padding: 8px; }
+  .epic-item-content { padding: 14px 13px 12px; }
+  .epic-item-content h3 { font-size: 19px; }
+  .epic-item-content p { font-size: 12px; }
+  .epic-item-meta { align-items: flex-start; flex-direction: column; gap: 5px; }
+  .epic-item-meta strong { text-align: left; }
 }

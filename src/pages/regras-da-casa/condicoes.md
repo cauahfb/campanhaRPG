@@ -6,9 +6,8 @@ description: "Atordoamento preserva alguma capacidade de ação; paralisia permi
 <div class="section-shell section-shell--detail">
 <div class="rule-detail-hero">
   <a class="back-link" href="/regras-da-casa/">← Todas as regras</a>
-  <div class="rule-art rule-art--condicoes" role="img" aria-label="Área de representação visual de Condições: Atordoado e Paralisado">
-    <span class="rule-art-symbol">◇</span>
-    <span class="rule-art-caption">Representação visual · em breve</span>
+  <div class="rule-art rule-art--condicoes">
+    <img src="/images/regras/apresentacao/condicoes-especiais.png" alt="Ilustração das Condições Especiais." loading="eager" />
   </div>
   <div class="rule-detail-heading">
     <span class="rule-category">Combate</span>

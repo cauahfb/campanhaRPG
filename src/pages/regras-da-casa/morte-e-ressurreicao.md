@@ -6,9 +6,8 @@ description: "Dano excedente, limite de morte, estabilização e cura seguem reg
 <div class="section-shell section-shell--detail">
 <div class="rule-detail-hero">
   <a class="back-link" href="/regras-da-casa/">← Todas as regras</a>
-  <div class="rule-art rule-art--morte-e-ressurreicao" role="img" aria-label="Área de representação visual de Morte e Ressurreição">
-    <span class="rule-art-symbol"></span>
-    <span class="rule-art-caption">Representação visual · em breve</span>
+  <div class="rule-art rule-art--morte-e-ressurreicao">
+    <img src="/images/regras/apresentacao/morte-e-ressurreicao.png" alt="Ilustração de Morte e Ressurreição." loading="eager" />
   </div>
   <div class="rule-detail-heading">
     <span class="rule-category">Sobrevivência</span>

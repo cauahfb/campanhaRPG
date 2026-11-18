@@ -181,6 +181,7 @@ body:has(.section-shell) {
     radial-gradient(circle at 50% 52%, rgba(160, 47, 76, .22), transparent 38%),
     linear-gradient(145deg, rgba(42, 22, 35, .94), rgba(16, 10, 18, .96));
   box-shadow: 0 12px 32px rgba(0, 0, 0, .24), inset 0 0 24px rgba(160, 47, 76, .08);
+  /* A carta permanece inclinada e imóvel; somente os símbolos internos giram. */
   transform: rotate(5deg);
 }
 .book-emblem::before,
@@ -193,11 +194,25 @@ body:has(.section-shell) {
   border: 1px solid rgba(201, 167, 124, .55);
   transform: translate(-50%, -50%) rotate(45deg);
 }
-.book-emblem::before { width: 72px; }
+.book-emblem::before {
+  width: 72px;
+  transition: transform 1100ms cubic-bezier(.2, .75, .25, 1);
+  will-change: transform;
+}
 .book-emblem::after {
   width: 40px;
   border-color: rgba(230, 207, 166, .82);
   box-shadow: 0 0 18px rgba(160, 47, 76, .28);
+  transition: transform 850ms cubic-bezier(.2, .75, .25, 1);
+  will-change: transform;
+}
+.intro-art-content:hover .book-emblem::before,
+.intro-art-content:focus-within .book-emblem::before {
+  transform: translate(-50%, -50%) rotate(405deg);
+}
+.intro-art-content:hover .book-emblem::after,
+.intro-art-content:focus-within .book-emblem::after {
+  transform: translate(-50%, -50%) rotate(-315deg);
 }
 
 /* Rodapé */
@@ -445,6 +460,14 @@ body:has(.section-shell) {
   .section-footer { flex-wrap: wrap; font-size: 9px; letter-spacing: .16em; }
 }
 @media (prefers-reduced-motion: reduce) {
+  .book-emblem::before,
+  .book-emblem::after { transition: none; will-change: auto; }
+  .intro-art-content:hover .book-emblem::before,
+  .intro-art-content:focus-within .book-emblem::before,
+  .intro-art-content:hover .book-emblem::after,
+  .intro-art-content:focus-within .book-emblem::after {
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
   .card-lift { transition: border-color .35s, box-shadow .35s; }
   .card-lift:hover,
   .card-lift:focus-visible { transform: none; }

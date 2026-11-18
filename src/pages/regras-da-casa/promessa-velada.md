@@ -6,9 +6,8 @@ description: "Votos individuais e compartilhados, magnitude, benefícios e conse
 <div class="section-shell section-shell--detail">
 <div class="rule-detail-hero">
   <a class="back-link" href="/regras-da-casa/">← Todas as regras</a>
-  <div class="rule-art rule-art--promessa-velada" role="img" aria-label="Área de representação visual de Promessa Velada">
-    <span class="rule-art-symbol">∞</span>
-    <span class="rule-art-caption">Representação visual · em breve</span>
+  <div class="rule-art rule-art--promessa-velada">
+    <img src="/images/regras/apresentacao/promessa-velada.png" alt="Ilustração de Promessa Velada, com uma personagem diante de uma balança mística." loading="eager" />
   </div>
   <div class="rule-detail-heading">
     <span class="rule-category">Sistemas especiais</span>

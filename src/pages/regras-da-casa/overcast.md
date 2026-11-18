@@ -6,9 +6,8 @@ description: "Conjurar mesmo sem espaços de magia tem um preço decidido pelo M
 <div class="section-shell section-shell--detail">
 <div class="rule-detail-hero">
   <a class="back-link" href="/regras-da-casa/">← Todas as regras</a>
-  <div class="rule-art rule-art--overcast" role="img" aria-label="Área de representação visual de OverCast">
-    <span class="rule-art-symbol"></span>
-    <span class="rule-art-caption">Representação visual · em breve</span>
+  <div class="rule-art rule-art--overcast">
+    <img src="/images/regras/apresentacao/overcast.png" alt="Ilustração de OverCast." loading="eager" />
   </div>
   <div class="rule-detail-heading">
     <span class="rule-category">Magia</span>
