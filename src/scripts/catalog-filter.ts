@@ -33,7 +33,7 @@ export function initCatalogFilter(options: CatalogFilterOptions): void {
     const buttons = Array.from(document.querySelectorAll<HTMLButtonElement>(group.filterSelector));
     const initialValue = group.initialValue ?? group.allValue;
     const initial = buttons.find((button) =>
-      (button.dataset.value ?? button.getAttribute(group.filterAttribute)) === initialValue,
+      (button.dataset.value ?? button.getAttribute(state.group.filterAttribute)) === initialValue,
     ) ?? buttons[0];
     return {
       group,
@@ -55,6 +55,7 @@ export function initCatalogFilter(options: CatalogFilterOptions): void {
       );
       const show = matchesSearch && matchesGroups;
       card.hidden = !show;
+      card.style.display = show ? "" : "none";
       if (show) visible += 1;
     }
     count.textContent = String(visible);
@@ -73,7 +74,7 @@ export function initCatalogFilter(options: CatalogFilterOptions): void {
         });
         update();
       });
-      if ((button.dataset.value ?? button.getAttribute(group.filterAttribute)) === state.active) {
+      if ((button.dataset.value ?? button.getAttribute(state.group.filterAttribute)) === state.active) {
         button.classList.add("is-active");
         button.setAttribute("aria-pressed", "true");
       } else {

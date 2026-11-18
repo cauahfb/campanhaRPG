@@ -16,6 +16,9 @@ const rules = [
   { slug: "venenos", title: "Sistema de Venenos", category: "Alquimia", description: "Organiza os venenos por aplicação e origem, além de definir sua criação e neutralização.", image: "/images/regras/apresentacao/sistema-de-venenos.png" },
   { slug: "progressao-epica", title: "Progressão Épica", category: "Progressão", description: "Amplia a evolução dos personagens até o nível 30 e introduz recursos de ascensão.", image: "/images/regras/apresentacao/progressao-epica.png" },
   { slug: "promessa-velada", title: "Promessa Velada", category: "Sistemas especiais", description: "Juramentos individuais ou compartilhados trocam restrições voluntárias por benefícios.", image: "/images/regras/apresentacao/promessa-velada.png" },
+  { slug: "conjuracao-em-circulo", title: "Conjuração em Círculo", category: "Magia", description: "Vários conjuradores unem suas capacidades para modificar uma única magia.", image: "/images/regras/apresentacao/conjuracao-em-circulo.png" },
+  { slug: "tutores", title: "Tutores", category: "Progressão", description: "Aprenda técnicas exclusivas, características e talentos com mestres experientes.", image: "/images/regras/apresentacao/tutores.png" },
+  { slug: "upcasting", title: "Upcasting", category: "Magia", description: "Regra em avaliação para aprovação.", image: "/images/regras/apresentacao/upcasting.png" },
 ];
 
 const categories = ["Todas", "Magia", "Combate", "Recursos", "Equipamentos", "Alquimia", "Sobrevivência", "Progressão", "Sistemas especiais"];
@@ -46,7 +49,7 @@ const categories = ["Todas", "Magia", "Combate", "Recursos", "Equipamentos", "Al
       </label>
       <div class="filter-list" role="group" aria-label="Filtrar por categoria">
         {categories.map((category, index) => (
-          <button class:list={["filter-button", { "is-active": index === 0 }]} type="button" data-category={category}>{category}</button>
+          <button class:list={["filter-button", { "is-active": index === 0 }]} type="button" data-category={category} aria-pressed={index === 0 ? "true" : "false"}>{category}</button>
         ))}
       </div>
       <p class="result-count" aria-live="polite"><span id="visible-count">{rules.length}</span> regras encontradas</p>
@@ -73,16 +76,54 @@ const categories = ["Todas", "Magia", "Combate", "Recursos", "Equipamentos", "Al
     <SiteFooter />
   </main>
   <script>
-    import { initCatalogFilter } from "../../scripts/catalog-filter";
+    const searchInput = document.querySelector<HTMLInputElement>("#rule-search");
+    const filterButtons = Array.from(document.querySelectorAll<HTMLButtonElement>(".filter-button"));
+    const ruleCards = Array.from(document.querySelectorAll<HTMLElement>(".rule-card"));
+    const visibleCount = document.querySelector<HTMLElement>("#visible-count");
+    const emptyState = document.querySelector<HTMLElement>("#empty-state");
 
-    initCatalogFilter({
-      searchSelector: "#rule-search",
-      cardSelector: ".rule-card",
-      filterSelector: ".filter-button",
-      countSelector: "#visible-count",
-      emptySelector: "#empty-state",
-      filterAttribute: "data-category",
-      allValue: "Todas",
-    });
+    if (searchInput && visibleCount && emptyState) {
+      let activeCategory = "Todas";
+
+      const applyFilters = () => {
+        const query = searchInput.value.trim().toLocaleLowerCase("pt-BR");
+        let visible = 0;
+
+        ruleCards.forEach((card) => {
+          const category = card.dataset.category ?? "";
+          const searchableText = (card.dataset.search ?? card.textContent ?? "").toLocaleLowerCase("pt-BR");
+          const matchesCategory = activeCategory === "Todas" || category === activeCategory;
+          const matchesSearch = searchableText.includes(query);
+          const shouldShow = matchesCategory && matchesSearch;
+
+          card.hidden = !shouldShow;
+          card.style.display = shouldShow ? "" : "none";
+          if (shouldShow) visible += 1;
+        });
+
+        visibleCount.textContent = String(visible);
+        emptyState.hidden = visible !== 0;
+        emptyState.style.display = visible === 0 ? "" : "none";
+      };
+
+      filterButtons.forEach((button) => {
+        const selected = button.dataset.category === "Todas";
+        button.classList.toggle("is-active", selected);
+        button.setAttribute("aria-pressed", String(selected));
+
+        button.addEventListener("click", () => {
+          activeCategory = button.dataset.category ?? "Todas";
+          filterButtons.forEach((item) => {
+            const isSelected = item === button;
+            item.classList.toggle("is-active", isSelected);
+            item.setAttribute("aria-pressed", String(isSelected));
+          });
+          applyFilters();
+        });
+      });
+
+      searchInput.addEventListener("input", applyFilters);
+      applyFilters();
+    }
   </script>
 </BaseLayout>

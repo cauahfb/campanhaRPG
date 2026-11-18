@@ -24,7 +24,7 @@ Runas existem — e <strong>qualquer um pode usá-las</strong>, desde que saiba 
 <p><strong>Runas não são criadas do zero</strong> (ou pelo menos não mais...)<strong>.</strong>  Elas são <strong>descobertas, estudadas e copiadas</strong> por aventureiros, estudiosos e magos ao longo das explorações e pesquisas.</p>
 <h3>Como usar Runas?</h3>
 <ul>
-<li><p>Usar uma runa geralmente exige uma <strong>ação completa</strong>, por exemplo: combinar a runa <strong>&quot;INVOCAR&quot;</strong> com a runa <strong>&quot;ÁGUA&quot;</strong> para conjurar água sem gastar slot de magia.</p>
+<li><p>Usar uma runa geralmente exige uma <strong>ação completa</strong>, por exemplo: combinar a runa <strong>&quot;INVOCAR&quot;</strong> com a runa <strong>&quot;ÁGUA&quot;</strong> para conjurar água <strong>sem gastar slot de magia.</strong></p>
 </li>
 <li><p>Runas também podem ser usadas como <strong>ação bônus</strong> para modificar magias já lançadas — por exemplo, adicionar a runa <strong>&quot;VENENO&quot;</strong> à magia <em>Criar ou Destruir Água</em> para criar água envenenada.</p>
 </li>
