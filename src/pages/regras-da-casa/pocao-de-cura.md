@@ -3,7 +3,7 @@ layout: ../../layouts/RulesLayout.astro
 title: "Poções de Cura | Regras da Casa"
 description: "Escolha entre cura máxima ou rolar os dados normalmente."
 ---
-<div class="section-shell section-shell--detail">
+<main class="section-shell section-shell--detail">
 <div class="rule-detail-hero">
   <a class="back-link" href="/regras-da-casa/">← Todas as regras</a>
   <div class="rule-art rule-art--pocao-de-cura">
@@ -24,4 +24,4 @@ description: "Escolha entre cura máxima ou rolar os dados normalmente."
     <p>Exemplo: uma Poção de Cura (2d4+2) cura sempre 10 pontos se usada como Ação, ou entre 4 e 10 se usada como Ação Bônus.</p>
   </blockquote>
 </article>
-</div>
+</main>

@@ -1,6 +1,5 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
-import SiteHeader from "../../../components/SiteHeader.astro";
 import SiteFooter from "../../../components/SiteFooter.astro";
 import Breadcrumb from "../../../components/Breadcrumb.astro";
 import { personagens } from "../../../data/personagens";
@@ -8,7 +7,6 @@ import type { Personagem } from "../../../data/personagens";
 import { vinculos } from "../../../data/vinculos";
 import { sessoes } from "../../../data/sessoes";
 import { misterios } from "../../../data/misterios";
-import "../../../styles/section.css";
 import "../../../styles/regras.css";
 import "../../../styles/corvonescos.css";
 
@@ -22,9 +20,8 @@ const personagemVinculos = vinculos.filter((item) => item.ligadoA.includes(perso
 const sessoesDoPersonagem = sessoes.filter((item) => item.personagens?.includes(personagem.slug));
 const misteriosDoPersonagem = misterios.filter((item) => item.personagens?.includes(personagem.slug));
 ---
-<BaseLayout title={`${personagem.nome} | Os Corvonescos`} description={`Ficha de ${personagem.nome}.`}>
+<BaseLayout title={`${personagem.nome} | Os Corvonescos`} description={`${personagem.nome}${personagem.classe ? `, ${personagem.classe}` : ""} — ficha de personagem dos Corvonescos, o grupo de aventureiros da Campanha RPG.`}>
   <main class="section-shell section-shell--detail">
-    <SiteHeader />
     <Breadcrumb items={[{ label: "Os Corvonescos", href: "/corvonescos/" }, { label: "Personagens", href: "/corvonescos/personagens/" }, { label: personagem.nome }]} />
     <a class="back-link" href="/corvonescos/">← Voltar aos Corvonescos</a>
     <section class="rule-detail-hero character-detail-hero">

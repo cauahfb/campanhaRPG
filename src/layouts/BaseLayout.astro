@@ -1,15 +1,34 @@
 ---
 import "../styles/global.css";
+import "../styles/section.css";
+import "../styles/site-nav.css";
+import SiteNav from "../components/SiteNav.astro";
+import { SITE } from "../data/site";
 
 interface Props {
   title?: string;
   description?: string;
+  /** Caminho ou URL da imagem de compartilhamento (1200×630). */
+  image?: string;
+  imageAlt?: string;
+  /** Mantém a página fora dos buscadores (ex.: páginas ainda sem conteúdo). */
+  noindex?: boolean;
+  type?: "website" | "article";
 }
 
 const {
-  title = "Campanha RPG — Um universo além dos dados",
-  description = "Campanha RPG — nosso ponto de encontro para tudo o que nasce à mesa.",
+  title = `${SITE.name} — ${SITE.tagline}`,
+  description = SITE.defaultDescription,
+  image = SITE.ogImage,
+  imageAlt = SITE.ogImageAlt,
+  noindex = false,
+  type = "website",
 } = Astro.props;
+
+const origin = Astro.site ?? new URL(SITE.url);
+const fullTitle = title.includes(SITE.name) ? title : `${title} | ${SITE.name}`;
+const canonical = new URL(Astro.url.pathname, origin).href;
+const imageUrl = new URL(image, origin).href;
 ---
 
 <!doctype html>
@@ -18,7 +37,26 @@ const {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#070509" />
+
+    <title>{fullTitle}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:locale" content={SITE.locale} />
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={imageAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
 
     <link rel="icon" type="image/svg+xml" href="/images/logo/emblema-campanha-rpg.svg" />
     <link rel="icon" href="/images/logo/favicon.ico" sizes="any" />
@@ -32,10 +70,15 @@ const {
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap"
     />
 
-    <title>{title}</title>
+    <script is:inline>document.documentElement.classList.add("js");</script>
+    <slot name="head" />
   </head>
 
   <body>
-    <slot />
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+    <SiteNav />
+    <div id="conteudo" data-pagefind-body>
+      <slot />
+    </div>
   </body>
 </html>

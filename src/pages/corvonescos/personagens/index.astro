@@ -1,16 +1,13 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
-import SiteHeader from "../../../components/SiteHeader.astro";
 import SiteFooter from "../../../components/SiteFooter.astro";
 import SectionIntro from "../../../components/SectionIntro.astro";
 import Breadcrumb from "../../../components/Breadcrumb.astro";
 import { personagens } from "../../../data/personagens";
-import "../../../styles/section.css";
 import "../../../styles/corvonescos.css";
 ---
-<BaseLayout title="Personagens | Os Corvonescos" description="Retratos e fichas dos integrantes dos Corvonescos.">
+<BaseLayout title="Personagens | Os Corvonescos" description="Retratos e fichas dos integrantes dos Corvonescos, o grupo de aventureiros da Campanha RPG.">
   <main class="section-shell">
-    <SiteHeader />
     <Breadcrumb items={[{ label: "Os Corvonescos", href: "/corvonescos/" }, { label: "Personagens" }]} />
     <a class="back-link" href="/corvonescos/">← Voltar aos Corvonescos</a>
     <SectionIntro eyebrow="O Grupo" title="Os" emphasis="Personagens" description="Retratos e informações dos integrantes do grupo." />

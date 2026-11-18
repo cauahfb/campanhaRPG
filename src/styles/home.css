@@ -1,0 +1,355 @@
+/* ==========================================================================
+   PÁGINA INICIAL — abertura, destaque da campanha ("jornal"), números e notas.
+   Reaproveita os tokens de global.css e a estrutura de section.css.
+   ========================================================================== */
+
+/* Abertura ---------------------------------------------------------------- */
+.section-intro--home {
+  min-height: 500px;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  padding-block: 88px 72px;
+  background:
+    radial-gradient(ellipse 34rem 26rem at 84% 50%, rgba(110, 35, 57, .38), transparent 70%),
+    radial-gradient(ellipse 30rem 14rem at 0% 0%, rgba(75, 42, 87, .22), transparent 70%);
+}
+.section-intro--home .intro-art { width: 320px; }
+.section-intro--home h1 {
+  margin: 0 0 30px;
+  font-size: clamp(56px, 7.6vw, 104px);
+}
+/* O halo escuro global do h1 aparece como uma mancha atrás do título grande. */
+.section-intro--home h1::before { display: none; }
+
+.intro-lead {
+  margin: 0 0 28px;
+  color: var(--gold);
+  font-family: var(--font-display);
+  font-size: clamp(22px, 2.4vw, 30px);
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: .015em;
+  line-height: 1.2;
+}
+/* Filete curto: separa a assinatura do texto de apresentação. */
+.intro-lead::after {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 1px;
+  margin-top: 28px;
+  background: linear-gradient(90deg, var(--gold-dim), transparent);
+}
+.section-intro--home .intro-description { max-width: 600px; }
+
+.home-emblem {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  animation: emblem-in 1.2s var(--ease) both;
+}
+.home-emblem::before {
+  content: "";
+  position: absolute;
+  inset: 4%;
+  border: 1px solid var(--line);
+  transform: rotate(45deg);
+}
+.home-emblem img {
+  position: relative;
+  width: 78%;
+  height: auto;
+  filter: drop-shadow(0 0 22px rgba(160, 47, 76, .32)) drop-shadow(0 8px 30px rgba(0, 0, 0, .55));
+}
+
+.intro-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 40px;
+}
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 24px;
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: transform .3s var(--ease), border-color .3s, box-shadow .3s, color .3s, background .3s;
+}
+.button--primary {
+  border-color: var(--line-strong);
+  background: linear-gradient(135deg, var(--wine), var(--plum));
+  box-shadow: 0 10px 28px rgba(0, 0, 0, .35);
+}
+.button--primary:hover,
+.button--primary:focus-visible {
+  transform: translateY(-2px);
+  border-color: var(--gold);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, .45), 0 0 28px rgba(160, 47, 76, .3);
+}
+.button--ghost { color: var(--text-soft); background: transparent; }
+.button--ghost:hover,
+.button--ghost:focus-visible { color: var(--gold-bright); border-color: var(--line-strong); }
+
+/* Destaque da campanha: primeira página de jornal ------------------------- */
+.newspaper {
+  position: relative;
+  margin-top: 44px;
+  padding: 26px clamp(20px, 4vw, 52px) 40px;
+  border: 1px solid var(--line-strong);
+  border-radius: 3px;
+  background:
+    radial-gradient(ellipse 36rem 18rem at 88% 0%, rgba(110, 35, 57, .3), transparent 70%),
+    linear-gradient(150deg, #1d111b 0%, #140b14 60%, #0e080f 100%);
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, .45),
+    inset 0 0 0 5px transparent,
+    inset 0 0 0 6px var(--line-soft);
+}
+.newspaper__masthead {
+  padding-bottom: 14px;
+  text-align: center;
+  border-bottom: 3px double var(--line-strong);
+}
+.newspaper__name {
+  margin: 0;
+  color: var(--gold-bright);
+  font-family: var(--font-display);
+  font-size: clamp(26px, 4vw, 46px);
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.newspaper__dateline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px 18px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+}
+.newspaper__dateline-mark {
+  width: 5px;
+  height: 5px;
+  flex: none;
+  background: var(--gold-dim);
+  transform: rotate(45deg);
+}
+.newspaper__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, .7fr);
+  grid-template-areas:
+    "headline figure"
+    "text figure";
+  column-gap: clamp(28px, 4vw, 56px);
+  padding-top: 30px;
+}
+.newspaper__headline { grid-area: headline; }
+.newspaper__headline h2 {
+  margin: 0 0 14px;
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: clamp(40px, 5.6vw, 72px);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: .005em;
+  text-wrap: balance;
+}
+.newspaper__deck {
+  max-width: 34ch;
+  margin: 0 0 26px;
+  color: var(--gold);
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2vw, 25px);
+  font-style: italic;
+  line-height: 1.35;
+}
+.newspaper__text {
+  grid-area: text;
+  max-width: 62ch;
+}
+.newspaper__text p {
+  margin: 0 0 14px;
+  color: var(--text-soft);
+  font-family: var(--font-display);
+  font-size: 20px;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+.newspaper__lede::first-letter {
+  float: left;
+  padding: 7px 12px 0 0;
+  color: var(--gold-bright);
+  font-size: 4.4em;
+  font-weight: 600;
+  line-height: .78;
+}
+.newspaper__figure {
+  grid-area: figure;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: clamp(24px, 3vw, 44px);
+  border-left: 1px solid var(--line);
+  color: var(--gold-dim);
+}
+.newspaper__figure svg { width: 100%; max-width: 340px; height: auto; }
+.newspaper__figure img {
+  width: 100%;
+  max-height: 360px;
+  object-fit: cover;
+  border: 1px solid var(--line);
+}
+.newspaper__footer {
+  margin-top: 26px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+.newspaper__link {
+  color: var(--rose);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: color .25s;
+}
+.newspaper__link:hover { color: var(--gold-bright); }
+
+/* Números da campanha ------------------------------------------------------ */
+.stats-strip {
+  margin-top: 40px;
+  padding: 28px 0;
+  border-block: 1px solid var(--line);
+}
+.stats-strip dl {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 22px clamp(28px, 6vw, 80px);
+  margin: 0;
+}
+.stats-strip__item {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+.stats-strip dd {
+  margin: 0;
+  color: var(--gold-bright);
+  font-family: var(--font-display);
+  font-size: clamp(44px, 5.4vw, 64px);
+  font-weight: 500;
+  line-height: 1;
+  font-variant-numeric: lining-nums tabular-nums; 
+}
+.stats-strip dt {
+  color: var(--dim);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+}
+
+/* Seções ------------------------------------------------------------------- */
+.home-section { margin-top: 64px; }
+.home-section__title {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin: 0;
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: clamp(30px, 3.4vw, 40px);
+  font-weight: 500;
+  letter-spacing: .01em;
+}
+.home-section__title::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--line), transparent);
+}
+.home-note {
+  max-width: 760px;
+  margin: 0 0 72px;
+  padding: 26px 32px;
+  border-left: 2px solid var(--gold-dim);
+  background: rgba(34, 20, 31, .42);
+}
+.home-note h2 {
+  margin: 0 0 10px;
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 500;
+}
+.home-note p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 15.5px;
+  line-height: 1.85;
+}
+
+/* Responsivo -------------------------------------------------------------- */
+@media (max-width: 1100px) {
+  .section-intro--home { grid-template-columns: minmax(0, 1fr) 240px; }
+  .section-intro--home .intro-art { width: 240px; }
+}
+@media (max-width: 900px) {
+  .newspaper__body {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "headline"
+      "figure"
+      "text";
+  }
+  .newspaper__figure {
+    justify-content: flex-start;
+    margin-bottom: 26px;
+    padding: 0;
+    border-left: 0;
+  }
+  .newspaper__figure svg { max-width: 260px; }
+}
+@media (max-width: 620px) {
+  .section-intro--home {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+    padding-block: 52px 44px;
+  }
+  .section-intro--home h1 { margin-bottom: 22px; font-size: 52px; }
+  .intro-lead { margin-bottom: 22px; }
+  .intro-lead::after { margin-top: 22px; }
+  .intro-actions { flex-direction: column; align-items: stretch; margin-top: 26px; }
+  .button { justify-content: center; }
+  .newspaper { margin-top: 32px; padding: 20px 16px 28px; }
+  .newspaper__dateline { font-size: 9.5px; letter-spacing: .18em; }
+  .newspaper__text p { font-size: 18px; }
+  .home-section { margin-top: 48px; }
+  .home-note { padding: 20px 20px; margin-bottom: 48px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-emblem { animation: none; }
+  .button--primary:hover,
+  .button--primary:focus-visible { transform: none; }
+}

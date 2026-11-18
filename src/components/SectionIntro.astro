@@ -1,19 +1,29 @@
 ---
 interface Props {
-  eyebrow: string;
+  eyebrow?: string;
   title: string;
   emphasis?: string;
+  /** Linha de destaque em itálico logo abaixo do título (ex.: assinatura). */
+  lead?: string;
   description: string;
   meta?: string[];
+  /** Variante visual (ex.: "home" para a abertura da página inicial). */
+  variant?: "default" | "home";
 }
 
-const { eyebrow, title, emphasis, description, meta = [] } = Astro.props;
+const { eyebrow, title, emphasis, lead, description, meta = [], variant = "default" } = Astro.props;
 ---
-<section class="section-intro">
+<section class:list={["section-intro", variant === "home" && "section-intro--home"]}>
   <div class="intro-copy">
-    <span class="eyebrow">{eyebrow}</span>
+    {eyebrow && <span class="eyebrow">{eyebrow}</span>}
     <h1>{title}{emphasis ? <> <em>{emphasis}</em></> : null}</h1>
+    {lead && <p class="intro-lead">{lead}</p>}
     <p class="intro-description">{description}</p>
+    {Astro.slots.has("actions") && (
+      <div class="intro-actions">
+        <slot name="actions" />
+      </div>
+    )}
     {meta.length > 0 && (
       <div class="intro-meta">
         {meta.map((item, index) => (

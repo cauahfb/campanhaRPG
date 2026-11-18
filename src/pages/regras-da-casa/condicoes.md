@@ -3,7 +3,7 @@ layout: ../../layouts/RulesLayout.astro
 title: "Condições: Atordoado e Paralisado | Regras da Casa"
 description: "Atordoamento preserva alguma capacidade de ação; paralisia permite uma tentativa de recuperação."
 ---
-<div class="section-shell section-shell--detail">
+<main class="section-shell section-shell--detail">
 <div class="rule-detail-hero">
   <a class="back-link" href="/regras-da-casa/">← Todas as regras</a>
   <div class="rule-art rule-art--condicoes">
@@ -45,4 +45,4 @@ description: "Atordoamento preserva alguma capacidade de ação; paralisia permi
 <li>Qualquer ataque que <strong>atinja</strong> a criatura é um <strong>ACERTO CRÍTICO</strong> se o atacante estiver a até <strong>1,5 m</strong> dela.</li>
 </ul>
 </article>
-</div>
+</main>

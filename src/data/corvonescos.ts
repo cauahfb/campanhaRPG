@@ -1,13 +1,7 @@
-export type HubStatus = "available" | "soon";
+import type { HubItem, HubStatus } from "./hub";
 
-export interface CorvonescosHubItem {
-  title: string;
-  description: string;
-  href: string;
-  icon: "users" | "network" | "scroll-text";
-  count?: number;
-  status: HubStatus;
-}
+export type { HubStatus };
+export type CorvonescosHubItem = HubItem;
 
 export const corvonescosHub: CorvonescosHubItem[] = [
   {
@@ -15,13 +9,17 @@ export const corvonescosHub: CorvonescosHubItem[] = [
     description: "Conheça os integrantes do grupo.",
     href: "/corvonescos/personagens/",
     icon: "users",
+    eyebrow: "Os Corvonescos",
+    countLabel: "personagens",
     status: "available",
   },
   {
     title: "Vínculos",
-    description: "Consulte os vínculos entre os membros do grupo.",
+    description: "Aliados, inimigos e figuras especiais ligados ao grupo.",
     href: "/corvonescos/vinculos/",
     icon: "network",
+    eyebrow: "Os Corvonescos",
+    countLabel: "vínculos",
     status: "available",
   },
   {
@@ -29,6 +27,8 @@ export const corvonescosHub: CorvonescosHubItem[] = [
     description: "Consulte as sessões vividas e os mistérios conhecidos pelo grupo.",
     href: "/corvonescos/diario-de-bordo/",
     icon: "scroll-text",
+    eyebrow: "Os Corvonescos",
+    countLabel: "sessões",
     status: "available",
   },
 ];

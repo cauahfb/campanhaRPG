@@ -1,6 +1,9 @@
 {
   "name": "Campanha RPG",
   "short_name": "Campanha RPG",
+  "description": "A wiki personalizada da nossa campanha de D&D — Um universo além dos dados.",
+  "lang": "pt-BR",
+  "start_url": "/",
   "icons": [
     {
       "src": "/images/logo/emblema-campanha-rpg.svg",
@@ -19,7 +22,7 @@
       "type": "image/png"
     }
   ],
-  "theme_color": "#080507",
-  "background_color": "#080507",
+  "theme_color": "#070509",
+  "background_color": "#070509",
   "display": "standalone"
 }

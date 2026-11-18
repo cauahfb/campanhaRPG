@@ -1,11 +1,20 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
 import "../styles/regras.css";
-import "../styles/section.css";
 
-const { title = "Regras da Casa | Campanha RPG", description = "Regras e sistemas próprios adotados na campanha." } = Astro.props;
+interface Props {
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+  /** Páginas Markdown recebem o frontmatter como prop `frontmatter`. */
+  frontmatter?: { title?: string; description?: string };
+}
+
+const { frontmatter, noindex } = Astro.props;
+const title = Astro.props.title ?? frontmatter?.title ?? "Regras da Casa";
+const description =
+  Astro.props.description ?? frontmatter?.description ?? "Regras e sistemas próprios adotados na campanha.";
 ---
-
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} noindex={noindex}>
   <slot />
 </BaseLayout>

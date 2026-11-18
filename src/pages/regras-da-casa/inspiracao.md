@@ -3,7 +3,7 @@ layout: ../../layouts/RulesLayout.astro
 title: "Novo Sistema de Inspiração | Regras da Casa"
 description: "Rerrolar, ajudar um aliado, receber uma pista ou declarar um flashback plausível."
 ---
-<div class="section-shell section-shell--detail">
+<main class="section-shell section-shell--detail">
 <div class="rule-detail-hero">
   <a class="back-link" href="/regras-da-casa/">← Todas as regras</a>
   <div class="rule-art rule-art--inspiracao">
@@ -126,4 +126,4 @@ O jogador declara um flashback <strong>plausível</strong> para justificar algo 
 <li><p>Interagir de forma marcante com NPCs, facções ou temas centrais da campanha.</p></li>
 </ul>
 </article>
-</div>
+</main>

@@ -3,7 +3,7 @@ layout: ../../layouts/RulesLayout.astro
 title: "Promessa Velada | Regras da Casa"
 description: "Votos individuais e compartilhados, magnitude, benefícios e consequências."
 ---
-<div class="section-shell section-shell--detail">
+<main class="section-shell section-shell--detail">
 <div class="rule-detail-hero">
   <a class="back-link" href="/regras-da-casa/">← Todas as regras</a>
   <div class="rule-art rule-art--promessa-velada">
@@ -400,5 +400,4 @@ description: "Votos individuais e compartilhados, magnitude, benefícios e conse
 <p>Entretanto, poder e liberdade são forças opostas nesse sistema.</p>
 <p><strong>Aquele que deseja tudo não está disposto a sacrificar nada. E aquele que aceita sacrificar tudo pode alcançar aquilo que parecia impossível.</strong></p>
 </article>
-</div>
-
+</main>

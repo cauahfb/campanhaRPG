@@ -1,0 +1,25 @@
+---
+interface Stat {
+  value: number;
+  label: string;
+}
+
+interface Props {
+  items: Stat[];
+}
+
+const { items } = Astro.props;
+---
+<section class="stats-strip" aria-label="A campanha em números">
+  <dl>
+    {items.map((item, index) => (
+      <>
+        {index > 0 && <span class="meta-divider" aria-hidden="true"></span>}
+        <div class="stats-strip__item">
+          <dt>{item.label}</dt>
+          <dd>{item.value.toLocaleString("pt-BR")}</dd>
+        </div>
+      </>
+    ))}
+  </dl>
+</section>

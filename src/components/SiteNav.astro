@@ -1,0 +1,71 @@
+---
+import { navigation, isCurrentPath } from "../data/navigation";
+import { SITE } from "../data/site";
+
+const pathname = Astro.url.pathname;
+const items = navigation.filter((item) => item.status === "available");
+---
+<header class="site-bar" data-pagefind-ignore>
+  <div class="site-bar__inner">
+    <a href="/" class="site-mark" aria-label={`${SITE.name} — página inicial`}>
+      <img src="/images/logo/emblema-campanha-rpg.svg" alt="" width="32" height="32" />
+      <span>{SITE.name}</span>
+    </a>
+
+    <button
+      class="site-nav-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="site-nav"
+      aria-label="Abrir menu de navegação"
+    >
+      <span class="site-nav-toggle__bars" aria-hidden="true"></span>
+    </button>
+
+    <nav id="site-nav" class="site-nav" aria-label="Navegação principal">
+      {items.map((item) => {
+        const current = isCurrentPath(item, pathname);
+        return (
+          <a href={item.href} aria-current={current ? "page" : undefined} data-astro-prefetch="hover">
+            {item.label}
+          </a>
+        );
+      })}
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>(".site-nav-toggle");
+  const nav = document.getElementById("site-nav");
+
+  if (toggle && nav) {
+    const setOpen = (open: boolean) => {
+      nav.classList.toggle("is-open", open);
+      toggle.setAttribute("aria-expanded", String(open));
+      toggle.setAttribute("aria-label", open ? "Fechar menu de navegação" : "Abrir menu de navegação");
+    };
+
+    toggle.addEventListener("click", () => setOpen(!nav.classList.contains("is-open")));
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && nav.classList.contains("is-open")) {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+
+    document.addEventListener("click", (event) => {
+      const target = event.target as Node;
+      if (nav.classList.contains("is-open") && !nav.contains(target) && !toggle.contains(target)) setOpen(false);
+    });
+
+    nav.addEventListener("click", (event) => {
+      if ((event.target as HTMLElement).closest("a")) setOpen(false);
+    });
+
+    window.matchMedia("(min-width: 861px)").addEventListener("change", (event) => {
+      if (event.matches) setOpen(false);
+    });
+  }
+</script>

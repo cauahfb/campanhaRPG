@@ -3,7 +3,7 @@ layout: ../../layouts/RulesLayout.astro
 title: "RunoMancia | Regras da Casa"
 description: "Descoberta, combinação e uso de runas por qualquer pessoa capaz de interpretá-las."
 ---
-<div class="section-shell section-shell--detail">
+<main class="section-shell section-shell--detail">
 <div class="rule-detail-hero">
   <a class="back-link" href="/regras-da-casa/">← Todas as regras</a>
   <div class="rule-art rule-art--runomancia">
@@ -54,4 +54,4 @@ Runas existem — e <strong>qualquer um pode usá-las</strong>, desde que saiba 
   <p>Esta adaptação foi baseada no sistema de RPG <a href="https://baldegalactico.com.br/jogo/etmos/" target="_blank" rel="noopener noreferrer">Etmos</a> e ajustada para utilização em D&amp;D 5ª Edição.</p>
 </div>
 
-</div>
+</main>

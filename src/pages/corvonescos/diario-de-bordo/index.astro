@@ -1,6 +1,5 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
-import SiteHeader from "../../../components/SiteHeader.astro";
 import SiteFooter from "../../../components/SiteFooter.astro";
 import SectionIntro from "../../../components/SectionIntro.astro";
 import Breadcrumb from "../../../components/Breadcrumb.astro";
@@ -8,7 +7,6 @@ import { sessoes } from "../../../data/sessoes";
 import { misterios } from "../../../data/misterios";
 import { personagens } from "../../../data/personagens";
 import { vinculos } from "../../../data/vinculos";
-import "../../../styles/section.css";
 import "../../../styles/regras.css";
 import "../../../styles/corvonescos.css";
 const nomePersonagem = (slug: string) => personagens.find((item) => item.slug === slug)?.nome ?? slug;
@@ -16,9 +14,12 @@ const nomeVinculo = (slug: string) => vinculos.find((item) => item.slug === slug
 const misterioSessao = (id: string) => misterios.find((item) => item.id === id);
 const sessoesOrdenadas = [...sessoes].sort((a, b) => b.numero - a.numero);
 ---
-<BaseLayout title="Diário de Bordo | Os Corvonescos" description="Registro de sessões e mistérios conhecidos pelo grupo.">
+<BaseLayout
+  title="Diário de Bordo | Os Corvonescos"
+  description="Registro das sessões vividas e dos mistérios conhecidos pelos Corvonescos, o grupo de aventureiros da Campanha RPG."
+  noindex={sessoes.length === 0 && misterios.length === 0}
+>
   <main class="section-shell">
-    <SiteHeader />
     <Breadcrumb items={[{ label: "Os Corvonescos", href: "/corvonescos/" }, { label: "Diário de Bordo" }]} />
     <a class="back-link" href="/corvonescos/">← Voltar aos Corvonescos</a>
     <SectionIntro eyebrow="O Grupo" title="Diário de" emphasis="Bordo" description="Um registro das sessões vividas e das perguntas que surgiram ao longo da campanha." />

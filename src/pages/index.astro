@@ -1,48 +1,101 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import SectionIntro from "../components/SectionIntro.astro";
+import SectionHub from "../components/SectionHub.astro";
+import FeaturedStory from "../components/FeaturedStory.astro";
+import StatsStrip from "../components/StatsStrip.astro";
+import venenos from "../data/venenos.json";
+import { personagens } from "../data/personagens";
+import { sessoes } from "../data/sessoes";
+import { destaque, estatisticas } from "../data/campanha";
+import { SITE } from "../data/site";
+import type { HubItem } from "../data/hub";
+import "../styles/home.css";
+
+// Contadores: valores manuais (data/campanha.ts) ou, se houver, derivados dos registros do site.
+const sessoesJogadas = estatisticas.sessoesJogadas ?? (sessoes.length > 0 ? sessoes.length : undefined);
+const stats = [
+  sessoesJogadas !== undefined && { value: sessoesJogadas, label: sessoesJogadas === 1 ? "sessão jogada" : "sessões jogadas" },
+  estatisticas.horasJogadas !== undefined && { value: estatisticas.horasJogadas, label: "horas de mesa" },
+  personagens.length > 0 && { value: personagens.length, label: personagens.length === 1 ? "personagem" : "personagens" },
+].filter((item): item is { value: number; label: string } => Boolean(item));
+
+const exploreItems: HubItem[] = [
+  {
+    title: "Os Corvonescos",
+    description: "O grupo de aventureiros: personagens, vínculos e o diário de bordo das sessões.",
+    href: "/corvonescos/",
+    icon: "users",
+    eyebrow: "O grupo",
+    status: "available",
+  },
+  {
+    title: "Regras da Casa",
+    description: "Regras, adaptações e sistemas próprios que moldam as nossas aventuras.",
+    href: "/regras-da-casa/",
+    icon: "book-open",
+    eyebrow: "Compêndio",
+    status: "available",
+  },
+  {
+    title: "Tipos de Venenos",
+    description: "Catálogo de substâncias, formas de aplicação, preços e efeitos.",
+    href: "/tipos-de-venenos/",
+    icon: "flask-conical",
+    eyebrow: "Alquimia",
+    count: venenos.length,
+    countLabel: "venenos",
+    status: "available",
+  },
+];
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: SITE.name,
+  alternateName: SITE.tagline,
+  url: SITE.url,
+  inLanguage: "pt-BR",
+  description: SITE.defaultDescription,
+};
 ---
 <BaseLayout>
-<div class="ambient" aria-hidden="true"></div>
-  <main class="page">
-    <div class="eyebrow">Algo novo está tomando forma</div>
+  <script is:inline type="application/ld+json" slot="head" set:html={JSON.stringify(websiteSchema)} />
+  <main class="section-shell home">
+    <SectionIntro
+      variant="home"
+      title="Campanha"
+      emphasis="RPG"
+      lead="Um universo além dos dados"
+      description="A Campanha RPG nasceu para ser o portfólio das nossas campanhas: um só lugar para guardar o que vivemos à mesa, personagens, descobertas e histórias, e para lembrar de tudo o que o volume de conteúdo faz escapar. Um registro vivo, que cresce lado a lado com a nossa jornada."
+    >
+      <Fragment slot="actions">
+        <a class="button button--primary" href="/corvonescos/">Conhecer Os Corvonescos <span aria-hidden="true">→</span></a>
+        <a class="button button--ghost" href="/regras-da-casa/">Explorar as Regras</a>
+      </Fragment>
+      <div slot="art" class="home-emblem">
+        <img src="/images/logo/emblema-campanha-rpg.svg" alt="" width="300" height="300" decoding="async" />
+      </div>
+    </SectionIntro>
 
-    <div class="emblem-wrap">
-      <img class="emblem" src="/images/logo/emblema-campanha-rpg.svg" alt="Emblema oficial da Campanha RPG">
-    </div>
+    {destaque && <FeaturedStory story={destaque} />}
 
-    <h1><span>Campanha RPG</span></h1>
-    <p class="tagline">Um universo além dos dados</p>
+    {stats.length >= 2 && <StatsStrip items={stats} />}
 
-    <div class="divider" aria-hidden="true"></div>
+    <section class="home-section" aria-labelledby="explorar-titulo">
+      <h2 class="home-section__title" id="explorar-titulo">Por onde começar</h2>
+      <SectionHub items={exploreItems} label="Áreas do portal" />
+    </section>
 
-    <p class="welcome">
-      Sejam bem-vindos ao <strong>nosso novo ponto de encontro</strong>.<br>
-      Um lugar para reunir tudo aquilo que nasce das nossas aventuras:
-      projetos, documentos, histórias, descobertas e criações feitas à mesa.
-      <br><br>
-      <strong>Tradutor de Grung?</strong> Aqui. &nbsp;
-      <strong>Crônicas da mesa?</strong> Aqui também.
-      <strong>Patch notes, regras da casa e muito mais?</strong>
-      Tudo em um só lugar.
-    </p>
+    <aside class="home-note" aria-labelledby="nota-titulo">
+      <h2 id="nota-titulo">Só o que já foi descoberto</h2>
+      <p>
+        Esta wiki cresce junto com a campanha. Só entra aqui o que o grupo já descobriu, então é seguro navegar
+        por tudo sem medo de spoilers.
+      </p>
+    </aside>
 
-    <a class="rules-entry" href="/regras-da-casa/">Explorar Regras da Casa <span>↗</span></a>
-
-    <div class="teasers" aria-label="O que poderá ser encontrado no portal">
-      <span class="teaser">Arquivos <em>perdidos</em></span>
-      <span class="teaser">Criações da mesa</span>
-      <span class="teaser">Crônicas</span>
-      <span class="teaser">Regras da casa</span>
-      <span class="teaser">E outras descobertas...</span>
-    </div>
-
-    <p class="closing">Mas isso é apenas o começo.</p>
-
-    <div class="status">
-      <span class="status-dot" aria-hidden="true"></span>
-      Um novo capítulo está sendo escrito
-    </div>
-
-    <footer>FEITO PARA A NOSSA MESA · CAMPANHA RPG</footer>
+    <SiteFooter />
   </main>
 </BaseLayout>

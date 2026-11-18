@@ -3,7 +3,7 @@ layout: ../../layouts/RulesLayout.astro
 title: "OverCast | Regras da Casa"
 description: "Conjurar mesmo sem espaços de magia tem um preço decidido pelo Mestre."
 ---
-<div class="section-shell section-shell--detail">
+<main class="section-shell section-shell--detail">
 <div class="rule-detail-hero">
   <a class="back-link" href="/regras-da-casa/">← Todas as regras</a>
   <div class="rule-art rule-art--overcast">
@@ -24,4 +24,4 @@ description: "Conjurar mesmo sem espaços de magia tem um preço decidido pelo M
     <p>Pode envolver exaustão, dano, efeitos colaterais mágicos, falhas selvagens, entre outros.</p>
   </blockquote>
 </article>
-</div>
+</main>

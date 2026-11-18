@@ -40,17 +40,15 @@ O projeto utiliza tecnologias modernas voltadas à construção de um site está
 
 ### Conteúdo e organização
 
-- **Astro Content Collections** — organização e estruturação dos conteúdos.
-- **Markdown** — documentação das regras, personagens e demais registros.
-- **JSON** — armazenamento de informações estruturadas, como catálogos e dados de entidades.
-- **Zod** — validação de estruturas e metadados.
+- **Markdown** — páginas de regras, documentadas em `src/pages/regras-da-casa/`.
+- **TypeScript e JSON** — dados estruturados em `src/data/` (personagens, vínculos, sessões, mistérios, venenos, navegação e destaque da home).
+- **Zod** — dependência instalada, reservada para validar as futuras Content Collections.
+- **Pagefind** — índice de busca gerado no build (`npm run build`).
 
 ### Desenvolvimento e qualidade
 
-- **ESLint** — análise estática e padronização do código.
-- **Prettier** — formatação automática.
-- **Vitest** — testes unitários.
-- **Playwright** — testes automatizados de navegação e interface.
+- **Astro Check** — verificação de tipos (`npm run check`).
+- **Planejados (ainda não instalados):** Content Collections, ESLint, Prettier, Vitest e Playwright.
 
 ### Infraestrutura e publicação
 
@@ -76,13 +74,45 @@ A arquitetura foi pensada para permitir:
 - Facilidade de manutenção e evolução do projeto.
 
 
-## Fase 2 — Os Corvonescos
+## Estrutura do portal
 
-Foram adicionadas as rotas:
-- `/corvonescos/personagens/` e fichas estáticas por slug;
-- `/corvonescos/vinculos/`;
-- `/corvonescos/diario-de-bordo/` com abas Sessões e Mistérios.
+```
+src/
+  components/   SiteNav (navbar global), SiteFooter, SectionIntro, SectionHub/HubCard,
+                Breadcrumb, FeaturedStory (jornal da home), StatsStrip
+  data/         navigation.ts, site.ts, campanha.ts, personagens.ts, vinculos.ts,
+                sessoes.ts, misterios.ts, venenos.json
+  layouts/      BaseLayout (SEO + navbar + conteúdo), RulesLayout (regras)
+  pages/        index, corvonescos/, regras-da-casa/, tipos-de-venenos/, sitemap.xml.ts
+  styles/       global.css (tokens) · section.css · site-nav.css · home.css ·
+                regras.css · corvonescos.css
+```
 
-Os dados ficam em `src/data/personagens.ts`, `vinculos.ts`, `sessoes.ts` e `misterios.ts`.
-Os arrays de vínculos, sessões e mistérios começam vazios. O filtro reutilizável está em
-`src/scripts/catalog-filter.ts` e aceita grupos independentes de filtros.
+### Navegação
+
+A navbar é renderizada pelo `BaseLayout`, portanto aparece em **todas** as páginas. Os itens vêm de
+`src/data/navigation.ts` (também usado no rodapé). Para publicar uma nova área, adicione o item com
+`status: "available"`.
+
+### Página inicial
+
+- **Destaque da campanha** (banner "jornal"): edite `src/data/campanha.ts` (`destaque`). Use `null` para ocultá-lo.
+  Inclua apenas o que o grupo já descobriu.
+- **Números da campanha**: preencha `estatisticas.sessoesJogadas` e `estatisticas.horasJogadas` em
+  `src/data/campanha.ts`. Valores não definidos não aparecem; a faixa só é exibida com pelo menos dois números.
+
+### SEO
+
+- `site` configurado em `astro.config.mjs`; o `BaseLayout` gera título, descrição, URL canônica, Open Graph e Twitter Card.
+- Imagem de compartilhamento padrão: `public/images/og/campanha-rpg-og.png` (1200×630).
+- `sitemap.xml` gerado por `src/pages/sitemap.xml.ts` e `robots.txt` em `public/`.
+- Páginas ainda sem conteúdo (Vínculos e Diário de Bordo vazios) recebem `noindex` e ficam fora do sitemap
+  automaticamente; ao cadastrar o primeiro registro elas passam a ser indexadas.
+- Breadcrumbs publicam dados estruturados (`BreadcrumbList`) e a home publica `WebSite`.
+- Títulos seguem o padrão `Página | Campanha RPG` (o sufixo é adicionado pelo layout).
+
+### Os Corvonescos
+
+Rotas: `/corvonescos/personagens/` (com fichas por slug), `/corvonescos/vinculos/` e
+`/corvonescos/diario-de-bordo/` (abas Sessões e Mistérios). Os arrays de vínculos, sessões e mistérios começam
+vazios. O filtro reutilizável está em `src/scripts/catalog-filter.ts`.

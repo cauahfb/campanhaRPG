@@ -1,19 +1,20 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
-import SiteHeader from "../../../components/SiteHeader.astro";
 import SiteFooter from "../../../components/SiteFooter.astro";
 import SectionIntro from "../../../components/SectionIntro.astro";
 import Breadcrumb from "../../../components/Breadcrumb.astro";
 import { vinculos } from "../../../data/vinculos";
 import { personagens } from "../../../data/personagens";
-import "../../../styles/section.css";
 import "../../../styles/regras.css";
 import "../../../styles/corvonescos.css";
 const tipoFilters = [{ label: "Todos", value: "todos" }, { label: "Aliados", value: "aliado" }, { label: "Inimigos", value: "inimigo" }, { label: "Especiais", value: "especial" }];
 ---
-<BaseLayout title="Vínculos | Os Corvonescos" description="Aliados, inimigos e figuras especiais ligados aos Corvonescos.">
+<BaseLayout
+  title="Vínculos | Os Corvonescos"
+  description="Aliados, inimigos e figuras especiais ligados aos Corvonescos, o grupo de aventureiros da Campanha RPG."
+  noindex={vinculos.length === 0}
+>
   <main class="section-shell">
-    <SiteHeader />
     <Breadcrumb items={[{ label: "Os Corvonescos", href: "/corvonescos/" }, { label: "Vínculos" }]} />
     <a class="back-link" href="/corvonescos/">← Voltar aos Corvonescos</a>
     <SectionIntro eyebrow="O Grupo" title="Seus" emphasis="Vínculos" description="Pessoas e organizações relevantes para o grupo e suas relações conhecidas." />

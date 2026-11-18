@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://campanharpg.com.br/sitemap.xml

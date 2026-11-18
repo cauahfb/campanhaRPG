@@ -1,4 +1,17 @@
-<footer class="section-footer">
-  <span>CAMPANHA RPG · Um universo além dos dados</span>
-  <a href="/">Voltar ao início</a>
+---
+import { navigation } from "../data/navigation";
+import { SITE } from "../data/site";
+import pkg from "../../package.json";
+
+const links = navigation.filter((item) => item.status === "available");
+---
+<footer class="section-footer" data-pagefind-ignore>
+  <div class="section-footer__brand">
+    <strong>{SITE.name}</strong>
+    <span>{SITE.tagline}</span>
+  </div>
+  <nav class="section-footer__links" aria-label="Mapa do site">
+    {links.map((item) => <a href={item.href}>{item.label}</a>)}
+  </nav>
+  <p class="section-footer__meta">Feito para a nossa mesa · D&amp;D 5ª edição · v{pkg.version}</p>
 </footer>

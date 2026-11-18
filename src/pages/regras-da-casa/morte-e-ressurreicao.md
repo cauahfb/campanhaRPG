@@ -3,7 +3,7 @@ layout: ../../layouts/RulesLayout.astro
 title: "Morte e Ressurreição | Regras da Casa"
 description: "Dano excedente, limite de morte, estabilização e cura seguem regras próprias."
 ---
-<div class="section-shell section-shell--detail">
+<main class="section-shell section-shell--detail">
 <div class="rule-detail-hero">
   <a class="back-link" href="/regras-da-casa/">← Todas as regras</a>
   <div class="rule-art rule-art--morte-e-ressurreicao">
@@ -64,5 +64,4 @@ description: "Dano excedente, limite de morte, estabilização e cura seguem reg
 </blockquote>
 <p>Se um jogador for reduzido a 0 pontos de vida durante um combate ele recebe 1 ponto de exaustão no final do combate.</p>
 </article>
-</div>
-
+</main>

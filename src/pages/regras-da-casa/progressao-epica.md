@@ -3,7 +3,7 @@ layout: ../../layouts/RulesLayout.astro
 title: "Progressão Épica e Itens de Ascensão | Regras da Casa"
 description: "Níveis épicos, bônus de proficiência estendido e artefatos de ascensão."
 ---
-<div class="section-shell section-shell--detail">
+<main class="section-shell section-shell--detail">
 <div class="rule-detail-hero">
   <a class="back-link" href="/regras-da-casa/">← Todas as regras</a>
   <div class="rule-art rule-art--progressao-epica">
@@ -247,5 +247,4 @@ A progressão convencional de personagens em D&D 5e termina no nível 20. Entret
 <p>A progressão até o nível 30 representa uma escala de poder extraordinária. Os personagens passam a atuar em patamares muito superiores aos previstos originalmente em D&amp;D 5e, e os desafios, criaturas e ameaças do mundo acompanharão essa evolução.</p>
 <p>A aquisição desses recursos não representa apenas riqueza ou conhecimento: são oportunidades de transcender os limites que definem aquilo que um aventureiro pode se tornar.</p>
 </article>
-</div>
-
+</main>
