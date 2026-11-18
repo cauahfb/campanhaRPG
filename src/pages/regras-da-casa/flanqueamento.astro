@@ -107,15 +107,15 @@ import RulesLayout from "../../layouts/RulesLayout.astro";
           <legend>Tamanho do alvo</legend>
           <div class="choice-group" id="target-sizes">
             <button type="button" class="choice-button is-selected" data-size="medium" aria-pressed="true">Médio ou menor</button>
-            <button type="button" class="choice-button" data-size="large" aria-pressed="false">Grande</button>
-            <button type="button" class="choice-button" data-size="huge" aria-pressed="false">Enorme</button>
-            <button type="button" class="choice-button" data-size="colossal" aria-pressed="false">Colossal</button>
+            <button type="button" class="choice-button" data-size="large" aria-pressed="false" aria-pressed="false">Grande</button>
+            <button type="button" class="choice-button" data-size="huge" aria-pressed="false" aria-pressed="false">Enorme</button>
+            <button type="button" class="choice-button" data-size="colossal" aria-pressed="false" aria-pressed="false">Colossal</button>
           </div>
         </fieldset>
         <fieldset class="demo-control">
           <legend>Quantidade de flanqueadores</legend>
           <div class="count-control">
-            <button type="button" id="decrease-flankers" class="step-button" aria-label="Diminuir flanqueadores">−</button>
+            <button type="button" id="decrease-flankers" class="step-button" aria-label="Diminuir flanqueadores" disabled>−</button>
             <output id="flanker-count" for="decrease-flankers increase-flankers">2</output>
             <button type="button" id="increase-flankers" class="step-button" aria-label="Aumentar flanqueadores">+</button>
             <span>aliados</span>
@@ -133,7 +133,7 @@ import RulesLayout from "../../layouts/RulesLayout.astro";
             <title id="battlefield-title">Diagrama de flanqueamento adjacente</title>
             <desc id="battlefield-desc">Alvo no centro e aliados ocupando quadrados imediatamente adjacentes.</desc>
             <defs>
-              <pattern id="battle-grid" width="72" height="72" patternUnits="userSpaceOnUse">
+              <pattern id="battle-grid" x="48" y="30" width="72" height="72" patternUnits="userSpaceOnUse">
                 <path d="M72 0H0V72" fill="none" stroke="rgba(204,174,220,.24)" stroke-width="1.2"/>
               </pattern>
               <radialGradient id="target-glow">
@@ -169,7 +169,7 @@ import RulesLayout from "../../layouts/RulesLayout.astro";
           </div>
         </div>
 
-        <aside class="result-panel" aria-live="polite">
+        <aside class="result-panel" aria-live="polite" aria-atomic="true">
           <span class="result-label">Redução da CA</span>
           <strong class="result-value" id="ca-result">−2</strong>
           <span class="result-unit">pontos de Classe de Armadura</span>
@@ -221,41 +221,62 @@ import RulesLayout from "../../layouts/RulesLayout.astro";
   </main>
 
   <script>
-    const sizeRules = {
+    type Tamanho = "medium" | "large" | "huge" | "colossal";
+    interface RegraDeTamanho {
+      label: string;
+      minimum: number;
+      cap: number;
+      capLabel: string;
+    }
+
+    const sizeRules: Record<Tamanho, RegraDeTamanho> = {
       medium: { label: "Médio ou menor", minimum: 2, cap: 4, capLabel: "−4 CA" },
       large: { label: "Grande", minimum: 3, cap: 2, capLabel: "−2 CA" },
       huge: { label: "Enorme", minimum: 6, cap: 2, capLabel: "−2 CA" },
       colossal: { label: "Colossal", minimum: Infinity, cap: 0, capLabel: "Não se aplica" },
     };
 
-    const positions = [
-      [264, 138], [336, 138], [372, 210], [336, 282],
-      [264, 282], [228, 210], [228, 138], [372, 282],
+    // Os 8 quadrados vizinhos do alvo (centro em 300,210; cada casa mede 72).
+    // Ordem: primeiro os diagonais opostos, depois os demais — assim 2 aliados já
+    // formam um flanqueamento "clássico" e a formação cresce de forma natural até 8.
+    const positions: Array<[number, number]> = [
+      [228, 138], [372, 282], [372, 138], [228, 282], // NO, SE, NE, SO
+      [300, 138], [300, 282], [228, 210], [372, 210], // N, S, O, L
     ];
+    const MIN_FLANKERS = 2;
+    const MAX_FLANKERS = positions.length;
 
-    const svgNS = "http://www.w3.org/2000/svg";
-    const lines = document.querySelector("#flanking-lines");
-    const tokens = document.querySelector("#flanker-tokens");
-    const sizeButtons = [...document.querySelectorAll("[data-size]")];
-    const countOutput = document.querySelector("#flanker-count");
-    const caResult = document.querySelector("#ca-result");
-    const status = document.querySelector("#result-status");
-    const explanation = document.querySelector("#result-explanation");
-    const resultSize = document.querySelector("#result-size");
-    const resultCount = document.querySelector("#result-count");
-    const resultCap = document.querySelector("#result-cap");
-    const battlefieldDescription = document.querySelector("#battlefield-desc");
-
-    let selectedSize = "medium";
-    let flankerCount = 2;
-
-    function svgElement(name, attributes = {}) {
-      const element = document.createElementNS(svgNS, name);
-      for (const [key, value] of Object.entries(attributes)) element.setAttribute(key, value);
+    function $<T extends Element>(selector: string): T {
+      const element = document.querySelector<T>(selector);
+      if (!element) throw new Error(`Elemento não encontrado: ${selector}`);
       return element;
     }
 
-    function drawFormation(valid) {
+    const svgNS = "http://www.w3.org/2000/svg";
+    const lines = $<SVGGElement>("#flanking-lines");
+    const tokens = $<SVGGElement>("#flanker-tokens");
+    const sizeButtons = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-size]"));
+    const decreaseButton = $<HTMLButtonElement>("#decrease-flankers");
+    const increaseButton = $<HTMLButtonElement>("#increase-flankers");
+    const countOutput = $<HTMLOutputElement>("#flanker-count");
+    const caResult = $<HTMLElement>("#ca-result");
+    const statusEl = $<HTMLElement>("#result-status");
+    const explanation = $<HTMLElement>("#result-explanation");
+    const resultSize = $<HTMLElement>("#result-size");
+    const resultCount = $<HTMLElement>("#result-count");
+    const resultCap = $<HTMLElement>("#result-cap");
+    const battlefieldDescription = $<SVGDescElement>("#battlefield-desc");
+
+    let selectedSize: Tamanho = "medium";
+    let flankerCount = MIN_FLANKERS;
+
+    function svgElement(name: string, attributes: Record<string, string | number> = {}): SVGElement {
+      const element = document.createElementNS(svgNS, name);
+      for (const [key, value] of Object.entries(attributes)) element.setAttribute(key, String(value));
+      return element;
+    }
+
+    function drawFormation(valid: boolean) {
       lines.replaceChildren();
       tokens.replaceChildren();
 
@@ -293,11 +314,13 @@ import RulesLayout from "../../layouts/RulesLayout.astro";
       const reduction = valid ? (selectedSize === "medium" ? Math.min(flankerCount, rule.cap) : rule.cap) : 0;
 
       countOutput.textContent = String(flankerCount);
+      decreaseButton.disabled = flankerCount <= MIN_FLANKERS;
+      increaseButton.disabled = flankerCount >= MAX_FLANKERS;
       caResult.textContent = selectedSize === "colossal" ? "—" : (reduction > 0 ? `−${reduction}` : "0");
       caResult.classList.toggle("is-inactive", !valid);
-      status.textContent = selectedSize === "colossal" ? "Não pode ser flanqueado" : (valid ? "Flanqueamento válido" : "Flanqueamento não válido");
-      status.classList.toggle("is-valid", valid);
-      status.classList.toggle("is-invalid", !valid);
+      statusEl.textContent = selectedSize === "colossal" ? "Não pode ser flanqueado" : (valid ? "Flanqueamento válido" : "Flanqueamento não válido");
+      statusEl.classList.toggle("is-valid", valid);
+      statusEl.classList.toggle("is-invalid", !valid);
       resultSize.textContent = rule.label;
       resultCount.textContent = `${flankerCount} ${flankerCount === 1 ? "aliado" : "aliados"}`;
       resultCap.textContent = rule.capLabel;
@@ -316,7 +339,7 @@ import RulesLayout from "../../layouts/RulesLayout.astro";
     }
 
     sizeButtons.forEach((button) => button.addEventListener("click", () => {
-      selectedSize = button.dataset.size;
+      selectedSize = button.dataset.size as Tamanho;
       sizeButtons.forEach((item) => {
         const active = item === button;
         item.classList.toggle("is-selected", active);
@@ -325,12 +348,12 @@ import RulesLayout from "../../layouts/RulesLayout.astro";
       update();
     }));
 
-    document.querySelector("#decrease-flankers").addEventListener("click", () => {
-      flankerCount = Math.max(2, flankerCount - 1);
+    decreaseButton.addEventListener("click", () => {
+      flankerCount = Math.max(MIN_FLANKERS, flankerCount - 1);
       update();
     });
-    document.querySelector("#increase-flankers").addEventListener("click", () => {
-      flankerCount = Math.min(8, flankerCount + 1);
+    increaseButton.addEventListener("click", () => {
+      flankerCount = Math.min(MAX_FLANKERS, flankerCount + 1);
       update();
     });
 
