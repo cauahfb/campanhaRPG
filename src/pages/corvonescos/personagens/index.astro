@@ -5,29 +5,39 @@ import SectionIntro from "../../../components/SectionIntro.astro";
 import Breadcrumb from "../../../components/Breadcrumb.astro";
 import { personagens } from "../../../data/personagens";
 import "../../../styles/corvonescos.css";
+
+const grupos = ["Ativo", "Ex-Integrante", "Falecido"] as const;
 ---
-<BaseLayout title="Personagens | Os Corvonescos" description="Retratos e fichas dos integrantes dos Corvonescos, o grupo de aventureiros da Campanha RPG.">
+<BaseLayout title="Personagens | Os Corvonescos" description="Retratos e dossiês dos personagens que fizeram parte dos Corvonescos, o grupo de aventureiros da Campanha RPG.">
   <main class="section-shell">
     <Breadcrumb items={[{ label: "Os Corvonescos", href: "/corvonescos/" }, { label: "Personagens" }]} />
     <a class="back-link" href="/corvonescos/">← Voltar aos Corvonescos</a>
-    <SectionIntro eyebrow="O Grupo" title="Os" emphasis="Personagens" description="Retratos e informações dos integrantes do grupo." />
-    <section class="character-grid" aria-label="Personagens dos Corvonescos">
-      {personagens.map((personagem) => (
-        <a class="section-card card-lift character-card" href={`/corvonescos/personagens/${personagem.slug}/`}>
-          <div class="character-portrait">
-            {personagem.imagem
-              ? <img src={personagem.imagem} alt={`Retrato de ${personagem.nome}`} loading="lazy" />
-              : <span class="character-placeholder" aria-hidden="true">{personagem.nome.charAt(0)}</span>}
+    <SectionIntro eyebrow="O Grupo" title="Os" emphasis="Personagens" description="Conheça os aventureiros que compõem — ou já compuseram — a história dos Corvonescos." />
+    {grupos.map((status) => {
+      const lista = personagens.filter((personagem) => personagem.status === status);
+      return lista.length > 0 && (
+        <section class="character-roster-group" aria-label={`Personagens: ${status}`}>
+          <div class="character-roster-heading"><span>{status}</span><i></i></div>
+          <div class="character-grid">
+            {lista.map((personagem) => (
+              <a class="section-card card-lift character-card" href={`/corvonescos/personagens/${personagem.slug}/`}>
+                <div class="character-portrait">
+                  {personagem.imagem
+                    ? <img src={personagem.imagem} alt={`Retrato de ${personagem.nome}`} loading="lazy" />
+                    : <span class="character-placeholder" aria-hidden="true">{personagem.nome.charAt(0)}</span>}
+                </div>
+                <div class="character-card-copy">
+                  <span class="character-status">{personagem.status}</span>
+                  <h2>{personagem.nome}</h2>
+                  {personagem.classes.length > 0 && <span class="character-meta">{personagem.classes.map((classe) => classe.nome).join(" · ")}</span>}
+                  <span class="character-open">Ver dossiê <span aria-hidden="true">→</span></span>
+                </div>
+              </a>
+            ))}
           </div>
-          <div class="character-card-copy">
-            {personagem.classe && <span class="rule-category">{personagem.classe}</span>}
-            <h2>{personagem.nome}</h2>
-            {(personagem.raca || personagem.jogador) && <span class="character-meta">{[personagem.raca, personagem.jogador].filter(Boolean).join(" · ")}</span>}
-            <span class="character-open">Ver ficha <span aria-hidden="true">→</span></span>
-          </div>
-        </a>
-      ))}
-    </section>
+        </section>
+      );
+    })}
     <SiteFooter />
   </main>
 </BaseLayout>

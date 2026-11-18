@@ -1,0 +1,94 @@
+---
+interface Props {
+  titulo: string;
+  arquivo: string;
+  rotulo: string;
+  tipo: "epico" | "morte";
+}
+const { titulo, arquivo, rotulo, tipo } = Astro.props;
+---
+<div class:list={["track-player", `track-player--${tipo}`]} data-track-player>
+  <audio controls preload="metadata" src={arquivo}>Seu navegador não oferece suporte ao player de áudio.</audio>
+  <button type="button" class="track-play" data-play aria-label={`Tocar ${titulo}`}>
+    <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.4-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5Z" /></svg>
+    <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="4.5" width="4.2" height="15" rx="1" /><rect x="13.8" y="4.5" width="4.2" height="15" rx="1" /></svg>
+  </button>
+  <div class="track-body">
+    <div class="track-info">
+      <span class="character-field-kicker">{rotulo}</span>
+      <strong class="track-title">{titulo}</strong>
+    </div>
+    <div class="track-timeline">
+      <input class="track-seek" type="range" min="0" max="1000" step="1" value="0" data-seek aria-label={`Posição de ${titulo}`} />
+      <span class="track-time"><span data-current>0:00</span> / <span data-total>--:--</span></span>
+    </div>
+  </div>
+</div>
+
+<script>
+  const fmt = (s: number) => {
+    if (!Number.isFinite(s) || s < 0) return "--:--";
+    return `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, "0")}`;
+  };
+  const roots = document.querySelectorAll<HTMLElement>("[data-track-player]");
+
+  roots.forEach((root) => {
+    const audio = root.querySelector("audio")!;
+    const play = root.querySelector<HTMLButtonElement>("[data-play]")!;
+    const seek = root.querySelector<HTMLInputElement>("[data-seek]")!;
+    const cur = root.querySelector<HTMLElement>("[data-current]")!;
+    const tot = root.querySelector<HTMLElement>("[data-total]")!;
+    const titulo = root.querySelector(".track-title")?.textContent ?? "faixa";
+    let dragging = false;
+
+    const render = () => {
+      const d = audio.duration;
+      const ratio = Number.isFinite(d) && d > 0 ? audio.currentTime / d : 0;
+      if (!dragging) seek.value = String(Math.round(ratio * 1000));
+      seek.style.setProperty("--progress", `${(Number(seek.value) / 10).toFixed(1)}%`);
+      cur.textContent = fmt(dragging ? (Number(seek.value) / 1000) * d : audio.currentTime);
+      tot.textContent = fmt(d);
+      seek.setAttribute("aria-valuetext", `${cur.textContent} de ${tot.textContent}`);
+    };
+    const setPlaying = (on: boolean) => {
+      root.classList.toggle("is-playing", on);
+      play.setAttribute("aria-label", `${on ? "Pausar" : "Tocar"} ${titulo}`);
+    };
+
+    play.addEventListener("click", () => {
+      if (audio.paused) {
+        audio.play().catch(() => root.classList.add("is-error"));
+      } else {
+        audio.pause();
+      }
+    });
+    audio.addEventListener("play", () => {
+      roots.forEach((other) => {
+        const a = other.querySelector("audio")!;
+        if (a !== audio && !a.paused) a.pause();
+      });
+      setPlaying(true);
+    });
+    audio.addEventListener("pause", () => setPlaying(false));
+    audio.addEventListener("ended", () => { audio.currentTime = 0; setPlaying(false); render(); });
+    audio.addEventListener("timeupdate", render);
+    audio.addEventListener("loadedmetadata", render);
+    audio.addEventListener("durationchange", render);
+    audio.addEventListener("error", () => { root.classList.add("is-error"); tot.textContent = "indisponível"; });
+
+    seek.addEventListener("input", () => { dragging = true; render(); });
+    seek.addEventListener("change", () => {
+      if (Number.isFinite(audio.duration)) audio.currentTime = (Number(seek.value) / 1000) * audio.duration;
+      dragging = false;
+      render();
+    });
+    seek.addEventListener("keydown", (e) => {
+      if (!Number.isFinite(audio.duration)) return;
+      const step = e.key === "ArrowRight" || e.key === "ArrowUp" ? 5 : e.key === "ArrowLeft" || e.key === "ArrowDown" ? -5 : 0;
+      if (!step) return;
+      e.preventDefault();
+      audio.currentTime = Math.min(audio.duration, Math.max(0, audio.currentTime + step));
+    });
+    render();
+  });
+</script>

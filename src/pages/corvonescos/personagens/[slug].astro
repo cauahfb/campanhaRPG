@@ -2,6 +2,7 @@
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import SiteFooter from "../../../components/SiteFooter.astro";
 import Breadcrumb from "../../../components/Breadcrumb.astro";
+import TrackPlayer from "../../../components/TrackPlayer.astro";
 import { personagens } from "../../../data/personagens";
 import type { Personagem } from "../../../data/personagens";
 import { vinculos } from "../../../data/vinculos";
@@ -19,24 +20,77 @@ const { personagem } = Astro.props as Props;
 const personagemVinculos = vinculos.filter((item) => item.ligadoA.includes(personagem.slug));
 const sessoesDoPersonagem = sessoes.filter((item) => item.personagens?.includes(personagem.slug));
 const misteriosDoPersonagem = misterios.filter((item) => item.personagens?.includes(personagem.slug));
+const faixas = personagem.status === "Ativo"
+  ? [
+      ...(personagem.temas?.epico ?? []).map((f) => ({ ...f, rotulo: "Tema épico", tipo: "epico" as const })),
+      ...(personagem.temas?.morte ?? []).map((f) => ({ ...f, rotulo: "Tema de morte", tipo: "morte" as const })),
+    ]
+  : [];
 ---
-<BaseLayout title={`${personagem.nome} | Os Corvonescos`} description={`${personagem.nome}${personagem.classe ? `, ${personagem.classe}` : ""} — ficha de personagem dos Corvonescos, o grupo de aventureiros da Campanha RPG.`}>
+<BaseLayout title={`${personagem.nome} | Os Corvonescos`} description={`${personagem.nome} — dossiê de personagem dos Corvonescos, o grupo de aventureiros da Campanha RPG.`}>
   <main class="section-shell section-shell--detail">
     <Breadcrumb items={[{ label: "Os Corvonescos", href: "/corvonescos/" }, { label: "Personagens", href: "/corvonescos/personagens/" }, { label: personagem.nome }]} />
-    <a class="back-link" href="/corvonescos/">← Voltar aos Corvonescos</a>
-    <section class="rule-detail-hero character-detail-hero">
+    <a class="back-link" href="/corvonescos/personagens/">← Voltar para Todos os Personagens</a>
+
+    <section class="character-dossier">
       <div class="character-detail-portrait">
         {personagem.imagem
           ? <img src={personagem.imagem} alt={`Retrato de ${personagem.nome}`} />
           : <span aria-hidden="true">{personagem.nome.charAt(0)}</span>}
       </div>
-      <div class="rule-detail-heading">
-        {personagem.classe && <span class="rule-category">{personagem.classe}</span>}
+      <div class="rule-detail-heading character-profile-heading character-dossier-body">
+        <span class="character-status character-status--detail">{personagem.status}</span>
         <h1>{personagem.nome}</h1>
-        {personagem.resumo && <p>{personagem.resumo}</p>}
-        {(personagem.raca || personagem.jogador) && <p class="character-detail-meta">{[personagem.raca, personagem.jogador].filter(Boolean).join(" · ")}</p>}
+        {personagem.classes.length > 0 && (
+          <div class="character-class-list" aria-label="Classes e subclasses">
+            {personagem.classes.map((classe) => (
+              <div class="character-class-entry">
+                <span>{classe.nome}</span>
+                {classe.subclasse && <small>{classe.subclasse}</small>}
+              </div>
+            ))}
+          </div>
+        )}
+        {faixas.length > 0 && (
+          <div class="character-soundtrack">
+            <div class="character-section-heading">
+              <span>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V6l11-2v12" /><circle cx="6.5" cy="18" r="2.5" /><circle cx="17.5" cy="16" r="2.5" /></svg>
+                Trilha sonora
+              </span>
+              <i></i>
+            </div>
+            <div class="track-list">
+              {faixas.map((faixa) => <TrackPlayer {...faixa} />)}
+            </div>
+          </div>
+        )}
       </div>
     </section>
+
+    <section class="character-section">
+      <div class="character-section-heading"><span>Personalidade</span><i></i></div>
+      <article class="character-empty-field"><p>Este espaço está reservado para a personalidade de {personagem.nome}.</p></article>
+    </section>
+
+    <section class="character-section">
+      <div class="character-section-heading"><span>Biografia</span><i></i></div>
+      <article class="character-empty-field"><p>A história de {personagem.nome} será registrada aqui.</p></article>
+    </section>
+
+    <section class="character-section">
+      <div class="character-section-heading"><span>Mecânica individual</span><i></i></div>
+      <article class="character-empty-field"><p>Este espaço será utilizado para apresentar as mecânicas e regras individuais de {personagem.nome}.</p></article>
+    </section>
+
+    <section class="character-section">
+      <div class="character-section-heading"><span>NPC favorito</span><i></i></div>
+      <article class="character-npc-placeholder">
+        <div class="character-npc-image" aria-hidden="true"><span>?</span></div>
+        <div><span class="character-field-kicker">Em breve</span><h3>NPC favorito</h3><p>O personagem e seu vínculo serão apresentados aqui.</p></div>
+      </article>
+    </section>
+
     {personagemVinculos.length > 0 && (
       <section class="character-related">
         <h2>Vínculos deste personagem</h2>
@@ -46,7 +100,7 @@ const misteriosDoPersonagem = misterios.filter((item) => item.personagens?.inclu
     {sessoesDoPersonagem.length > 0 && (
       <section class="character-related">
         <h2>Presente nas sessões</h2>
-        <ul>{sessoesDoPersonagem.map((item) => <li><a href={`/corvonescos/diario-de-bordo/#sessoes`}>Sessão {String(item.numero).padStart(2, "0")} — {item.titulo}</a></li>)}</ul>
+        <ul>{sessoesDoPersonagem.map((item) => <li><a href="/corvonescos/diario-de-bordo/#sessoes">Sessão {String(item.numero).padStart(2, "0")} — {item.titulo}</a></li>)}</ul>
       </section>
     )}
     {misteriosDoPersonagem.length > 0 && (
@@ -54,9 +108,6 @@ const misteriosDoPersonagem = misterios.filter((item) => item.personagens?.inclu
         <h2>Mistérios em que participa</h2>
         <ul>{misteriosDoPersonagem.map((item) => <li><a href="/corvonescos/diario-de-bordo/#misterios">{item.pergunta}</a></li>)}</ul>
       </section>
-    )}
-    { !personagem.resumo && !personagem.classe && !personagem.raca && !personagem.jogador && !personagem.imagem && personagemVinculos.length === 0 && sessoesDoPersonagem.length === 0 && misteriosDoPersonagem.length === 0 && (
-      <p class="empty-state">Ficha em construção.</p>
     )}
     <SiteFooter />
   </main>
