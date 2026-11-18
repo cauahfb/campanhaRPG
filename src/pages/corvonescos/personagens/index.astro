@@ -12,7 +12,7 @@ const grupos = ["Ativo", "Ex-Integrante", "Falecido"] as const;
   <main class="section-shell">
     <Breadcrumb items={[{ label: "Os Corvonescos", href: "/corvonescos/" }, { label: "Personagens" }]} />
     <a class="back-link" href="/corvonescos/">← Voltar aos Corvonescos</a>
-    <SectionIntro eyebrow="O Grupo" title="Os" emphasis="Personagens" description="Conheça os aventureiros que compõem — ou já compuseram — a história dos Corvonescos." />
+    <SectionIntro eyebrow="O Grupo" title="Os" emphasis="Personagens" description="Conheça os aventureiros que compõem, ou já compuseram, a história dos Corvonescos." />
     {grupos.map((status) => {
       const lista = personagens.filter((personagem) => personagem.status === status);
       return lista.length > 0 && (
