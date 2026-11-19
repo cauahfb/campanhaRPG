@@ -475,12 +475,60 @@
 }
 .character-copy p { margin: 0 0 16px; color: var(--muted); font-size: 13px; line-height: 1.8; }
 .character-copy p:last-child { margin-bottom: 0; }
+.personality-with-image {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 220px;
+  gap: 26px;
+  align-items: center;
+}
+.personality-companion {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  background: #140a13;
+}
+.personality-companion img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1.15;
+  object-fit: cover;
+  object-position: center;
+}
+.personality-companion figcaption {
+  padding: 10px 12px;
+  color: var(--gold-bright);
+  font: 600 17px var(--font-display);
+  text-align: center;
+}
+.personality-companion figcaption span {
+  color: var(--muted);
+  font: 400 10px/1.5 var(--font-ui);
+}
 .character-biography h3 {
   margin: 26px 0 8px;
   color: var(--gold-bright);
   font: 600 20px var(--font-display);
 }
 .winter-intro { margin: 0 0 18px; color: var(--muted); font-size: 13px; line-height: 1.8; }
+.winter-external-link {
+  align-self: flex-start;
+  margin-bottom: 18px;
+  padding: 10px 15px;
+  border-color: var(--gold-dim);
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(201, 167, 124, .2), rgba(110, 35, 57, .38));
+  color: var(--gold-bright);
+  font-size: 9px;
+  letter-spacing: .14em;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .25), 0 0 18px rgba(201, 167, 124, .08);
+}
+.winter-external-link:hover,
+.winter-external-link:focus-visible {
+  border-color: var(--gold);
+  background: linear-gradient(135deg, rgba(201, 167, 124, .3), rgba(110, 35, 57, .48));
+  color: #fff1d2;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, .32), 0 0 22px rgba(201, 167, 124, .16);
+}
 .winter-overview {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -534,6 +582,8 @@
   .character-npc-placeholder { grid-template-columns: 84px minmax(0, 1fr); padding: 14px; }
   .character-player-card { max-width: none; }
   .character-copy { padding: 18px; }
+  .personality-with-image { grid-template-columns: 1fr; }
+  .personality-companion { max-width: 260px; justify-self: center; }
   .winter-overview { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 

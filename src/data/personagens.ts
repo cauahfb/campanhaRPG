@@ -10,6 +10,7 @@ export interface Personagem {
   raca: string;
   altura: string;
   idade: string;
+  comidaFavorita: string;
   classes: PersonagemClasse[];
   imagem?: string;
   temas?: {
@@ -26,6 +27,7 @@ export const personagens: Personagem[] = [
     raca: "Shadar-kai",
     altura: "1,55 m",
     idade: "190 anos",
+    comidaFavorita: "",
     classes: [{ nome: "Clériga", subclasse: "Domínio do Túmulo" }],
     imagem: "/images/personagens/corvalina-nightveil.png",
     temas: {
@@ -37,37 +39,40 @@ export const personagens: Personagem[] = [
     slug: "novrik",
     nome: "Novrik Vaelar",
     status: "Ativo",
-    raca: "",
-    altura: "",
-    idade: "",
+    raca: "Vedalken",
+    altura: "2.10 m",
+    idade: "115 anos",
+    comidaFavorita: "Pudim",
     classes: [{ nome: "Mago", subclasse: "Ordem dos Escribas" }],
     imagem: "/images/personagens/novrik-vaelar.png",
     temas: {
-      epico: [{ titulo: "Tema Épico", arquivo: "/audio/personagens/novrik-vaelar/tema-epico.mp3" }],
-      morte: [{ titulo: "Tema de Morte", arquivo: "/audio/personagens/novrik-vaelar/tema-morte.mp3" }],
+      epico: [{ titulo: "A Powerful Mage - Frieren", arquivo: "/audio/personagens/novrik-vaelar/tema-epico.mp3" }],
+      morte: [{ titulo: "Violoncello's Lament - Fullmetal Alchemist", arquivo: "/audio/personagens/novrik-vaelar/tema-morte.mp3" }],
     },
   },
   {
     slug: "felypo",
     nome: "Félypo D'Argent",
     status: "Ativo",
-    raca: "",
-    altura: "",
-    idade: "",
+    raca: "Elfo da Floresta",
+    altura: "1.90 m",
+    idade: "136 anos",
+    comidaFavorita: "Moqueca",
     classes: [{ nome: "Monge", subclasse: "Caminho do Dragão Ascendente" }],
     imagem: "/images/personagens/felypo-dargent.png",
     temas: {
-      epico: [{ titulo: "Tema Épico", arquivo: "/audio/personagens/felypo-dargent/tema-epico.mp3" }],
-      morte: [{ titulo: "Tema de Morte", arquivo: "/audio/personagens/felypo-dargent/tema-morte.mp3" }],
+      epico: [{ titulo: "Self-Embodiment of Perfection - Jujutsu Kaisen", arquivo: "/audio/personagens/felypo-dargent/tema-epico.mp3" }],
+      morte: [{ titulo: "to those who are thinking of leaving - Yuh Baek", arquivo: "/audio/personagens/felypo-dargent/tema-morte.mp3" }],
     },
   },
   {
     slug: "melvis",
     nome: "Melvis Pulaço",
     status: "Ativo",
-    raca: "",
-    altura: "",
-    idade: "",
+    raca: "Grung",
+    altura: "1.07 m",
+    idade: "35 anos",
+    comidaFavorita: "Batata assada em sal grosso, recheada com ragu vegetariano de cogumelos e alho-poró, finalizada com uma crosta gratinada de queijo Gruyère, acompanhada de hidromel Morat com aproximadamente um ano e meio de maturação.",
     classes: [
       { nome: "Blood Hunter", subclasse: "Lycan" },
       { nome: "Guerreiro", subclasse: "Battle Master" },
@@ -76,10 +81,10 @@ export const personagens: Personagem[] = [
     imagem: "/images/personagens/melvis-pulaco.png",
     temas: {
       epico: [
-        { titulo: "Tema Épico", arquivo: "/audio/personagens/melvis-pulaco/tema-epico.mp3" },
-        { titulo: "Tema Épico — Transformado", arquivo: "/audio/personagens/melvis-pulaco/tema-epico-transformado.mp3" },
+        { titulo: "Banjo Bloodbath - Appalachian Anarchy", arquivo: "/audio/personagens/melvis-pulaco/tema-epico.mp3" },
+        { titulo: "Alex Terrible - Doom Eternal", arquivo: "/audio/personagens/melvis-pulaco/tema-epico-transformado.mp3" },
       ],
-      morte: [{ titulo: "Tema de Morte", arquivo: "/audio/personagens/melvis-pulaco/tema-morte.mp3" }],
+      morte: [{ titulo: "Travelers - OuterWilds", arquivo: "/audio/personagens/melvis-pulaco/tema-morte.mp3" }],
     },
   },
   {
@@ -89,6 +94,7 @@ export const personagens: Personagem[] = [
     raca: "",
     altura: "",
     idade: "",
+    comidaFavorita: "",
     classes: [],
   },
 ];

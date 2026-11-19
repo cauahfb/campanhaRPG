@@ -52,6 +52,7 @@ const faixas = personagem.status === "Ativo"
           <div><dt>Raça</dt><dd>{personagem.raca || "—"}</dd></div>
           <div><dt>Altura</dt><dd>{personagem.altura || "—"}</dd></div>
           <div><dt>Idade</dt><dd>{personagem.idade || "—"}</dd></div>
+          <div><dt>Comida favorita</dt><dd>{personagem.comidaFavorita || "—"}</dd></div>
         </dl>
         {personagem.classes.length > 0 && (
           <div class="character-class-list" aria-label="Classes e subclasses">
@@ -83,10 +84,45 @@ const faixas = personagem.status === "Ativo"
     <section class="character-section">
       <div class="character-section-heading"><span>Personalidade</span><i></i></div>
       {personagem.slug === "corvalina" ? (
+        <article class="character-copy personality-with-image">
+          <div>
+            <p>Corvalina Nightveil é uma Shadar-kai de personalidade alegre, curiosa e excêntrica, cuja espontaneidade contrasta com a natureza sombria de Shadowfell. Tagarela e brincalhona, costuma cantarolar, inventar mentiras desnecessárias apenas pela diversão de convencer outras pessoas e conversar com seu corvo Winter, seu maior xodó.</p>
+            <p>Winter não é apenas um animal de estimação: é seu companheiro inseparável, confidente e presença constante desde sua vida em Shadowfell. Corvalina cuida dele com profunda dedicação, dividindo com o corvo suas descobertas, preocupações e pequenos momentos de alegria.</p>
+            <p>Apesar de seu comportamento peculiar, demonstra profunda compaixão pelos animais e pelas pessoas, valorizando especialmente os vínculos que constrói. Sua curiosidade e seu desejo de liberdade sempre a levaram a questionar uma existência limitada às obrigações religiosas.</p>
+            <p>Após sua morte e ressurreição, passou a desenvolver uma relação mais madura com a mortalidade. Embora continue sendo uma figura peculiar e afetuosa, encontrou na fé de Kelemvor um novo propósito: oferecer conforto aos vivos, preservar a memória dos falecidos e respeitar o descanso daqueles que partiram.</p>
+          </div>
+          <figure class="personality-companion">
+            <img src="/images/personagens/winter-corvo.png" alt="Winter, o corvo companheiro de Corvalina" loading="lazy" decoding="async" />
+            <figcaption>Winter<br /><span>Companheiro e maior xodó de Corvalina</span></figcaption>
+          </figure>
+        </article>
+      ) : personagem.slug === "novrik" ? (
         <article class="character-copy">
-          <p>Corvalina Nightveil é uma Shadar-kai de personalidade alegre, curiosa e excêntrica, cuja espontaneidade contrasta com a natureza sombria de Shadowfell. Tagarela e brincalhona, costuma cantarolar, conversar com seu corvo Winter e inventar mentiras desnecessárias apenas pela diversão de convencer outras pessoas.</p>
-          <p>Apesar de seu comportamento peculiar, demonstra profunda compaixão pelos animais e pelas pessoas, valorizando especialmente os vínculos que constrói. Sua curiosidade e seu desejo de liberdade sempre a levaram a questionar uma existência limitada às obrigações religiosas.</p>
-          <p>Após sua morte e ressurreição, passou a desenvolver uma relação mais madura com a mortalidade. Embora continue sendo uma figura peculiar e afetuosa, encontrou na fé de Kelemvor um novo propósito: oferecer conforto aos vivos, preservar a memória dos falecidos e respeitar o descanso daqueles que partiram.</p>
+          <p>Novrik é um Vedalken extremamente racional, metódico e intelectualmente exigente. Raramente levanta a voz, mesmo diante do perigo, preferindo analisar os acontecimentos com tranquilidade e responder com um vocabulário preciso, formal e frequentemente esnobe.</p>
+          <p>Possui pouca tolerância à desorganização, à incompetência e à falta de planejamento. Seu perfeccionismo faz com que pense demais e exija condições ideais antes de agir. Também é cuidadoso com sua aparência e higiene, usando Prestidigitação para manter a si mesmo e Celeste impecáveis.</p>
+          <p>Apesar da postura fria, sua curiosidade por anomalias arcanas, feitiços raros e fenômenos inexplicáveis é quase insaciável. Sua ambição é compreender e aperfeiçoar a magia, não acumular riqueza ou poder político.</p>
+          <p>Por trás da racionalidade existem vínculos que não trata como variáveis: Celeste, sua companheira; Raziel, sua maior criação; e o desaparecimento de seu pai, cuja morte jamais conseguiu comprovar.</p>
+        </article>
+      ) : personagem.slug === "felypo" ? (
+        <article class="character-copy personality-with-image">
+          <div>
+            <p>Félypo é movido pela curiosidade, pela liberdade e pelo desejo de compreender aquilo que considera extraordinário. Desde criança, demonstra fascínio por dragões, símbolos de grandeza, mistério e possibilidades.</p>
+            <p>Possui um espírito independente e questiona doutrinas rígidas e autoridades. Apesar da busca por poder e conhecimento, mantém fortes vínculos com sua família e com Turlang, seu protetor e companheiro desde a infância.</p>
+            <p>Turlang representa para Félypo mais do que uma figura guardiã: é seu <strong>Companheiro de Alma</strong>, uma presença que acompanhou seu crescimento e sua transformação. A relação entre os dois é marcada por afeto, confiança e uma conexão que se tornou também dracônica.</p>
+            <p>Sua jornada é marcada por erros e conflitos morais. O medo e julgamentos equivocados já o levaram a atos cruéis, obrigando-o a confrontar as consequências de suas escolhas e a entender que poder não significa estar certo.</p>
+            <p>Félypo não deseja ser definido por Bahamut, Tiamat ou por tradições alheias. Seu maior ideal é dominar a própria essência e construir uma identidade verdadeiramente sua.</p>
+          </div>
+          <figure class="personality-companion">
+            <img src="/images/personagens/turlang.png" alt="Turlang, companheiro de alma de Félypo" loading="lazy" decoding="async" />
+            <figcaption>Turlang<br /><span>Companheiro de Alma de Félypo</span></figcaption>
+          </figure>
+        </article>
+      ) : personagem.slug === "melvis" ? (
+        <article class="character-copy">
+          <p>Melvis é descontraído, brincalhão e extremamente falastrão. Gosta de conversar, fazer piadas e provocar as pessoas, raramente ficando constrangido, embora tenha facilidade em deixar os outros sem jeito. Seu jeito informal contrasta com as experiências difíceis que viveu.</p>
+          <p>Possui forte aversão à escravidão e ao preconceito. As experiências em Bilebrejo moldaram sua visão de mundo, fazendo com que rejeite hierarquias baseadas na origem ou condição de alguém. Quando perde a compostura, seu temperamento pode se tornar tão intenso quanto o de seu pai.</p>
+          <p>É curioso e mantém o hábito de registrar criaturas, lugares e pessoas encontradas em suas viagens. Enxerga esses registros como ferramentas para seu trabalho como mercenário e como uma forma de preservar as experiências que vive.</p>
+          <p>Seus vínculos mais importantes são Clovis, o monge que o ensinou a controlar sua maldição, e Novrik, seu companheiro de aventuras, a quem insiste em chamar de <strong>Pitufo</strong>.</p>
         </article>
       ) : <article class="character-empty-field"><p>Este espaço está reservado para a personalidade de {personagem.nome}.</p></article>}
     </section>
@@ -106,6 +142,68 @@ const faixas = personagem.status === "Ativo"
           <p>Durante um confronto contra Edran e Ozimandias, Corvalina perdeu a vida. Ressuscitada por seus aliados em Darkon, foi abandonada pela Rainha Corvo, que considerou seu retorno à vida uma violação dos princípios que deveria seguir.</p>
           <h3>Um novo caminho</h3>
           <p>Sem sua antiga conexão divina, Corvalina encontrou um novo propósito em Kelemvor. Retornando a Neverwinter sob o nome Friede, dedicou-se ao estudo dos ritos funerários, ao cuidado dos enfermos e à preservação das histórias dos falecidos. Winter, agora apresentado como Noctis, também passou a trilhar esse novo caminho.</p>
+        </article>
+      ) : personagem.slug === "novrik" ? (
+        <article class="character-copy character-biography">
+          <p>Nascido em Ravnica, Novrik demonstrou desde cedo inteligência excepcional e profunda curiosidade pela Trama arcana. Filho de um mago e professor da Prism University, cresceu observando os estudos do pai ao lado de Celeste, uma Tressym que se tornou sua companheira inseparável.</p>
+          <h3>O desaparecimento</h3>
+          <p>Seu pai desapareceu após uma reunião com outros magos. Sem respostas ou evidências, Novrik suspeitou de um experimento arcano e mergulhou em estudos de Adivinhação para tentar estabelecer contato, sem jamais obter uma resposta.</p>
+          <h3>O grimório e a Liga Izzet</h3>
+          <p>Com um antigo grimório de páginas em branco e uma tinta alquímica condutora, despertou a magia latente do livro. Sua precisão e capacidade de documentar falhas chamaram a atenção da Liga Izzet, apesar de sua dificuldade em lidar com a cultura experimental e caótica da organização.</p>
+          <h3>Raziel</h3>
+          <p>Para superar as limitações biológicas de seus experimentos, Novrik transformou parte de seu raciocínio lógico em uma matriz integrada ao grimório. Assim nasceu Raziel, uma inteligência artificial arcana capaz de processar informações, sugerir soluções e desenvolver estratégias.</p>
+          <h3>A chegada a Faerûn</h3>
+          <p>Durante o Projeto Transplanar, uma falha abriu uma passagem para as Eternidades Cegas. Novrik saltou para a anomalia com Celeste e seu grimório, sendo lançado em Faerûn. Depois de conhecer Melvis, passou a viajar com os Corvonescos e iniciou registros sobre a biologia e a magia da Costa da Espada.</p>
+          <h3>O Artífice Errante</h3>
+          <p>Em Neverwinter, estudou o <em>Lexicon Arcanum</em> e criou a identidade do Artífice Errante para financiar suas pesquisas. Sob uma máscara e em uma pequena tenda, passou a produzir pergaminhos por encomenda, enquanto continua buscando os segredos da magia e o verdadeiro destino de seu pai.</p>
+        </article>
+      ) : personagem.slug === "felypo" ? (
+        <article class="character-copy character-biography">
+          <h3>Infância na Cidade das Grutas</h3>
+          <p>Félypo nasceu em tempos de caos na Cidade das Grutas. Ataques de orcs e a crescente influência dos Zhentarim ameaçavam a região, levando seus pais, Theoresus e Matrica, a fugir pouco depois de seu nascimento.</p>
+          <p>Durante a viagem em direção a Secomber, a família encontrou tropas Zhentarim e precisou mudar de rota, adentrando a High Forest. Ali, foram recebidos por Turlang, o Guardião, que reconheceu a sinceridade de suas intenções e lhes concedeu abrigo.</p>
+          <p>Sob sua proteção, a família estabeleceu-se em uma cabana de madeira viva. Foi naquele refúgio que os pais finalmente escolheram o nome Félypo para o filho.</p>
+          <p>Ele cresceu entre árvores conscientes, protegido pelo bosque e acompanhado pela presença quase paterna de Turlang. Ainda criança, avistou um imenso dragão verde sobrevoando as montanhas, imagem que despertou uma admiração duradoura.</p>
+          <h3>O caminho do monge</h3>
+          <p>Quando Loudwater recuperou a paz, a família retornou à cidade e ajudou a reconstruir sua antiga vida. Na juventude, Félypo conheceu monges que demonstravam habilidades extraordinárias por meio do treinamento do corpo e do fluxo de Ki.</p>
+          <p>Fascinado, acompanhou Lázaro, um monge que se apresentava como seguidor de Ilmater, até uma aldeia próxima à Árvore Anciã. Ali, ajudou a estabelecer um novo monastério e dedicou-se aos ensinamentos da ordem.</p>
+          <p>Com o passar dos anos, percebeu contradições entre os ensinamentos de Lázaro e os princípios de Ilmater. Ao descobrir indícios de práticas próximas de Loviatar, confrontou o mestre e acabou expulso.</p>
+          <p>Desolado, mas livre para seguir seu próprio caminho, retornou a Loudwater. Nas florestas e montanhas, sentiu uma energia ancestral ressoar em seu corpo: o poder dracônico ligado ao próprio Ki.</p>
+          <h3>O Herói de Asura</h3>
+          <p>Algum tempo depois, Félypo recebeu uma carta misteriosa convocando-o para ajudar a combater uma maldição no reino de Asura. Ao lado de outros aventureiros, enfrentou a ameaça e conquistou a vitória.</p>
+          <p>Seu retorno a Loudwater foi celebrado por toda a comunidade. Seus pais demonstraram enorme orgulho, e a taverna da família tornou-se palco de comemorações. Félypo passou a ser reconhecido como o <strong>Herói de Asura</strong>.</p>
+          <h3>A descoberta do Dragão Ascendente</h3>
+          <p>Outra convocação o levou a Oakhurst, onde investigou um templo dracônico abandonado. Durante uma meditação, experimentou uma visão de chamas douradas e olhos ancestrais.</p>
+          <p>A experiência revelou que não precisava escolher entre rigidez absoluta e completa indisciplina. Poderia combinar disciplina, liberdade e a energia dracônica despertada em seu interior. Assim, encontrou seu caminho como monge do <strong>Caminho do Dragão Ascendente</strong>.</p>
+          <h3>Bahamut, Tiamat e a própria essência</h3>
+          <p>Durante suas aventuras em Neverwinter, Félypo encontrou fragmentos de histórias sobre Bahamut e Tiamat. Por algum tempo, acreditou que sua conexão dracônica pudesse estar relacionada à Rainha dos Dragões.</p>
+          <p>Após enfrentar Venomfang, um dragão verde traiçoeiro, passou a questionar essa crença. A batalha deixou marcas em seu orgulho e o fez temer que o poder dracônico pudesse corrompê-lo.</p>
+          <p>Em um período sombrio, chegou a cometer atos cruéis, incluindo o assassinato de filhotes de goblin, acreditando que se tornariam monstros no futuro. A vergonha e a reação de seus companheiros o obrigaram a confrontar suas próprias escolhas.</p>
+          <p>Foi então que compreendeu que seu poder não precisava pertencer a Bahamut ou Tiamat. <strong>Aquela força era sua: sua conquista, sua essência e sua responsabilidade.</strong></p>
+          <h3>Os Corvonescos — 1491 DR</h3>
+          <p>Em 1491 DR, Félypo fundou os <strong>Corvonescos</strong> ao lado de Corvalina, Perseu, Archibald e Kiei. A fundação marcou uma nova etapa, reunindo aventureiros cujos caminhos e destinos passariam a estar ligados por essa história em comum.</p>
+          <h3>A Maldição do Dragão</h3>
+          <p>Durante os acontecimentos envolvendo a proteção de Neverwinter, Félypo utilizou repetidamente seu Sopro do Dragão para conter uma ameaça. O esforço sobrecarregou seu corpo e chamou a atenção de Silvantar, o dragão de Neverember.</p>
+          <p>Silvantar compartilhou parte de sua energia vital com Félypo, despertando nele a <strong>Maldição do Dragão</strong>. A maldição passou a evoluir junto com seu portador, acumulando manifestações dracônicas conforme Félypo utilizava seus poderes.</p>
+          <p>Posteriormente, descobriu-se que sua família possuía antepassados ligados a dragões verdes, uma linhagem antiga que ajudava a explicar sua conexão com essas criaturas. A transformação também passou a afetar Turlang, que começou a desenvolver uma verdadeira natureza dracônica.</p>
+          <p>Agora, Félypo precisa compreender a relação entre seu próprio poder, a maldição e o destino de seu companheiro.</p>
+        </article>
+      ) : personagem.slug === "melvis" ? (
+        <article class="character-copy character-biography">
+          <h3>Bilebrejo e o nome Maldito</h3>
+          <p>Nascido em Bilebrejo, Melvis cresceu em uma sociedade Grung organizada por castas e sustentada pela escravidão. Filho de <em>Zh'unbl Xb'lual</em>, conhecido como Sangue Quente, herdou o legado de um guerreiro que tentou derrubar aquele sistema.</p>
+          <p>Após a revolta de seu pai, foi submetido à Despurificação ainda nas ovas, rebaixado de uma possível casta laranja para a verde e recebeu o nome <em>Ths’kpav</em>, “Maldito”.</p>
+          <h3>A missão e Dolores</h3>
+          <p>Perseguido e humilhado por Kpa'hkvy, filho do antigo líder dourado, Melvis recebeu a missão de explorar o mundo exterior e catalogar suas espécies e raças. Durante a jornada, foi acolhido por Dolores, uma anã que lhe ensinou o idioma Comum e ofereceu um lar.</p>
+          <p>Pela primeira vez, conheceu uma sociedade em que pessoas de diferentes origens conviviam como iguais, abandonando gradualmente a visão de mundo aprendida em Bilebrejo.</p>
+          <h3>A maldição</h3>
+          <p>Anos depois, Kpa'hkvy capturou Dolores e a submeteu ao processo de Reiniciar. Ao tentar salvá-la, Melvis foi incapacitado por magia e submetido a uma experiência que despertou uma terrível maldição. Ao recuperar a consciência, encontrou a vila destruída e seus habitantes mortos, vítimas de sua própria transformação.</p>
+          <h3>Clovis</h3>
+          <p>Após a tragédia, o misterioso homem da máscara de corvo levou Melvis para uma caverna nas montanhas. Revelando ser um monge, ensinou-o a controlar a mente, o corpo e a maldição. Melvis o batizou de Clovis e aprendeu a preservar a consciência na forma monstruosa e canalizar o sangue para imbuir armas com propriedades elementais.</p>
+          <h3>Melvis Pulaço</h3>
+          <p>Quando Clovis desapareceu, deixando apenas uma carta e seu banjo, Melvis abandonou o nome recebido em Bilebrejo e adotou a identidade de <strong>Melvis Pulaço</strong>. Desde então, passou a trabalhar como mercenário e manteve seus registros sobre criaturas e lugares.</p>
+          <h3>Os Corvonescos e Pitufo</h3>
+          <p>Em 1491 DR, Melvis juntou-se aos Corvonescos ao lado de Novrik. Os dois se conheceram quando Novrik literalmente surgiu de uma fenda no chão e começou a fazer perguntas. Intrigado com o sujeito vindo de Ravnica, Melvis encontrou um novo companheiro de aventuras e passou a chamá-lo carinhosamente de <strong>Pitufo</strong>.</p>
         </article>
       ) : <article class="character-empty-field"><p>A história de {personagem.nome} será registrada aqui.</p></article>}
     </section>
@@ -167,6 +265,166 @@ const faixas = personagem.status === "Ativo"
               <p>Não há limite de Vestígios, e todos permanecem ativos. Cada um concede uma habilidade única ou modifica uma das cinco formas. Eles são uma progressão horizontal, rara e ligada aos acontecimentos da campanha.</p>
               <p>Com <strong>Último Repouso</strong>, Corvalina pode destruir permanentemente um Vestígio para provocar uma última manifestação extraordinária baseada em sua natureza. O benefício é perdido e normalmente não pode ser recuperado.</p>
               <p>Assim, Winter evolui por três caminhos: os níveis de Corvalina aprimoram as formas; os Vestígios adicionam propriedades; e os Vínculos ampliam as almas que a Psicopompa pode alcançar.</p>
+            </div>
+          </details>
+        </div>
+      ) : personagem.slug === "novrik" ? (
+        <div class="winter-compendium">
+          <p class="winter-intro">Raziel é a inteligência artificial arcana criada por Novrik. Sua mecânica combina análise de criaturas e fenômenos com uma árvore de talentos que permite construir e aperfeiçoar diferentes especializações.</p>
+          <a class="button button--primary winter-external-link" href="https://raziel.campanharpg.com.br/" target="_blank" rel="noopener noreferrer">Abrir Raziel <span aria-hidden="true">↗</span></a>
+          <div class="winter-overview">
+            <div><span>Ação principal</span><strong>Analisar</strong><small>Arcanismo ou Religião</small></div>
+            <div><span>CD padrão</span><strong>10</strong><small>Ajustável pelo Mestre</small></div>
+            <div><span>Talentos</span><strong>4 por nível</strong><small>13 por nível a partir do 21º</small></div>
+            <div><span>Redistribuição</span><strong>4 pontos</strong><small>Após cada Descanso Longo</small></div>
+          </div>
+          <details open>
+            <summary><span>01</span> Análise de Raziel</summary>
+            <div class="winter-panel">
+              <p>Como uma Ação, Raziel pode analisar uma criatura, objeto mágico, manifestação sobrenatural ou outro alvo apropriado. Novrik realiza um teste de Arcanismo ou Religião conforme a natureza do alvo.</p>
+              <ul>
+                <li><strong>1 natural:</strong> nenhuma informação é obtida e o alvo não pode ser analisado novamente.</li>
+                <li><strong>9 ou menos:</strong> nenhuma informação relevante; novas tentativas continuam possíveis.</li>
+                <li><strong>10 ou mais:</strong> revela uma habilidade da árvore correspondente ou avança o progresso da análise.</li>
+                <li><strong>20 ou mais:</strong> além do resultado anterior, revela completamente uma característica escolhida.</li>
+                <li><strong>30 ou mais:</strong> revela todas as características analisáveis.</li>
+              </ul>
+              <p>Entre as informações possíveis estão PV atuais, resistências, imunidades, vulnerabilidades, CA e tipo de criatura. Para objetos e manifestações, o Mestre define equivalentes adequados.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span>02</span> Árvore de Talentos</summary>
+            <div class="winter-panel">
+              <p>A Árvore de Talentos representa o desenvolvimento físico, mental, mágico e sobrenatural de Novrik. Cada habilidade, chamada <em>Skill</em>, possui nível máximo, custo, pré-requisitos e descrição própria.</p>
+              <ul>
+                <li>Novrik recebe <strong>4 Pontos de Talento por nível</strong> do 1º ao 20º.</li>
+                <li>A partir do nível 21, recebe <strong>13 pontos por nível</strong>.</li>
+                <li>Os pontos podem ser distribuídos entre as árvores, respeitando custos e pré-requisitos.</li>
+                <li>O custo padrão é 1 ponto por nível da Skill, salvo indicação diferente.</li>
+              </ul>
+            </div>
+          </details>
+          <details>
+            <summary><span>03</span> Ápices e Habilidades Supremas</summary>
+            <div class="winter-panel">
+              <p>Cada árvore possui um <strong>Ápice</strong>, que representa o domínio máximo de seu fundamento. Ao cumprir o investimento necessário, Novrik pode desbloqueá-lo.</p>
+              <p>As <strong>Habilidades Supremas</strong> surgem da combinação de Skills e, em alguns casos, Ápices. Não possuem custo adicional: quando todos os pré-requisitos são cumpridos, são desbloqueadas automaticamente e permanecem disponíveis conforme sua própria mecânica.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span>04</span> Redistribuição</summary>
+            <div class="winter-panel">
+              <p>Pontos disponíveis podem ser adicionados a qualquer momento, desde que a Skill seja elegível. Para remover pontos já investidos, Novrik pode, após um Descanso Longo, retirar e redistribuir até <strong>4 Pontos de Talento</strong>, respeitando novamente todos os pré-requisitos.</p>
+              <p>Uma redefinição completa exige um <strong>ritual de 8 horas</strong>. Ao concluí-lo, todos os pontos investidos são recuperados e podem ser redistribuídos livremente entre as árvores elegíveis.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span>05</span> Princípios do sistema</summary>
+            <div class="winter-panel">
+              <p>Uma habilidade só pode ser adquirida quando seus pré-requisitos forem cumpridos. Eles podem exigir investimento mínimo em uma árvore, níveis específicos de Skills, outros talentos, Ápices ou condições narrativas definidas na própria descrição.</p>
+              <p>O sistema permite que Novrik adapte sua especialização conforme suas experiências e necessidades, sem transformar a redistribuição em uma troca irrestrita durante a aventura.</p>
+            </div>
+          </details>
+        </div>
+      ) : personagem.slug === "felypo" ? (
+        <div class="winter-compendium">
+          <p class="winter-intro">A Maldição Dracônica representa a ligação crescente de Félypo com a essência dos dragões. Ela afeta seu corpo, seus instintos e sua relação com Turlang por meio de Usos Dracônicos e do marcador de Ressonância.</p>
+          <div class="winter-overview">
+            <div><span>Progressão</span><strong>Usos Dracônicos</strong><small>Aumentam conforme a maldição se manifesta</small></div>
+            <div><span>Escolha inicial</span><strong>Instinto Primário</strong><small>Predador, Guardião ou Dominante</small></div>
+            <div><span>Ressonância</span><strong>−3 a +3</strong><small>Relação entre Félypo e Turlang</small></div>
+            <div><span>Objetivo</span><strong>Controle</strong><small>Dominar a própria essência</small></div>
+          </div>
+          <details open>
+            <summary><span>01</span> Contador e Instinto Dracônico</summary>
+            <div class="winter-panel">
+              <p>O contador de Usos Dracônicos acompanha o avanço da Maldição e suas manifestações. No primeiro estágio, Félypo escolhe permanentemente um Instinto Primário:</p>
+              <ul>
+                <li><strong>Predador:</strong> identifica criaturas com metade ou menos dos PV e, uma vez por turno, causa 1d6 de dano adicional contra elas.</li>
+                <li><strong>Guardião:</strong> trata companheiros como parte de seu Tesouro Dracônico e pode usar características defensivas de Monge para protegê-los.</li>
+                <li><strong>Dominante:</strong> possui Vantagem em Intimidação contra criaturas de ND igual ou inferior à metade de seu nível.</li>
+              </ul>
+              <p>Os instintos também podem exigir Salvaguardas contra impulsos, como perseguir presas feridas, abandonar aliados em perigo ou responder a desafios.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span>02</span> Ressonância com Turlang</summary>
+            <div class="winter-panel">
+              <p>A Ressonância começa em 0 e varia de −3 a +3 conforme confiança, respeito e objetivos compartilhados. Tratar Turlang como ferramenta ou obrigá-lo a agir contra seus princípios pode reduzi-la.</p>
+              <ul>
+                <li><strong>+1 — Sintonia:</strong> percebem vagamente o estado emocional um do outro.</li>
+                <li><strong>+2 — Sincronia:</strong> quando um usa a ação Help no outro, o beneficiado recebe +1d4 no teste ou ataque.</li>
+                <li><strong>+3 — Convergência:</strong> uma vez por Descanso Longo, Turlang pode usar a Reação para fortalecer uma característica dracônica de Félypo.</li>
+                <li><strong>−2 — Resistência:</strong> Turlang pode recusar ordens contra sua vontade.</li>
+                <li><strong>−3 — Dissonância:</strong> Félypo não pode usar Forçar a Maldição enquanto Turlang estiver presente e consciente.</li>
+              </ul>
+            </div>
+          </details>
+          <details>
+            <summary><span>03</span> Forçar a Maldição</summary>
+            <div class="winter-panel">
+              <p>Félypo substitui o uso de Overcast por uma forma deliberada de ultrapassar seus limites de Ki, mesmo quando está sem Ki. O preço é aumentar o contador Dracônico.</p>
+              <ul>
+                <li><strong>Impulso (+5 Usos):</strong> recebe imediatamente 1 ponto de Ki, sem ultrapassar seu máximo e sem gastar ação.</li>
+                <li><strong>Sobrecarga (+25 Usos):</strong> ao usar uma característica de Monge ou da Maldição que exija Ação Bônus ou Reação, pode fazê-lo sem gastar essa ação. Os custos normais continuam valendo e não são concedidas ações extras.</li>
+              </ul>
+            </div>
+          </details>
+          <details>
+            <summary><span>04</span> Contenção Dracônica</summary>
+            <div class="winter-panel">
+              <ul>
+                <li><strong>Meditação Dracônica:</strong> quatro horas de meditação concedem Controle Dracônico até o próximo Descanso Longo, dando Vantagem na primeira Salvaguarda contra cada compulsão.</li>
+                <li><strong>Selo Dracônico:</strong> runas e gemas, criadas em 1d4 dias e com 5.000 PO, suprimem novas manifestações sem interromper o acúmulo de Usos.</li>
+                <li><strong>Caçada Dracônica:</strong> consumir partes de um Dragão Cromático pode reduzir Usos: sangue −3d10, carne −5d10 e coração −10d10, uma vez por tipo e por dragão.</li>
+                <li><strong>Purificação:</strong> um clérigo com Restauração Maior pode tentar remover uma condição física em um ritual de 1d8 horas, 10.000 PO, escama de Dragão Metálico não Prateado e teste de Conjuração CD 22.</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+      ) : personagem.slug === "melvis" ? (
+        <div class="winter-compendium">
+          <p class="winter-intro">O Metabolismo Venenoso transforma o organismo de Melvis em um laboratório biológico. Ele assimila substâncias, compreende suas propriedades e reproduz toxinas por meio de suas glândulas.</p>
+          <div class="winter-overview">
+            <div><span>Imunidade</span><strong>Venenos vegetais e animais</strong><small>Pode ingerir para aprender a composição</small></div>
+            <div><span>Imbuições</span><strong>5 por veneno</strong><small>Cada ataque preparado consome 1</small></div>
+            <div><span>Adaptação</span><strong>1 round</strong><small>Após ingerir o componente necessário</small></div>
+            <div><span>Nível 20</span><strong>7 Imbuições</strong><small>Metabolismo Perfeito</small></div>
+          </div>
+          <details open>
+            <summary><span>01</span> Metabolismo e Secreção</summary>
+            <div class="winter-panel">
+              <p>Melvis é imune a venenos de origem vegetal e animal e pode ingeri-los para aprender sua composição. Sua secreção tóxica pode ser aplicada por contato direto, em armas, munições e ataques naturais, somando o dano normal aos efeitos do veneno.</p>
+              <p>Uma criatura só pode ser afetada pela secreção de contato uma vez por turno. Venenos que exigem ferimento não produzem efeito apenas pelo contato com a pele.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span>02</span> Adaptação Metabólica</summary>
+            <div class="winter-panel">
+              <p>Para produzir uma nova toxina, Melvis precisa ingerir um componente correspondente: uma planta, uma glândula animal ou uma dose previamente envasada. Seu organismo leva 1 round para se adaptar e começar a produzir o veneno.</p>
+              <p>Ele também pode absorver um veneno usado contra si gastando sua Reação, desde que já domine metabolicamente sua categoria. A absorção substitui a toxina ativa, mas não consome Imbuições.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span>03</span> Imbuição e Envasamento</summary>
+            <div class="winter-panel">
+              <ul>
+                <li>Melvis possui 5 Imbuições para cada veneno produzido.</li>
+                <li>Preparar uma arma ou ataque consome 1 Imbuição. O efeito permanece até o ataque ser usado ou a arma ficar 1 minuto sem uso.</li>
+                <li>Uma dose armazenada em frasco ou ampola consome 5 Imbuições e permanece válida por 24 horas.</li>
+                <li>Quando as Imbuições acabam, o organismo retorna ao veneno natural de Grung. Para produzir uma toxina especial, é necessário ingerir novos componentes.</li>
+              </ul>
+            </div>
+          </details>
+          <details>
+            <summary><span>04</span> Evoluções Metabólicas</summary>
+            <div class="winter-panel">
+              <ul>
+                <li><strong>Nível 13 — Metabolismo Alquímico:</strong> assimila venenos do tipo Toxina e sintetiza venenos híbridos usando dois componentes.</li>
+                <li><strong>Nível 15 — Fórmula Sintetizada:</strong> pode transformar permanentemente a secreção padrão em outro veneno e desenvolver o Spray de Veneno para dispersar toxinas inaláveis em uma área.</li>
+                <li><strong>Nível 18 — Metabolismo Arcano:</strong> assimila substâncias mágicas, torna-se imune a venenos do tipo Mistura e sintetiza venenos sobrenaturais com três componentes.</li>
+                <li><strong>Nível 20 — Metabolismo Perfeito:</strong> aumenta para 7 Imbuições por veneno e melhora a eficiência do envasamento e da preparação de ataques.</li>
+              </ul>
             </div>
           </details>
         </div>
