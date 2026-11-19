@@ -7,6 +7,7 @@ import { corvonescosHub } from "../../data/corvonescos";
 import { personagens } from "../../data/personagens";
 import { vinculos } from "../../data/vinculos";
 import { sessoes } from "../../data/sessoes";
+import "../../styles/corvonescos.css";
 
 const counts = [personagens.length, vinculos.length, sessoes.length];
 const hubItems = corvonescosHub.map((item, index) => ({
@@ -32,6 +33,17 @@ const hubItems = corvonescosHub.map((item, index) => ({
         <span>Personagens · Vínculos · Diário</span>
       </div>
     </SectionIntro>
+    <section class="corvonescos-banner" aria-labelledby="corvonescos-banner-title">
+      <div class="corvonescos-banner-art">
+        <img src="/images/corvonescos/simbolo-corvonescos.png" alt="Brasão dos Corvonescos" loading="lazy" />
+      </div>
+      <div class="corvonescos-banner-copy">
+        <span class="corvonescos-banner-kicker">Símbolo do grupo</span>
+        <h2 id="corvonescos-banner-title">A sorte dos Corvonescos</h2>
+        <p>A escolha do corvo como figura central do brasão veio justamente da ideia de mau agouro, pois, onde os Corvonescos aparecem, geralmente alguma coisa dá errado. A ferradura simboliza a sorte inexplicável que sempre parece nos acompanhar, enquanto os ramos de louro representam nossas vitórias, muitas vezes conquistadas contra todas as probabilidades.</p>
+        <blockquote><strong>“A gente não sabe como, mas no fim sempre dá certo ou sempre saímos ganhando de alguma forma.”</strong></blockquote>
+      </div>
+    </section>
     <SectionHub items={hubItems} />
   </main>
 </BaseLayout>
