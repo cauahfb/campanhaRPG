@@ -1,12 +1,12 @@
 ---
-import { navigation } from "../data/navigation";
+import { visibleNavigation, isNavigationItem } from "../data/navigation";
 
 interface Props {
   currentPath?: string;
 }
 
 const { currentPath = Astro.url.pathname } = Astro.props;
-const availableItems = navigation.filter((item) => item.status === "available");
+const availableItems = visibleNavigation().filter(isNavigationItem);
 ---
 <header class="section-topbar">
   <a href="/" class="site-mark" aria-label="Campanha RPG — página inicial">

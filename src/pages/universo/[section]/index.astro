@@ -1,0 +1,39 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Breadcrumb from "../../../components/Breadcrumb.astro";
+import SectionIntro from "../../../components/SectionIntro.astro";
+import { universoHub } from "../../../data/universo";
+
+export function getStaticPaths() {
+  return universoHub.map((item) => ({
+    params: { section: item.href.split("/").filter(Boolean).at(-1) },
+    props: { item },
+  }));
+}
+
+const { item } = Astro.props;
+---
+<BaseLayout
+  title={item.title}
+  description={item.description}
+  noindex
+>
+  <main class="section-shell">
+    <Breadcrumb items={[{ label: "Universo", href: "/universo/" }, { label: item.title }]} />
+    <a class="back-link" href="/universo/">← Voltar ao Universo</a>
+    <SectionIntro
+      eyebrow="Universo"
+      title={item.title}
+      description={item.description}
+    />
+    <section class="construction-notice" aria-labelledby="construction-title">
+      <svg class="construction-notice__icon" viewBox="0 0 48 48" width="44" height="44" aria-hidden="true">
+        <path d="M24 6l2.8 10.2L37 19l-10.2 2.8L24 32l-2.8-10.2L11 19l10.2-2.8Z" fill="currentColor" opacity=".65" />
+        <path d="M37 31l1.3 4.7L43 37l-4.7 1.3L37 43l-1.3-4.7L31 37l4.7-1.3ZM10 33l1 3.5L15 38l-4 1.5L10 43l-1-3.5L5 38l4-1.5Z" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round" />
+      </svg>
+      <h2 id="construction-title">Em construção</h2>
+      <p>Volte depois.</p>
+      <a class="back-link" href="/universo/">← Voltar ao Universo</a>
+    </section>
+  </main>
+</BaseLayout>

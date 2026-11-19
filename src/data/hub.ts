@@ -1,5 +1,13 @@
 export type HubStatus = "available" | "soon";
-export type HubIcon = "users" | "network" | "scroll-text" | "book-open" | "flask-conical";
+export type HubIcon =
+  | "users"
+  | "network"
+  | "scroll-text"
+  | "book-open"
+  | "flask-conical"
+  | "map"
+  | "file-text"
+  | "hammer";
 
 /** Item de um HUB (página de seção com poucos destinos grandes). */
 export interface HubItem {

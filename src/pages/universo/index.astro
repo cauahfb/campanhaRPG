@@ -1,0 +1,38 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SectionIntro from "../../components/SectionIntro.astro";
+import SectionHub from "../../components/SectionHub.astro";
+import { universoHub } from "../../data/universo";
+---
+<BaseLayout
+  title="Universo"
+  description="Explore o mundo da campanha: regiões, localidades, crônicas, documentos, criações e conceitos."
+>
+  <main class="section-shell">
+    <SectionIntro
+      eyebrow="O mundo da campanha"
+      title="O"
+      emphasis="Universo"
+      description="Conheça a história, os lugares e as ideias que dão forma ao mundo. Esta seção reúne o registro de tudo o que foi descoberto e construído ao longo da campanha."
+      meta={[`${universoHub.length} ÁREAS DO UNIVERSO`, "CONHECIMENTO · HISTÓRIA · EXPLORAÇÃO"]}
+    >
+      <div slot="art" class="intro-art-content">
+        <div class="book-emblem book-emblem--universo">
+          <svg class="book-emblem__constellation" viewBox="0 0 112 148" aria-hidden="true">
+            <path d="M27 104 43 82l22 11 18-34 15 8M43 82l10-48M65 93l-3-30M83 59l-31 4" />
+            <circle cx="27" cy="104" r="2.4" />
+            <circle cx="43" cy="82" r="2.2" />
+            <circle cx="65" cy="93" r="2.8" />
+            <circle cx="83" cy="59" r="3" />
+            <circle cx="98" cy="67" r="2.2" />
+            <circle cx="53" cy="34" r="2.4" />
+            <circle cx="62" cy="63" r="2" />
+            <path class="constellation-spark" d="M53 24v8M49 28h8M87 43v6M84 46h6M20 69v6M17 72h6" />
+          </svg>
+        </div>
+        <span>Regiões · Pessoas · Memórias</span>
+      </div>
+    </SectionIntro>
+    <SectionHub items={universoHub} label="Seções do Universo" />
+  </main>
+</BaseLayout>

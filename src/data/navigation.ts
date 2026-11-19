@@ -28,6 +28,7 @@ export type NavigationEntry = NavigationItem | NavigationGroup;
 export const navigation: NavigationEntry[] = [
   { label: "Início", href: "/", status: "available", exact: true },
   { label: "Os Corvonescos", href: "/corvonescos/", status: "available" },
+  { label: "Universo", href: "/universo/", status: "available" },
   {
     type: "group",
     label: "Biblioteca",
@@ -52,6 +53,10 @@ export const navigation: NavigationEntry[] = [
 
 export function isGroup(entry: NavigationEntry): entry is NavigationGroup {
   return (entry as NavigationGroup).type === "group";
+}
+
+export function isNavigationItem(entry: NavigationEntry): entry is NavigationItem {
+  return (entry as NavigationItem).type !== "group";
 }
 
 /** Itens disponíveis de um grupo ou link solto. */

@@ -1,5 +1,5 @@
 ---
-import { BookOpen, FlaskConical, Network, ScrollText, Users } from "@lucide/astro";
+import { BookOpen, FileText, FlaskConical, Hammer, Map, Network, ScrollText, Users } from "@lucide/astro";
 import type { HubItem } from "../data/hub";
 
 interface Props {
@@ -13,6 +13,9 @@ const icons = {
   "scroll-text": ScrollText,
   "book-open": BookOpen,
   "flask-conical": FlaskConical,
+  map: Map,
+  "file-text": FileText,
+  hammer: Hammer,
 };
 
 const { item, index } = Astro.props;
