@@ -26,11 +26,13 @@ export const navigation: NavigationEntry[] = [
   { label: "Início", href: "/", status: "available", exact: true },
   { label: "Os Corvonescos", href: "/corvonescos/", status: "available" },
   { label: "Universo", href: "/universo/", status: "available" },
+  { label: "Sobre nós", href: "/sobre-nos/", status: "available" },
   {
     type: "group",
     label: "Biblioteca",
     items: [
       { label: "Regras da Casa", href: "/regras-da-casa/", status: "available" },
+      { label: "Atividades de Downtimes", href: "/atividades-de-downtimes/", status: "available" },
       { label: "Bestiário do Melvis", href: "/bestiario-do-melvis/", status: "available" },
       { label: "Tipos de Venenos", href: "/tipos-de-venenos/", status: "available" },
     ],

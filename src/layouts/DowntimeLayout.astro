@@ -1,0 +1,45 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import SectionIntro from "../components/SectionIntro.astro";
+import "../styles/regras.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+  frontmatter?: { title?: string; description?: string };
+}
+
+const { frontmatter } = Astro.props;
+const title = Astro.props.title ?? frontmatter?.title ?? "Atividades de Downtimes";
+const description =
+  Astro.props.description ??
+  frontmatter?.description ??
+  "Atividades para descanso, treinamento, criação, intriga e outros períodos entre aventuras.";
+---
+
+<BaseLayout title={title} description={description}>
+  <main class="section-shell downtime-page">
+    <SectionIntro
+      eyebrow="Biblioteca da Campanha"
+      title="Atividades de"
+      emphasis="Downtimes"
+      description="Opções para aproveitar o tempo entre aventuras: descansar, treinar, criar, pesquisar, fazer contatos e deixar sua marca no mundo."
+      meta={["TEMPO LIVRE · CUSTOS · CONSEQUÊNCIAS", "REGRAS DA CASA"]}
+    >
+      <div slot="art" class="intro-art-content">
+        <div class="book-emblem book-emblem--downtime">
+          <svg class="book-emblem__symbol book-emblem__symbol--downtime" viewBox="0 0 64 64" aria-hidden="true">
+            <path d="M32 9v46M32 14c-7-5-14-5-21-2v38c7-3 14-3 21 2M32 14c7-5 14-5 21-2v38c-7-3-14-3-21 2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+            <path d="M18 22c4-1 8 0 11 2M18 30c4-1 8 0 11 2M46 22c-4-1-8 0-11 2M46 30c-4-1-8 0-11 2" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" opacity=".8" />
+            <circle cx="32" cy="45" r="5" fill="rgba(160,47,76,.45)" stroke="currentColor" stroke-width="1.1" />
+            <path d="M32 42v3l2 1" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" />
+          </svg>
+        </div>
+        <span>Descanso · Escolhas · Progresso</span>
+      </div>
+    </SectionIntro>
+    <article class="rule-prose downtime-prose">
+      <slot />
+    </article>
+  </main>
+</BaseLayout>

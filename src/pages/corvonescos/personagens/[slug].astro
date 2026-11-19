@@ -40,14 +40,6 @@ const faixas = personagem.status === "Ativo"
       <div class="rule-detail-heading character-profile-heading character-dossier-body">
         <span class="character-status character-status--detail">{personagem.status}</span>
         <h1>{personagem.nome}</h1>
-        <div class="character-player-card">
-          <div class="character-player-photo" aria-hidden="true">?</div>
-          <div>
-            <span class="character-field-kicker">Dados do jogador</span>
-            <strong>Nome e idade ainda não informados</strong>
-            <span>Nome: — · Idade: —</span>
-          </div>
-        </div>
         <dl class="character-identity" aria-label={`Dados de ${personagem.nome}`}>
           <div><dt>Raça</dt><dd>{personagem.raca || "—"}</dd></div>
           <div><dt>Altura</dt><dd>{personagem.altura || "—"}</dd></div>

@@ -1,0 +1,72 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Página não encontrada" description="Winter ainda não encontrou esta página.">
+  <main class="not-found-page">
+    <div class="not-found-card">
+      <p class="not-found-code">404 · Página não encontrada</p>
+      <img
+        src="/winter.gif"
+        alt="Winter, um corvo pensativo procurando pela página."
+        width="320"
+        height="320"
+      />
+      <div class="not-found-copy">
+        <h1>Winter ainda não encontrou isso.</h1>
+        <p>Talvez esta página tenha se perdido no caminho. Vamos voltar para um lugar conhecido?</p>
+        <a class="button button--primary" href="/">Voltar para o início <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .not-found-page {
+    min-height: 72vh;
+    display: grid;
+    place-items: center;
+    padding: 48px 24px 80px;
+  }
+
+  .not-found-card {
+    width: min(100%, 760px);
+    padding: clamp(28px, 6vw, 64px);
+    border: 1px solid var(--line);
+    background:
+      radial-gradient(circle at 50% 35%, rgba(110, 35, 57, .22), transparent 48%),
+      linear-gradient(145deg, var(--surface-2), var(--surface));
+    box-shadow: 0 24px 70px rgba(0, 0, 0, .28);
+    text-align: center;
+  }
+
+  .not-found-code {
+    margin: 0 0 20px;
+    color: var(--gold);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .24em;
+    text-transform: uppercase;
+  }
+
+  .not-found-card img {
+    display: block;
+    width: min(100%, 320px);
+    height: auto;
+    margin: 0 auto 24px;
+  }
+
+  .not-found-copy h1 {
+    margin: 0;
+    color: var(--text);
+    font: 500 clamp(32px, 5vw, 54px)/1.05 var(--font-display);
+  }
+
+  .not-found-copy p {
+    max-width: 500px;
+    margin: 18px auto 28px;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.8;
+  }
+</style>

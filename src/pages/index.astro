@@ -4,7 +4,6 @@ import SectionIntro from "../components/SectionIntro.astro";
 import SectionHub from "../components/SectionHub.astro";
 import FeaturedStory from "../components/FeaturedStory.astro";
 import StatsStrip from "../components/StatsStrip.astro";
-import venenos from "../data/venenos.json";
 import { personagens } from "../data/personagens";
 import { sessoes } from "../data/sessoes";
 import { destaque, estatisticas } from "../data/campanha";
@@ -30,6 +29,22 @@ const exploreItems: HubItem[] = [
     status: "available",
   },
   {
+    title: "Universo",
+    description: "Regiões, crônicas, documentos e tudo o que dá forma ao mundo da campanha.",
+    href: "/universo/",
+    icon: "map",
+    eyebrow: "O mundo",
+    status: "available",
+  },
+  {
+    title: "Bestiário do Melvis",
+    description: "Criaturas, ameaças e descobertas catalogadas ao longo das aventuras.",
+    href: "/bestiario-do-melvis/",
+    icon: "book-open",
+    eyebrow: "Criaturas",
+    status: "available",
+  },
+  {
     title: "Regras da Casa",
     description: "Regras, adaptações e sistemas próprios que moldam as nossas aventuras.",
     href: "/regras-da-casa/",
@@ -38,13 +53,19 @@ const exploreItems: HubItem[] = [
     status: "available",
   },
   {
-    title: "Tipos de Venenos",
-    description: "Catálogo de substâncias, formas de aplicação, preços e efeitos.",
-    href: "/tipos-de-venenos/",
-    icon: "flask-conical",
-    eyebrow: "Alquimia",
-    count: venenos.length,
-    countLabel: "venenos",
+    title: "Atividades de Downtime",
+    description: "Descanso, treinamento, criação e outras escolhas entre uma aventura e outra.",
+    href: "/atividades-de-downtimes/",
+    icon: "scroll-text",
+    eyebrow: "Tempo livre",
+    status: "available",
+  },
+  {
+    title: "Sobre Nós",
+    description: "Conheça as pessoas, a história e o jeito de jogar da nossa mesa.",
+    href: "/sobre-nos/",
+    icon: "users",
+    eyebrow: "A mesa",
     status: "available",
   },
 ];

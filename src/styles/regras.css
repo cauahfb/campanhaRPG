@@ -315,6 +315,21 @@
   font-weight: 350;
   line-height: 1.9;
 }
+.book-emblem__symbol--downtime,
+.book-emblem__symbol--about {
+  width: 56px;
+  height: 56px;
+}
+.book-emblem--downtime {
+  background:
+    radial-gradient(circle at 50% 52%, rgba(201, 167, 124, .18), transparent 40%),
+    linear-gradient(145deg, rgba(42, 22, 35, .96), rgba(13, 8, 16, .98));
+}
+.book-emblem--about {
+  background:
+    radial-gradient(circle at 50% 52%, rgba(160, 47, 76, .2), transparent 40%),
+    linear-gradient(145deg, rgba(42, 22, 35, .96), rgba(13, 8, 16, .98));
+}
 .rule-prose h2 {
   position: relative;
   margin: 52px 0 18px;

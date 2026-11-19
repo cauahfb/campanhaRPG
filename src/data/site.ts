@@ -6,6 +6,6 @@ export const SITE = {
   locale: "pt_BR",
   defaultDescription:
     "Campanha RPG: a wiki personalizada da nossa campanha de D&D. Personagens, regras da casa, venenos e os registros do grupo Os Corvonescos.",
-  ogImage: "/images/og/campanha-rpg-og.png",
+  ogImage: "/images/og/campanha-rpg-search.png",
   ogImageAlt: "Emblema da Campanha RPG — Um universo além dos dados",
 } as const;

@@ -580,7 +580,6 @@
 .winter-panel em { color: var(--gold); font-style: normal; }
 @media (max-width: 620px) {
   .character-npc-placeholder { grid-template-columns: 84px minmax(0, 1fr); padding: 14px; }
-  .character-player-card { max-width: none; }
   .character-copy { padding: 18px; }
   .personality-with-image { grid-template-columns: 1fr; }
   .personality-companion { max-width: 260px; justify-self: center; }
@@ -613,28 +612,6 @@
 .character-dossier-body .character-status { align-self: flex-start; }
 .character-dossier-body h1 { font-size: clamp(38px, 4.4vw, 58px); margin: 4px 0 6px; }
 .character-dossier-body .character-class-list { margin-top: 14px; }
-.character-player-card {
-  display: grid;
-  grid-template-columns: 58px minmax(0, 1fr);
-  gap: 12px;
-  align-items: center;
-  max-width: 430px;
-  margin: 18px 0 16px;
-  padding: 10px;
-  border: 1px solid var(--line);
-  background: rgba(110, 35, 57, .1);
-}
-.character-player-photo {
-  aspect-ratio: 1;
-  display: grid;
-  place-items: center;
-  border: 1px solid var(--line-strong);
-  color: var(--gold-dim);
-  font: 500 24px var(--font-display);
-}
-.character-player-card div:last-child { display: grid; gap: 4px; }
-.character-player-card strong { color: var(--text); font: 600 15px var(--font-display); }
-.character-player-card div:last-child > span:last-child { color: var(--muted); font-size: 10px; }
 .character-identity {
   display: flex;
   flex-wrap: wrap;

@@ -1,0 +1,313 @@
+.about-page {
+  padding-bottom: 70px;
+}
+
+.about-section {
+  padding: 62px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.about-opening {
+  max-width: 850px;
+  margin-inline: auto;
+  padding: 42px 0;
+  text-align: center;
+}
+
+.about-kicker {
+  margin: 0 0 12px;
+  color: var(--gold);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+}
+
+.about-opening blockquote {
+  margin: 0;
+  color: var(--text);
+  font: 500 clamp(24px, 3.2vw, 40px)/1.15 var(--font-display);
+}
+
+.about-opening > p:last-child {
+  max-width: 620px;
+  margin: 24px auto 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.about-heading h2,
+.about-columns h2 {
+  margin: 0;
+  color: var(--text);
+  font: 500 clamp(34px, 4vw, 54px)/1.05 var(--font-display);
+}
+
+.about-section:not(.about-opening) {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  padding-top: 48px;
+}
+
+.about-section:not(.about-opening) .about-heading {
+  text-align: center;
+}
+
+.about-copy {
+  width: min(100%, 900px);
+  margin-inline: auto;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.85;
+}
+
+.about-copy p,
+.about-columns p {
+  margin: 0 0 16px;
+}
+
+.about-copy blockquote {
+  position: relative;
+  margin: 28px 0;
+  padding: 18px 24px 18px 28px;
+  border-left: 2px solid var(--gold);
+  background: linear-gradient(90deg, rgba(110, 35, 57, .2), rgba(110, 35, 57, .03));
+  color: var(--text-soft);
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-style: italic;
+  line-height: 1.65;
+}
+
+.about-copy blockquote::before {
+  content: "“";
+  position: absolute;
+  top: 4px;
+  left: 8px;
+  color: var(--gold-dim);
+  font-size: 30px;
+  line-height: 1;
+}
+
+.about-copy blockquote p {
+  margin: 0;
+}
+
+.about-people-grid {
+  width: min(100%, 960px);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+  align-items: start;
+}
+
+.about-person {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 620px;
+  border: 1px solid var(--line);
+  background: linear-gradient(140deg, var(--surface-2), var(--surface));
+}
+
+.about-person__photo {
+  height: 400px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-bottom: 1px solid var(--line);
+  color: var(--dim);
+  background:
+    linear-gradient(135deg, transparent 49.5%, var(--line) 50%, transparent 50.5%),
+    linear-gradient(45deg, transparent 49.5%, var(--line) 50%, transparent 50.5%),
+    var(--surface);
+  font-size: 10px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+
+.about-person__photo img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: 100%;
+  background: var(--surface);
+}
+
+.about-person__body {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  min-height: 0;
+  padding: 22px;
+  color: var(--muted);
+  background: var(--surface-2);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.about-person__body h3 {
+  margin: 0;
+  color: var(--text);
+  font: 600 26px/1.1 var(--font-display);
+}
+
+.about-person__age {
+  margin: 4px 0 14px;
+  color: var(--gold);
+  font-size: 10px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.about-person__role {
+  margin: 0 0 16px;
+  color: var(--gold-bright);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .14em;
+  line-height: 1.7;
+  text-transform: uppercase;
+}
+
+.about-person__body p a {
+  color: var(--gold);
+  text-decoration-color: rgba(201, 167, 124, .45);
+  text-underline-offset: 3px;
+}
+
+.about-person__body p a:hover {
+  color: var(--gold-bright);
+}
+
+.about-person__body blockquote {
+  margin: 18px 0 0;
+  padding-left: 14px;
+  border-left: 1px solid var(--gold-dim);
+  color: var(--text-soft);
+  font-family: var(--font-display);
+  font-size: 19px;
+}
+
+.about-placeholder {
+  padding: 52px 28px;
+  border: 1px dashed var(--line-strong);
+  text-align: center;
+  background: rgba(201, 167, 124, .025);
+}
+
+.about-placeholder__mark {
+  color: var(--gold);
+  font-size: 24px;
+}
+
+.about-placeholder h3 {
+  margin: 14px 0 8px;
+  color: var(--text);
+  font: 500 28px var(--font-display);
+}
+
+.about-placeholder p,
+.about-columns p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.about-columns {
+  grid-template-columns: 1fr !important;
+}
+
+.about-columns > article {
+  width: min(100%, 900px);
+  margin-inline: auto;
+  text-align: center;
+}
+
+.about-columns > article + article {
+  padding-top: 40px;
+  border-top: 1px solid var(--line-soft);
+}
+
+.about-columns > article h2 {
+  margin-bottom: 22px;
+}
+
+.about-columns > article > p:not(.about-kicker) {
+  max-width: 760px;
+  margin-inline: auto;
+}
+
+.about-rule-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 8px;
+  padding: 14px 18px;
+  border: 1px solid var(--line-strong);
+  color: var(--text);
+  text-align: left;
+  text-decoration: none;
+  background: linear-gradient(135deg, rgba(110, 35, 57, .22), rgba(110, 35, 57, .05));
+  transition: border-color .25s, background .25s, transform .25s;
+}
+
+.about-rule-link:hover {
+  border-color: var(--gold-dim);
+  background: linear-gradient(135deg, rgba(110, 35, 57, .34), rgba(110, 35, 57, .1));
+  transform: translateY(-2px);
+}
+
+.about-rule-link span:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-family: var(--font-display);
+  font-size: 20px;
+}
+
+.about-rule-link small {
+  color: var(--gold);
+  font-family: var(--font-ui);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.about-rule-link__arrow {
+  color: var(--gold-bright);
+  font-size: 22px;
+  transition: transform .25s;
+}
+
+.about-rule-link:hover .about-rule-link__arrow {
+  transform: translateX(4px);
+}
+
+.about-contact-inline {
+  margin-top: 24px !important;
+  padding-top: 18px;
+  border-top: 1px solid var(--line-soft);
+  color: var(--text-soft);
+}
+
+@media (max-width: 700px) {
+  .about-section:not(.about-opening),
+  .about-columns {
+    grid-template-columns: 1fr !important;
+    gap: 24px;
+  }
+
+  .about-people-grid {
+    width: min(100%, 300px);
+  }
+
+  .about-person__photo {
+    height: 400px;
+  }
+
+}

@@ -1,0 +1,194 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionIntro from "../components/SectionIntro.astro";
+import "../styles/about.css";
+
+const players: Array<{
+  name: string;
+  age: string;
+  role?: string;
+  image?: string;
+  characters: Array<{ name: string; href: string }>;
+  quote: string;
+}> = [
+  {
+    name: "Gabriel",
+    age: "Aniversário: 14/09/2002",
+    image: "/images/jogadores/gabriel.png",
+    characters: [
+      { name: "Kiei", href: "/corvonescos/personagens/kiei/" },
+      { name: "Edran", href: "/corvonescos/personagens/edran/" },
+      { name: "Novrik", href: "/corvonescos/personagens/novrik/" },
+    ],
+    quote: "pra nois rir alguem vai ter q chorar",
+  },
+  {
+    name: "Cauã",
+    age: "Aniversário: 08/12/2002",
+    role: "O Mestre",
+    image: "/images/jogadores/caua.png",
+    characters: [],
+    quote: "uai, tenta né",
+  },
+  {
+    name: "Gabrielly",
+    age: "Aniversário: 16/03/2002",
+    image: "/images/jogadores/gabrielly.png",
+    characters: [
+      { name: "Ophelia", href: "/corvonescos/personagens/ophelia/" },
+      { name: "Corvalina", href: "/corvonescos/personagens/corvalina/" },
+    ],
+    quote: "joguem vn yaoi a vida é bela",
+  },
+  {
+    name: "Luciano",
+    age: "Aniversário: 16/09/2002",
+    image: "/images/jogadores/luciano.png",
+    characters: [{ name: "Felypo", href: "/corvonescos/personagens/felypo/" }],
+    quote: "meu corpo é quente e minha alma é pura",
+  },
+];
+---
+
+<BaseLayout
+  title="Sobre nós"
+  description="Conheça a mesa, as pessoas e a história por trás da Campanha RPG."
+>
+  <main class="section-shell about-page">
+    <SectionIntro
+      eyebrow="A mesa por trás das histórias"
+      title="Sobre"
+      emphasis="nós"
+      description="Um espaço pessoal para conhecerem um pouquinho mais sobre nós."
+      meta={["A NOSSA MESA", "D&D 5ª EDIÇÃO · CAMPANHA RPG"]}
+    >
+      <div slot="art" class="intro-art-content">
+        <div class="book-emblem book-emblem--about">
+          <svg class="book-emblem__symbol book-emblem__symbol--about" viewBox="0 0 64 64" aria-hidden="true">
+            <circle cx="32" cy="24" r="8" fill="none" stroke="currentColor" stroke-width="1.3" />
+            <path d="M18 48c1-8 6-13 14-13s13 5 14 13M11 46c1-6 4-9 10-10M53 46c-1-6-4-9-10-10" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+            <circle cx="15" cy="27" r="5" fill="rgba(160,47,76,.32)" stroke="currentColor" stroke-width="1.1" />
+            <circle cx="49" cy="27" r="5" fill="rgba(160,47,76,.32)" stroke="currentColor" stroke-width="1.1" />
+            <path d="M32 43v8M28 47h8" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" opacity=".8" />
+          </svg>
+        </div>
+        <span>Amizade · Dados · Histórias</span>
+      </div>
+    </SectionIntro>
+
+    <section class="about-section about-opening" aria-labelledby="frase-de-abertura">
+      <p class="about-kicker">Lema da mesa:</p>
+      <blockquote id="frase-de-abertura">
+        Você pode tentar tudo, pelo menos uma vez.
+      </blockquote>
+    </section>
+
+    <section class="about-section" aria-labelledby="como-tudo-comecou">
+      <div class="about-heading">
+        <p class="about-kicker">A origem da campanha</p>
+        <h2 id="como-tudo-comecou">Como tudo começou</h2>
+      </div>
+      <div class="about-copy">
+        <p>Antes de tudo, somos todos amigos virtuais. Apenas o Gab, o Gabriel e o Vinícius moram perto uns dos outros.</p>
+        <p>Tudo nasceu numa partida de ARAM, em 29 de dezembro de 2024. Eu (Cauã), o Gab e o Gabriel estávamos jogando conversa fora quando, do nada, o assunto veio à tona: o quanto RPG é legal...</p>
+        <p>Um dia se passou, fizemos uma enquete e decidimos jogar D&amp;D 5e. Foi aí que surgiu a grande dúvida: <strong>QUEM É O MESTRE?</strong> Ninguém queria mestrar... e adivinha? A bomba sobrou pra mim!</p>
+        <blockquote>
+          <p>Mas tudo bem, porque até hoje estou aqui. A campanha principal já tem um bom tempo de estrada e, hoje em dia, já tivemos várias sessões mestradas pelo Gabriel também!</p>
+        </blockquote>
+        <p>Mas, pra entender como chegamos até aqui, vale voltar um pouquinho no tempo.</p>
+
+        <h3>A One Shot</h3>
+        <p>No início, a ideia era só uma One Shot, com a temática de Asura, um reino fora do mundo de Forgotten Realms. Na época, a gente mal conhecia a lore direito, então as fichas eram bem simples, feitas só com o Manual do Jogador: básicas em tudo, sem feats!</p>
+        <p>A mesa começou com 6 jogadores: Gab, Gabriel e Luciano desde o início, além de João Paulo, Claudio e Maria Isabel, que hoje não jogam mais com a gente.</p>
+        <p>Como a ideia era só ensinar o básico do sistema, a história era simples: coloquei todo mundo pra enfrentar um Demilich (numa versão bem tranquila, porque eu não sou maluco). Mesmo assim, aquele dia rendeu cada momento...</p>
+        <ul>
+          <li>O anão tentando quebrar os vidros da loja de uma feiticeira;</li>
+          <li>O bardo carregando um carrinho cheio de quinquilharias;</li>
+          <li>O feiticeiro tentando usar <em>Amizade</em> com um rei e sendo decapitado por isso (eu não disse que tudo foram coisas boas).</li>
+        </ul>
+
+        <p>Só que aquela One Shot, que era pra ser só uma sessão, desencadeou um efeito borboleta gigantesco. Daí começamos uma campanha sandbox, em mundo aberto, que segue até hoje, acompanhando todas as mudanças pelas quais os personagens passaram.</p>
+        <p>E os jogadores também mudaram, mas eu continuo como mestre... engraçado, né?</p>
+        <p>Falando nisso, Maria Isabel, Claudio e João Paulo acabaram saindo da mesa. Em compensação, hoje temos o Vinícius, que está conosco desde a primeira sessão da campanha principal, em março de 2025, e o Arthur, que se juntou a nós em novembro de 2026.</p>
+        <p>E, de lá pra cá, meu amigo, muita coisa rolou:</p>
+        <ul>
+          <li>Ladino virando bruxo;</li>
+          <li>Pactos e mais pactos com Graz’zt;</li>
+          <li>Gente virando ouro;</li>
+          <li>Puteiro virando hotel de luxo;</li>
+          <li>Criança perdida virando herdeiro;</li>
+          <li>Algumas mortes...</li>
+          <li>Cidades virando cinzas, enquanto outras se desenvolveram absurdamente;</li>
+          <li>E teve até corvo que aprendeu a falar e morreu (mas hoje passa bem, já!).</li>
+        </ul>
+      <br>
+        <p>E o melhor: como eu disse, isso foi só o começo!</p>
+      </div>
+    </section>
+
+    <section class="about-section" aria-labelledby="quem-somos">
+      <div class="about-heading">
+        <p class="about-kicker">As pessoas da mesa</p>
+        <h2 id="quem-somos">Quem somos</h2>
+      </div>
+      {players.length > 0 ? (
+        <div class="about-people-grid">
+          {players.map((player) => (
+            <article class="about-person">
+              <div class="about-person__photo">
+                {player.image ? <img src={player.image} alt={`Foto de ${player.name}`} loading="lazy" /> : <span>Foto em breve</span>}
+              </div>
+              <div class="about-person__body">
+                <h3>{player.name}</h3>
+                <p class="about-person__age">{player.age}</p>
+                {player.characters.length > 0 && (
+                  <p>
+                    <strong>Personagens:</strong>{" "}
+                    {player.characters.map((character, index) => (
+                      <>
+                        <a href={character.href}>{character.name}</a>{index < player.characters.length - 1 ? ", " : ""}
+                      </>
+                    ))}
+                  </p>
+                )}
+                {player.characters.length === 0 && player.role && (
+                  <p class="about-person__role"><strong>{player.role}</strong></p>
+                )}
+                <blockquote>{player.quote}</blockquote>
+              </div>
+            </article>
+          ))}
+        </div>
+      ) : (
+        <div class="about-placeholder">
+          <span class="about-placeholder__mark" aria-hidden="true">✦</span>
+          <h3>Este espaço será preenchido em breve</h3>
+          <p>Aqui estarão as fotos, nomes, idades, personagens e frases marcantes de cada pessoa da mesa.</p>
+        </div>
+      )}
+    </section>
+
+    <section class="about-section about-columns" aria-label="Sobre a mesa e o site">
+      <article>
+        <p class="about-kicker">Nosso jeito de jogar</p>
+        <h2 id="como-jogamos">Como jogamos</h2>
+        <p>Nossas sessões acontecem online, usando o Foundry VTT como mesa virtual e o Discord para a comunicação.</p>
+        <p>O tom da campanha transita entre Dark Fantasy e High Fantasy. Normalmente, jogamos duas sessões de seis horas a cada duas semanas.</p>
+        <p>Usamos D&amp;D 5e com várias adaptações próprias para a nossa mesa.</p>
+        <a class="about-rule-link" href="/regras-da-casa/">
+          <span>
+            <small>Consulte o compêndio</small>
+            Regras da Casa
+          </span>
+          <span class="about-rule-link__arrow" aria-hidden="true">→</span>
+        </a>
+      </article>
+      <article>
+        <p class="about-kicker">Este projeto</p>
+        <h2 id="sobre-o-site">Sobre o Site</h2>
+        <p>Esse site foi criado para mantermos todo o conteúdo da mesa atualizado: nosso universo, mudanças, personagens e nossa história!</p>
+        <p class="about-contact-inline"><strong>Contato:</strong> <a href="mailto:cauaferreirabarbosa@hotmail.com">cauaferreirabarbosa@hotmail.com</a></p>
+      </article>
+    </section>
+  </main>
+</BaseLayout>
