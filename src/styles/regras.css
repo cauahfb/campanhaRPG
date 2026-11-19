@@ -1290,3 +1290,15 @@
   .runomancia-steps { grid-template-columns: 1fr; }
   .runomancia-illustration { margin: 22px 0 28px; }
 }
+
+.runomancia-credit {
+  margin-top: 56px;
+  padding: 20px 24px;
+  border-top: 1px solid var(--line-strong);
+  background: rgba(201, 167, 124, .04);
+  color: var(--muted);
+  font-size: .92rem;
+  line-height: 1.6;
+}
+.runomancia-credit p { margin: 0; }
+.runomancia-credit p + p { margin-top: 8px; font-style: italic; }

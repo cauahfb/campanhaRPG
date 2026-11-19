@@ -150,7 +150,7 @@ import RulesLayout from "../../layouts/RulesLayout.astro";
           <tr><td>5 a 6</td><td>20</td></tr>
         </tbody>
       </table>
-      <p>O teste utiliza o modificador de Destreza, salvo se o Mestre determinar que outra habilidade representa melhor a técnica empregada. O personagem soma seu bônus de proficiência se for proficiente com ferramentas de caligrafia. Todo personagem que adquire Orador Rúnico recebe imediatamente proficiência com ferramentas de caligrafia.</p>
+      <p>O teste utiliza o modificador de Destreza, salvo se o Mestre determinar que outra habilidade representa melhor a técnica empregada. O personagem soma seu bônus de proficiência se for proficiente com ferramentas de caligrafia, proficiência concedida pela evolução Artesão de Runas.</p>
       <p>O Mestre pode impor desvantagem se o personagem estiver sob pressão, como ao sofrer dano, movimentar-se em terreno instável ou tentar escrever enquanto é impedido de se concentrar. <strong>Além disso, escrever uma inscrição enquanto houver um ou mais inimigos adjacentes ao personagem concede desvantagem no teste de escrita.</strong></p>
       <p><strong>Falha no teste:</strong> a inscrição não é concluída; a tinta utilizada e o suporte são perdidos, a Ação é gasta e nenhum Estresse é acumulado, pois a magia não chegou a ser ativada.</p>
       <h3>Ativação</h3>
@@ -187,7 +187,7 @@ import RulesLayout from "../../layouts/RulesLayout.astro";
         <thead><tr><th>Complexidade</th><th>CD base</th></tr></thead>
         <tbody><tr><td>Trivial</td><td>10</td></tr><tr><td>Regular</td><td>12</td></tr><tr><td>Difícil</td><td>15</td></tr><tr><td>Complexa</td><td>18</td></tr><tr><td>Milagre</td><td>22</td></tr></tbody>
       </table>
-      <p>A CD base é reduzida pelos benefícios de Artesão de Runas e Mestre Rúnico. Um Artesão reduz a CD em 2; um Mestre Rúnico reduz em 4 no total.</p>
+      <p>A CD base é reduzida pelo benefício de Mestre Rúnico, que diminui a CD em 4.</p>
     </section>
 
     <section id="resolucao">
@@ -226,12 +226,12 @@ import RulesLayout from "../../layouts/RulesLayout.astro";
       <h2>9. Proficiências rúnicas</h2>
       <p>As proficiências rúnicas representam o treinamento e a experiência de um personagem com a linguagem, a escrita e a fabricação de inscrições. Não são classes e não substituem as características de classe de D&amp;D 5e.</p>
       <h3>Orador Rúnico</h3>
-      <p>Qualquer pessoa pode adquirir a proficiência <strong>Orador Rúnico</strong> após receber 30 dias de instrução com um tutor. Essa é a iniciação necessária para compreender a estrutura da linguagem rúnica. O personagem pode ler, compreender e escrever as runas que aprendeu, além de ativar inscrições preparadas por outras pessoas. Ao se tornar Orador Rúnico, recebe imediatamente proficiência com ferramentas de caligrafia.</p>
+      <p>Qualquer pessoa pode adquirir a proficiência <strong>Orador Rúnico</strong> após receber 30 dias de instrução com um tutor. Essa é a iniciação necessária para compreender a estrutura da linguagem rúnica. O personagem pode ler, compreender e escrever as runas que aprendeu, além de ativar inscrições preparadas por outras pessoas.</p>
       <p>Orador Rúnico possui um único nível. Artesão de Runas e Mestre Rúnico não são níveis adicionais de Orador Rúnico: são evoluções dessa proficiência, obtidas por treinamento e experiência.</p>
-      <h3>Artesão de Runas — primeira evolução</h3>
-      <ul><li>A CD dos testes para escrever inscrições é reduzida em 2.</li><li>O personagem aprende a fabricar tinta rúnica, seguindo a receita e o tempo de fabricação descritos na seção de tinta.</li></ul>
-      <h3>Mestre Rúnico — segunda evolução</h3>
-      <ul><li>A CD dos testes para escrever inscrições é reduzida em mais 2. Esse benefício se acumula com Artesão de Runas, totalizando –4.</li><li>Ao fabricar tinta, o personagem produz o dobro: dez doses por pote preparado em um dia de trabalho.</li><li>O Estresse acumulado por cada conjuração é reduzido em 1, até o mínimo de 0.</li></ul>
+      <h3>Artesão de Runas</h3>
+      <ul><li>O personagem recebe proficiência com ferramentas de caligrafia.</li><li>O personagem aprende a fabricar tinta rúnica, seguindo a receita e o tempo de fabricação descritos na seção de tinta.</li></ul>
+      <h3>Mestre Rúnico</h3>
+      <ul><li>A CD dos testes para escrever inscrições é reduzida em 4.</li><li>Ao fabricar tinta, o personagem produz o dobro: dez doses por pote preparado em um dia de trabalho.</li><li>O Estresse acumulado por cada conjuração é reduzido em 1, até o mínimo de 0.</li></ul>
       <p>As evoluções exigem treinamento, orientação ou descobertas relevantes durante a aventura. O Mestre determina como e quando podem ser adquiridas. Nenhuma delas concede automaticamente conhecimento de novas runas.</p>
     </section>
 
@@ -288,7 +288,7 @@ import RulesLayout from "../../layouts/RulesLayout.astro";
       <table>
         <thead><tr><th>Regra</th><th>Resumo</th></tr></thead>
         <tbody>
-          <tr><td>Iniciação</td><td>30 dias com um tutor para adquirir Orador Rúnico; recebe proficiência com ferramentas de caligrafia.</td></tr>
+          <tr><td>Iniciação</td><td>30 dias com um tutor para adquirir Orador Rúnico.</td></tr>
           <tr><td>Aprender runas</td><td>Tutor, pesquisa ou estudo de inscrições; teste de Inteligência (Arcanismo) quando necessário.</td></tr>
           <tr><td>Identificar runa desconhecida</td><td>Estudo de pelo menos 1 hora; teste de Inteligência (Arcanismo): CD 10, 15, 20 ou 25, conforme a inscrição.</td></tr>
           <tr><td>Estrutura da frase</td><td>Exatamente 1 Função + 1 Objeto; Características refinam o efeito. A intenção de uso também determina o resultado.</td></tr>
@@ -316,6 +316,10 @@ import RulesLayout from "../../layouts/RulesLayout.astro";
         </tbody>
       </table>
     </section>
+    <aside class="runomancia-credit" aria-label="Créditos">
+      <p>Este material é uma adaptação do Sistema Etmos, da editora <a href="https://baldegalactico.com.br/" target="_blank" rel="noopener noreferrer">Balde Galáctico</a>.</p>
+      <p>Se você é jogador, recomendamos que não consulte o conteúdo original do sistema, para não estragar a sua experiência.</p>
+    </aside>
   </article>
 </main>
 </RulesLayout>
