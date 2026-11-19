@@ -6,7 +6,7 @@ import { vinculos } from "../../../data/vinculos";
 import { personagens } from "../../../data/personagens";
 import "../../../styles/regras.css";
 import "../../../styles/corvonescos.css";
-const tipoFilters = [{ label: "Todos", value: "todos" }, { label: "Aliados", value: "aliado" }, { label: "Inimigos", value: "inimigo" }, { label: "Especiais", value: "especial" }];
+const tipoFilters = [{ label: "Aliados", value: "aliado" }, { label: "Inimigos", value: "inimigo" }, { label: "Menção Honrosa", value: "especial" }];
 ---
 <BaseLayout
   title="Vínculos | Os Corvonescos"
@@ -22,56 +22,164 @@ const tipoFilters = [{ label: "Todos", value: "todos" }, { label: "Aliados", val
         <span class="search-icon" aria-hidden="true"></span>
         <input id="vinculo-search" type="search" placeholder="Buscar por nome ou papel..." autocomplete="off" />
       </label>
-      <div class="filter-group">
-        <span class="filter-group-label">Tipo</span>
-        <div class="filter-list" role="group" aria-label="Filtrar por tipo">
-          {tipoFilters.map((filter, i) => <button class:list={["filter-button", { "is-active": i === 0 }]} type="button" data-filter-tipo data-value={filter.value}>{filter.label}</button>)}
-        </div>
-      </div>
-      <div class="filter-group">
-        <span class="filter-group-label">Personagem</span>
-        <div class="filter-list" role="group" aria-label="Filtrar por personagem">
-          <button class="filter-button is-active" type="button" data-filter-personagem data-value="todos">Todos</button>
-          {personagens.map((p) => <button class="filter-button" type="button" data-filter-personagem data-value={p.slug}>{p.nome}</button>)}
-        </div>
-      </div>
       <p class="result-count" aria-live="polite"><span id="vinculo-count">{vinculos.length}</span> vínculos encontrados</p>
     </section>
-    <section class="vinculo-grid" aria-label="Catálogo de vínculos">
-      {vinculos.map((item) => (
-        <article class="section-card card-lift vinculo-card" data-vinculo-card data-tipo={item.tipo} data-personagens={item.ligadoA.join(" ")} data-search={`${item.nome} ${item.papel} ${item.descricao ?? ""}`}>
-          {item.imagem ? <img class="vinculo-image" src={item.imagem} alt="" loading="lazy" /> : <div class="vinculo-image vinculo-placeholder" aria-hidden="true">{item.nome.charAt(0)}</div>}
-          <div class="vinculo-copy">
-            <span class="rule-category">{item.tipo}</span>
-            <h2>{item.nome}</h2>
-            <p class="vinculo-role">{item.papel}</p>
-            {item.descricao && <p>{item.descricao}</p>}
-            <div class="character-chips">{item.ligadoA.map((slug) => <span>{personagens.find((p) => p.slug === slug)?.nome ?? slug}</span>)}</div>
-            {item.npcSlug && <span class="vinculo-full-link">Ver ficha completa</span>}
+    <section class="vinculo-sections" aria-label="Vínculos por categoria">
+      {tipoFilters.map((filter) => (
+        <details class="vinculo-category" data-vinculo-section data-tipo={filter.value} open>
+          <summary>{filter.label}<span>{vinculos.filter((item) => item.tipo === filter.value).length} vínculos</span></summary>
+          <div class="vinculo-grid">
+            {vinculos.filter((item) => item.tipo === filter.value).map((item) => (
+              <article
+                class="section-card card-lift vinculo-card"
+                data-vinculo-card
+                data-tipo={item.tipo}
+                data-search={`${item.nome} ${item.papel} ${item.descricao ?? ""}`}
+                data-vinculo-nome={item.nome}
+                data-vinculo-papel={item.papel}
+                data-vinculo-descricao={item.descricao ?? ""}
+                data-vinculo-localizacao={item.localizacaoInicial ?? ""}
+                data-vinculo-imagem={item.imagem ?? ""}
+                data-vinculo-ficha={item.fichaPersonagem ?? ""}
+                data-vinculo-nota-mestre={item.notaMestre ?? ""}
+                role="button"
+                tabindex="0"
+                aria-label={`Ler informações de ${item.nome}`}
+              >
+                {item.imagem ? <img class="vinculo-image" src={item.imagem} alt="" loading="lazy" /> : <div class="vinculo-image vinculo-placeholder" aria-hidden="true">{item.nome.charAt(0)}</div>}
+                <div class="vinculo-copy">
+                  <h2>{item.nome}</h2>
+                  <p class="vinculo-role">{item.papel}</p>
+                  <div class="character-chips">{item.ligadoA.map((slug) => <span>{personagens.find((p) => p.slug === slug)?.nome ?? slug}</span>)}</div>
+                  {item.npcSlug && <span class="vinculo-full-link">Ver ficha completa</span>}
+                </div>
+                {item.spoiler && <div class="spoiler-cover"><span>Conteúdo revelado</span><button type="button" class="spoiler-reveal">Revelar</button></div>}
+              </article>
+            ))}
           </div>
-          {item.spoiler && <div class="spoiler-cover"><span>Conteúdo revelado</span><button type="button" class="spoiler-reveal">Revelar</button></div>}
-        </article>
+        </details>
       ))}
-      <p class="empty-state" id="vinculo-empty">Em construção.</p>
+      <p class="empty-state" id="vinculo-empty" hidden>Em construção.</p>
     </section>
   </main>
+  <dialog class="vinculo-dialog" aria-labelledby="vinculo-dialog-nome">
+    <button class="vinculo-dialog-close" type="button" aria-label="Fechar detalhes">×</button>
+    <div class="vinculo-dialog-layout">
+      <div class="vinculo-dialog-image"><img alt="" /></div>
+      <div class="vinculo-dialog-content">
+        <span class="vinculo-dialog-kicker">Ficha de vínculo</span>
+        <h2 id="vinculo-dialog-nome"></h2>
+        <p class="vinculo-dialog-role"></p>
+        <div class="vinculo-dialog-section">
+          <h3>Descrição</h3>
+          <p class="vinculo-dialog-description"></p>
+        </div>
+        <div class="vinculo-dialog-section">
+          <h3>Localização inicial</h3>
+          <p class="vinculo-dialog-location"></p>
+        </div>
+        <blockquote class="vinculo-dialog-master-note" hidden>
+          <span>Nota do Mestre</span>
+          <p></p>
+        </blockquote>
+        <a class="vinculo-dialog-player-link" hidden>Ver ficha de jogador</a>
+      </div>
+    </div>
+  </dialog>
   <script>
-    import { initCatalogFilter } from "../../../scripts/catalog-filter";
-    initCatalogFilter({
-      searchSelector: "#vinculo-search",
-      cardSelector: "[data-vinculo-card]",
-      countSelector: "#vinculo-count",
-      emptySelector: "#vinculo-empty",
-      filterGroups: [
-        { filterSelector: "[data-filter-tipo]", filterAttribute: "data-tipo", allValue: "todos" },
-        { filterSelector: "[data-filter-personagem]", filterAttribute: "data-personagens", allValue: "todos" },
-      ],
-    });
+      const search = document.querySelector<HTMLInputElement>("#vinculo-search");
+      const count = document.querySelector<HTMLElement>("#vinculo-count");
+      const empty = document.querySelector<HTMLElement>("#vinculo-empty");
+    const vinculoSections = Array.from(document.querySelectorAll<HTMLDetailsElement>("[data-vinculo-section]"));
+
+      const updateSearch = (): void => {
+        if (!search || !count || !empty) return;
+        const query = search.value.trim().toLocaleLowerCase("pt-BR");
+        let visible = 0;
+        vinculoSections.forEach((section) => {
+          let sectionVisible = 0;
+          section.querySelectorAll<HTMLElement>("[data-vinculo-card]").forEach((card) => {
+            const text = (card.dataset.search ?? card.textContent ?? "").toLocaleLowerCase("pt-BR");
+            const show = !query || text.includes(query);
+            card.hidden = !show;
+            if (show) {
+              visible += 1;
+              sectionVisible += 1;
+            }
+          });
+          section.open = !query || sectionVisible > 0;
+          section.hidden = sectionVisible === 0;
+        });
+        count.textContent = String(visible);
+        empty.hidden = visible > 0;
+      };
+      search?.addEventListener("input", updateSearch);
     document.querySelectorAll<HTMLElement>(".vinculo-card[data-personagens]").forEach((card) => {
       const reveal = card.querySelector<HTMLButtonElement>(".spoiler-reveal");
       if (!reveal) return;
       card.classList.add("is-spoiler");
       reveal.addEventListener("click", () => card.classList.add("is-revealed"));
+    });
+
+    const vinculoDialog = document.querySelector<HTMLDialogElement>(".vinculo-dialog");
+    const vinculoDialogImage = vinculoDialog?.querySelector<HTMLImageElement>(".vinculo-dialog-image img");
+    const vinculoDialogName = vinculoDialog?.querySelector<HTMLElement>("#vinculo-dialog-nome");
+    const vinculoDialogRole = vinculoDialog?.querySelector<HTMLElement>(".vinculo-dialog-role");
+    const vinculoDialogDescription = vinculoDialog?.querySelector<HTMLElement>(".vinculo-dialog-description");
+    const vinculoDialogLocation = vinculoDialog?.querySelector<HTMLElement>(".vinculo-dialog-location");
+    const vinculoDialogClose = vinculoDialog?.querySelector<HTMLButtonElement>(".vinculo-dialog-close");
+    const vinculoDialogPlayerLink = vinculoDialog?.querySelector<HTMLAnchorElement>(".vinculo-dialog-player-link");
+    const vinculoDialogMasterNote = vinculoDialog?.querySelector<HTMLQuoteElement>(".vinculo-dialog-master-note");
+
+    const openVinculoDialog = (card: HTMLElement): void => {
+      if (!vinculoDialog || !vinculoDialogImage || !vinculoDialogName || !vinculoDialogRole || !vinculoDialogDescription || !vinculoDialogLocation) return;
+      const nome = card.dataset.vinculoNome ?? "";
+      vinculoDialogName.textContent = nome;
+      vinculoDialogRole.textContent = card.dataset.vinculoPapel ?? "";
+      vinculoDialogDescription.textContent = card.dataset.vinculoDescricao || "Descrição ainda não registrada.";
+      vinculoDialogLocation.textContent = card.dataset.vinculoLocalizacao || "Localização inicial ainda não registrada.";
+      if (vinculoDialogMasterNote) {
+        if (card.dataset.vinculoNotaMestre) {
+          vinculoDialogMasterNote.hidden = false;
+          const text = vinculoDialogMasterNote.querySelector<HTMLElement>("p");
+          if (text) text.textContent = card.dataset.vinculoNotaMestre;
+        } else {
+          vinculoDialogMasterNote.hidden = true;
+        }
+      }
+      if (vinculoDialogPlayerLink) {
+        if (card.dataset.vinculoFicha) {
+          vinculoDialogPlayerLink.href = card.dataset.vinculoFicha;
+          vinculoDialogPlayerLink.hidden = false;
+        } else {
+          vinculoDialogPlayerLink.removeAttribute("href");
+          vinculoDialogPlayerLink.hidden = true;
+        }
+      }
+      if (card.dataset.vinculoImagem) {
+        vinculoDialogImage.src = card.dataset.vinculoImagem;
+        vinculoDialogImage.alt = nome;
+        vinculoDialogImage.parentElement?.removeAttribute("hidden");
+      } else {
+        vinculoDialogImage.removeAttribute("src");
+        vinculoDialogImage.alt = "";
+        vinculoDialogImage.parentElement?.setAttribute("hidden", "");
+      }
+      vinculoDialog.showModal();
+    };
+
+    document.querySelectorAll<HTMLElement>("[data-vinculo-card]").forEach((card) => {
+      card.addEventListener("click", () => openVinculoDialog(card));
+      card.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          openVinculoDialog(card);
+        }
+      });
+    });
+    vinculoDialogClose?.addEventListener("click", () => vinculoDialog?.close());
+    vinculoDialog?.addEventListener("click", (event) => {
+      if (event.target === vinculoDialog) vinculoDialog.close();
     });
   </script>
 </BaseLayout>

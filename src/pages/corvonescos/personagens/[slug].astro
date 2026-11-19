@@ -17,6 +17,7 @@ export function getStaticPaths() {
 }
 const { personagem } = Astro.props as Props;
 const personagemVinculos = vinculos.filter((item) => item.ligadoA.includes(personagem.slug));
+const npcFavorito = vinculos.find((item) => item.slug === personagem.npcFavoritoSlug);
 const sessoesDoPersonagem = sessoes.filter((item) => item.personagens?.includes(personagem.slug));
 const misteriosDoPersonagem = misterios.filter((item) => item.personagens?.includes(personagem.slug));
 const faixas = personagem.status === "Ativo"
@@ -425,10 +426,25 @@ const faixas = personagem.status === "Ativo"
 
     <section class="character-section">
       <div class="character-section-heading"><span>NPC favorito</span><i></i></div>
-      <article class="character-npc-placeholder">
-        <div class="character-npc-image" aria-hidden="true"><span>?</span></div>
-        <div><span class="character-field-kicker">Em breve</span><h3>NPC favorito</h3><p>O personagem e seu vínculo serão apresentados aqui.</p></div>
-      </article>
+      {npcFavorito ? (
+        <article class="character-npc-placeholder">
+          {npcFavorito.imagem
+            ? <div class="character-npc-image"><img src={npcFavorito.imagem} alt={`Retrato de ${npcFavorito.nome}`} /></div>
+            : <div class="character-npc-image" aria-hidden="true"><span>{npcFavorito.nome.charAt(0)}</span></div>}
+          <div>
+            <span class="character-field-kicker">NPC favorito</span>
+            <h3>{npcFavorito.nome}</h3>
+            <p>{npcFavorito.papel}</p>
+            {personagem.slug === "felypo" && <small class="character-npc-master-note">Eu como mestre fico extremamente ofendido do Félypo não ter o Zé Faísca como NPC favorito.</small>}
+            <a class="character-npc-all-link" href="/corvonescos/vinculos/">Ver todos os NPCs <span aria-hidden="true">→</span></a>
+          </div>
+        </article>
+      ) : (
+        <article class="character-npc-placeholder">
+          <div class="character-npc-image" aria-hidden="true"><span>?</span></div>
+          <div><span class="character-field-kicker">Não informado</span><h3>Nenhum NPC favorito definido</h3><a class="character-npc-all-link" href="/corvonescos/vinculos/">Ver todos os NPCs <span aria-hidden="true">→</span></a></div>
+        </article>
+      )}
     </section>
 
     {personagemVinculos.length > 0 && (

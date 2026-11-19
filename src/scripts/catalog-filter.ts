@@ -71,6 +71,7 @@ export function initCatalogFilter(options: CatalogFilterOptions): void {
           const selected = item === button;
           item.classList.toggle("is-active", selected);
           item.setAttribute("aria-pressed", String(selected));
+          if (item.getAttribute("role") === "tab") item.setAttribute("aria-selected", String(selected));
         });
         update();
       });
@@ -80,6 +81,7 @@ export function initCatalogFilter(options: CatalogFilterOptions): void {
       } else {
         button.setAttribute("aria-pressed", "false");
       }
+      if (button.getAttribute("role") === "tab") button.setAttribute("aria-selected", String(button.dataset.value === state.active));
     });
   });
   update();
