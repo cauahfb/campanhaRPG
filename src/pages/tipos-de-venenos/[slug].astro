@@ -1,7 +1,6 @@
 ---
 import RulesLayout from "../../layouts/RulesLayout.astro";
 import venenos from "../../data/venenos.json";
-import SiteFooter from "../../components/SiteFooter.astro";
 export function getStaticPaths() {
   return venenos.map((veneno) => ({ params: { slug: veneno.slug }, props: { veneno } }));
 }
@@ -30,6 +29,5 @@ const { veneno } = Astro.props;
         <div><span>Preço</span><strong>{veneno.price.toLocaleString("pt-BR")} PO</strong></div>
       </div>
     </article>
-    <SiteFooter />
   </main>
 </RulesLayout>

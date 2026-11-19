@@ -236,6 +236,16 @@ body:has(.section-shell) {
   justify-content: flex-end;
   gap: 10px 26px;
 }
+.section-footer__tools {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 26px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line-soft);
+}
+.section-footer__tools > span:first-child { color: var(--gold-dim); }
 .section-footer__meta {
   grid-column: 1 / -1;
   margin: 0;
@@ -492,4 +502,32 @@ body:has(.section-shell) {
   .card-lift:focus-visible .hub-card-art::before { transform: rotate(45deg); }
   .hub-card:hover .hub-card-open span,
   .hub-card:focus-visible .hub-card-open span { transform: none; }
+}
+
+/* Página "Em construção" */
+.construction-notice {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin: 36px 0 24px;
+  padding: 56px 24px 48px;
+  text-align: center;
+  border: 1px solid var(--line);
+  background: rgba(201, 167, 124, .03);
+  box-shadow: inset 0 0 0 5px rgba(7, 5, 9, .45), inset 0 0 0 6px var(--line-soft);
+}
+.construction-notice__icon { color: var(--gold); opacity: .85; }
+.construction-notice h2 {
+  margin: 8px 0 0;
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 34px;
+  font-weight: 500;
+  letter-spacing: .04em;
+}
+.construction-notice p {
+  margin: 0 0 14px;
+  color: var(--muted);
+  font-size: 15px;
 }

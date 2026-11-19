@@ -1,7 +1,6 @@
 ---
 import RulesLayout from "../layouts/RulesLayout.astro";
 import venenos from "../data/venenos.json";
-import SiteFooter from "../components/SiteFooter.astro";
 import SectionIntro from "../components/SectionIntro.astro";
 ---
 <RulesLayout title="Tipos de Venenos" description="Catálogo de venenos, formas de aplicação, categorias, preços e efeitos.">
@@ -57,7 +56,6 @@ import SectionIntro from "../components/SectionIntro.astro";
       ))}
       <p class="empty-state" id="venom-empty" hidden>Nenhum veneno corresponde à sua busca. Tente outro nome ou filtro.</p>
     </section>
-    <SiteFooter />
   </main>
   <script>
     const search=document.querySelector("#venom-search");

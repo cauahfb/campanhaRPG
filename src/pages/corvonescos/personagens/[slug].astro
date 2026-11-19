@@ -1,6 +1,5 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
-import SiteFooter from "../../../components/SiteFooter.astro";
 import Breadcrumb from "../../../components/Breadcrumb.astro";
 import TrackPlayer from "../../../components/TrackPlayer.astro";
 import { personagens } from "../../../data/personagens";
@@ -109,6 +108,5 @@ const faixas = personagem.status === "Ativo"
         <ul>{misteriosDoPersonagem.map((item) => <li><a href="/corvonescos/diario-de-bordo/#misterios">{item.pergunta}</a></li>)}</ul>
       </section>
     )}
-    <SiteFooter />
   </main>
 </BaseLayout>

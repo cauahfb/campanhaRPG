@@ -1,7 +1,6 @@
 ---
 import { Feather } from "@lucide/astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import SiteFooter from "../../components/SiteFooter.astro";
 import SectionIntro from "../../components/SectionIntro.astro";
 import SectionHub from "../../components/SectionHub.astro";
 import { corvonescosHub } from "../../data/corvonescos";
@@ -34,6 +33,5 @@ const hubItems = corvonescosHub.map((item, index) => ({
       </div>
     </SectionIntro>
     <SectionHub items={hubItems} />
-    <SiteFooter />
   </main>
 </BaseLayout>

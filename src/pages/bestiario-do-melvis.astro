@@ -1,0 +1,27 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionIntro from "../components/SectionIntro.astro";
+---
+<BaseLayout
+  title="Bestiário do Melvis"
+  description="O Bestiário do Melvis ainda está em construção. Volte depois."
+  noindex
+>
+  <main class="section-shell">
+    <SectionIntro
+      eyebrow="Biblioteca"
+      title="Bestiário do"
+      emphasis="Melvis"
+      description="Um registro das criaturas encontradas ao longo da campanha."
+    />
+    <section class="construction-notice" aria-labelledby="construction-title">
+      <svg class="construction-notice__icon" viewBox="0 0 48 48" width="44" height="44" aria-hidden="true">
+        <path d="M14 6h20M14 42h20M16 6c0 10 6 12 8 18-2 6-8 8-8 18M32 6c0 10-6 12-8 18 2 6 8 8 8 18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+        <path d="M19 38c2-4 3.5-5 5-5s3 1 5 5Z" fill="currentColor" opacity=".45" />
+      </svg>
+      <h2 id="construction-title">Em construção</h2>
+      <p>Volte depois.</p>
+      <a class="back-link" href="/">← Voltar ao início</a>
+    </section>
+  </main>
+</BaseLayout>

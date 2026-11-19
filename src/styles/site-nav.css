@@ -59,7 +59,8 @@
   align-items: stretch;
   gap: 30px;
 }
-.site-nav a {
+.site-nav > a,
+.nav-group__trigger {
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -72,9 +73,13 @@
   text-decoration: none;
   transition: color .25s;
 }
-.site-nav a:hover,
-.site-nav a[aria-current="page"] { color: var(--gold-bright); }
-.site-nav a[aria-current="page"]::after {
+.site-nav > a:hover,
+.site-nav > a[aria-current="page"],
+.nav-group__trigger:hover,
+.nav-group.is-open > .nav-group__trigger,
+.nav-group.is-current > .nav-group__trigger { color: var(--gold-bright); }
+.site-nav > a[aria-current="page"]::after,
+.nav-group.is-current > .nav-group__trigger::after {
   content: "";
   position: absolute;
   left: 0;
@@ -130,7 +135,8 @@
   /* Sem JavaScript, os links continuam visíveis e quebram de linha. */
   .site-bar__inner { flex-wrap: wrap; padding-block: 8px; }
   .site-nav { width: 100%; flex-wrap: wrap; gap: 4px 20px; }
-  .site-nav a { min-height: 40px; }
+  .site-nav > a,
+  .nav-group__trigger { min-height: 40px; }
 
   .js .site-nav-toggle { display: inline-flex; }
   .js .site-bar__inner { flex-wrap: nowrap; padding-block: 0; }
@@ -149,14 +155,15 @@
     box-shadow: 0 24px 40px rgba(0, 0, 0, .5);
   }
   .js .site-nav.is-open { display: flex; }
-  .js .site-nav a {
+  .js .site-nav > a,
+  .js .nav-group > .nav-group__trigger {
     min-height: 52px;
     font-size: 12px;
     letter-spacing: .2em;
     border-bottom: 1px solid var(--line-soft);
   }
-  .js .site-nav a:last-child { border-bottom: 0; }
-  .js .site-nav a[aria-current="page"]::after {
+  .js .site-nav > a[aria-current="page"]::after,
+  .js .nav-group.is-current > .nav-group__trigger::after {
     left: 0;
     right: auto;
     bottom: 12px;
@@ -174,4 +181,158 @@
   .site-nav-toggle__bars,
   .site-nav-toggle__bars::before,
   .site-nav-toggle__bars::after { transition: none; }
+}
+
+/* ==========================================================================
+   DROPDOWNS (Biblioteca e Ferramentas)
+   ========================================================================== */
+
+.nav-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.nav-group {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+}
+.nav-group__trigger {
+  gap: 9px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  font-family: inherit;
+  cursor: pointer;
+}
+.nav-group__chevron {
+  flex: none;
+  opacity: .75;
+  transition: transform .3s var(--ease);
+}
+.nav-group.is-open .nav-group__chevron { transform: rotate(180deg); }
+
+.nav-menu {
+  position: absolute;
+  top: 100%;
+  left: -18px;
+  z-index: 110;
+  min-width: 248px;
+  margin: 0;
+  padding: 10px;
+  list-style: none;
+  background: rgba(10, 6, 12, .98);
+  border: 1px solid var(--line);
+  border-top-color: var(--gold-dim);
+  box-shadow: 0 26px 48px rgba(0, 0, 0, .55);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(6px);
+  transition: opacity .22s var(--ease), transform .22s var(--ease), visibility 0s linear .22s;
+}
+.nav-group.is-open > .nav-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition-delay: 0s;
+}
+/* Sem JavaScript, o menu abre por hover/foco. */
+html:not(.js) .nav-group:hover > .nav-menu,
+html:not(.js) .nav-group:focus-within > .nav-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition-delay: 0s;
+}
+
+.nav-menu a {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 13px 16px 13px 20px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: color .2s, background .2s;
+}
+.nav-menu a::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 2px;
+  height: 0;
+  background: var(--gold);
+  transform: translateY(-50%);
+  transition: height .25s var(--ease);
+}
+.nav-menu a:hover,
+.nav-menu a:focus-visible,
+.nav-menu a[aria-current="page"] {
+  color: var(--gold-bright);
+  background: rgba(201, 167, 124, .07);
+}
+.nav-menu a:hover::before,
+.nav-menu a:focus-visible::before,
+.nav-menu a[aria-current="page"]::before { height: 60%; }
+.nav-menu__external {
+  flex: none;
+  opacity: .55;
+  transition: opacity .2s, transform .25s var(--ease);
+}
+.nav-menu a:hover .nav-menu__external,
+.nav-menu a:focus-visible .nav-menu__external { opacity: 1; transform: translate(2px, -2px); }
+
+/* O último dropdown abre alinhado à direita para não estourar a tela. */
+.nav-group:last-child > .nav-menu { left: auto; right: -18px; }
+
+/* Rodapé global (fora do conteúdo de cada página) */
+.site-footer-shell {
+  width: min(1280px, calc(100% - 64px));
+  margin: 40px auto 0;
+}
+@media (max-width: 900px) { .site-footer-shell { width: calc(100% - 42px); } }
+@media (max-width: 620px) { .site-footer-shell { width: calc(100% - 30px); } }
+
+@media (max-width: 860px) {
+  /* Menu móvel: dropdowns viram acordeões dentro do painel. */
+  .nav-group { flex-direction: column; align-items: stretch; }
+  .nav-group__trigger { width: 100%; justify-content: space-between; }
+  .nav-menu {
+    position: static;
+    display: none;
+    min-width: 0;
+    padding: 0 0 8px 14px;
+    background: transparent;
+    border: 0;
+    border-left: 1px solid var(--line);
+    box-shadow: none;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition: none;
+  }
+  .nav-group.is-open > .nav-menu { display: block; }
+  html:not(.js) .nav-menu { display: block; }
+  .nav-menu a { padding-block: 14px; }
+  .nav-group:last-child > .nav-menu { right: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-menu,
+  .nav-group__chevron,
+  .nav-menu a::before,
+  .nav-menu__external { transition: none; }
 }

@@ -1,6 +1,5 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
-import SiteFooter from "../../../components/SiteFooter.astro";
 import SectionIntro from "../../../components/SectionIntro.astro";
 import Breadcrumb from "../../../components/Breadcrumb.astro";
 import { sessoes } from "../../../data/sessoes";
@@ -99,7 +98,6 @@ const sessoesOrdenadas = [...sessoes].sort((a, b) => b.numero - a.numero);
       </div>
       <p class="empty-state" id="mystery-empty">Nenhum mistério neste filtro.</p>
     </section>
-    <SiteFooter />
   </main>
   <script>
     import { initCatalogFilter } from "../../../scripts/catalog-filter";

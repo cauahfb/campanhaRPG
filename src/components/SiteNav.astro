@@ -1,9 +1,18 @@
 ---
-import { navigation, isCurrentPath } from "../data/navigation";
+import { visibleNavigation, isGroup, isCurrentPath } from "../data/navigation";
+import type { NavigationItem } from "../data/navigation";
 import { SITE } from "../data/site";
 
 const pathname = Astro.url.pathname;
-const items = navigation.filter((item) => item.status === "available");
+const entries = visibleNavigation();
+
+const slugify = (value: string) =>
+  value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-");
+
+const linkProps = (item: NavigationItem) =>
+  item.external
+    ? { target: "_blank", rel: "noopener noreferrer" }
+    : { "data-astro-prefetch": "hover" };
 ---
 <header class="site-bar" data-pagefind-ignore>
   <div class="site-bar__inner">
@@ -23,12 +32,50 @@ const items = navigation.filter((item) => item.status === "available");
     </button>
 
     <nav id="site-nav" class="site-nav" aria-label="Navegação principal">
-      {items.map((item) => {
-        const current = isCurrentPath(item, pathname);
+      {entries.map((entry) => {
+        if (!isGroup(entry)) {
+          const current = isCurrentPath(entry, pathname);
+          return (
+            <a href={entry.href} aria-current={current ? "page" : undefined} {...linkProps(entry)}>
+              {entry.label}
+            </a>
+          );
+        }
+
+        const menuId = `nav-menu-${slugify(entry.label)}`;
+        const groupCurrent = entry.items.some((item) => isCurrentPath(item, pathname));
         return (
-          <a href={item.href} aria-current={current ? "page" : undefined} data-astro-prefetch="hover">
-            {item.label}
-          </a>
+          <div
+            class:list={["nav-group", groupCurrent && "is-current"]}
+            data-nav-group
+          >
+            <button class="nav-group__trigger" type="button" aria-expanded="false" aria-controls={menuId}>
+              <span>{entry.label}</span>
+              <svg class="nav-group__chevron" viewBox="0 0 10 6" width="10" height="6" aria-hidden="true">
+                <path d="m1 1 4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+            <ul class="nav-menu" id={menuId}>
+              {entry.items.map((item) => {
+                const current = isCurrentPath(item, pathname);
+                return (
+                  <li>
+                    <a href={item.href} aria-current={current ? "page" : undefined} {...linkProps(item)}>
+                      <span>{item.label}</span>
+                      {item.external && (
+                        <>
+                          <svg class="nav-menu__external" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true">
+                            <path d="M4 2h6v6M10 2 3 9" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
+                          </svg>
+                          <span class="nav-sr">(abre em nova aba)</span>
+                        </>
+                      )}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
         );
       })}
     </nav>
@@ -38,18 +85,38 @@ const items = navigation.filter((item) => item.status === "available");
 <script>
   const toggle = document.querySelector<HTMLButtonElement>(".site-nav-toggle");
   const nav = document.getElementById("site-nav");
+  const groups = Array.from(document.querySelectorAll<HTMLElement>("[data-nav-group]"));
+  const desktop = window.matchMedia("(min-width: 861px)");
+
+  const setGroup = (group: HTMLElement, open: boolean) => {
+    group.classList.toggle("is-open", open);
+    group.querySelector(".nav-group__trigger")?.setAttribute("aria-expanded", String(open));
+  };
+  const closeGroups = (except?: HTMLElement) => {
+    groups.forEach((group) => {
+      if (group !== except) setGroup(group, false);
+    });
+  };
 
   if (toggle && nav) {
     const setOpen = (open: boolean) => {
       nav.classList.toggle("is-open", open);
       toggle.setAttribute("aria-expanded", String(open));
       toggle.setAttribute("aria-label", open ? "Fechar menu de navegação" : "Abrir menu de navegação");
+      if (!open) closeGroups();
     };
 
     toggle.addEventListener("click", () => setOpen(!nav.classList.contains("is-open")));
 
     document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && nav.classList.contains("is-open")) {
+      if (event.key !== "Escape") return;
+      const openGroup = groups.find((group) => group.classList.contains("is-open"));
+      if (openGroup) {
+        closeGroups();
+        openGroup.querySelector<HTMLButtonElement>(".nav-group__trigger")?.focus();
+        return;
+      }
+      if (nav.classList.contains("is-open")) {
         setOpen(false);
         toggle.focus();
       }
@@ -57,6 +124,7 @@ const items = navigation.filter((item) => item.status === "available");
 
     document.addEventListener("click", (event) => {
       const target = event.target as Node;
+      if (!nav.contains(target)) closeGroups();
       if (nav.classList.contains("is-open") && !nav.contains(target) && !toggle.contains(target)) setOpen(false);
     });
 
@@ -64,8 +132,37 @@ const items = navigation.filter((item) => item.status === "available");
       if ((event.target as HTMLElement).closest("a")) setOpen(false);
     });
 
-    window.matchMedia("(min-width: 861px)").addEventListener("change", (event) => {
+    desktop.addEventListener("change", (event) => {
       if (event.matches) setOpen(false);
+      closeGroups();
     });
   }
+
+  groups.forEach((group) => {
+    const trigger = group.querySelector<HTMLButtonElement>(".nav-group__trigger");
+    let timer: number | undefined;
+
+    trigger?.addEventListener("click", () => {
+      const open = !group.classList.contains("is-open");
+      closeGroups(group);
+      setGroup(group, open);
+    });
+
+    // Abre ao passar o mouse apenas no desktop; no toque vale o clique.
+    group.addEventListener("pointerenter", (event) => {
+      if (event.pointerType !== "mouse" || !desktop.matches) return;
+      window.clearTimeout(timer);
+      closeGroups(group);
+      setGroup(group, true);
+    });
+    group.addEventListener("pointerleave", (event) => {
+      if (event.pointerType !== "mouse" || !desktop.matches) return;
+      timer = window.setTimeout(() => setGroup(group, false), 140);
+    });
+
+    group.addEventListener("focusout", (event) => {
+      const next = (event as FocusEvent).relatedTarget as Node | null;
+      if (next && !group.contains(next)) setGroup(group, false);
+    });
+  });
 </script>

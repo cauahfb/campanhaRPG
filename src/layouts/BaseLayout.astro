@@ -3,6 +3,7 @@ import "../styles/global.css";
 import "../styles/section.css";
 import "../styles/site-nav.css";
 import SiteNav from "../components/SiteNav.astro";
+import SiteFooter from "../components/SiteFooter.astro";
 import { SITE } from "../data/site";
 
 interface Props {
@@ -79,6 +80,9 @@ const imageUrl = new URL(image, origin).href;
     <SiteNav />
     <div id="conteudo" data-pagefind-body>
       <slot />
+    </div>
+    <div class="site-footer-shell">
+      <SiteFooter />
     </div>
   </body>
 </html>

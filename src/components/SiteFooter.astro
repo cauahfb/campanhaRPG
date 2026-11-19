@@ -1,9 +1,11 @@
 ---
-import { navigation } from "../data/navigation";
+import { visibleNavigation, isGroup } from "../data/navigation";
 import { SITE } from "../data/site";
 import pkg from "../../package.json";
 
-const links = navigation.filter((item) => item.status === "available");
+// O rodapé mostra só os links soltos da navegação (Início e Os Corvonescos);
+// os grupos (Biblioteca e Ferramentas) ficam apenas na navbar.
+const links = visibleNavigation().filter((entry) => !isGroup(entry));
 ---
 <footer class="section-footer" data-pagefind-ignore>
   <div class="section-footer__brand">

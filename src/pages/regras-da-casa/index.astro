@@ -1,6 +1,5 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import SiteFooter from "../../components/SiteFooter.astro";
 import SectionIntro from "../../components/SectionIntro.astro";
 import "../../styles/regras.css";
 
@@ -73,7 +72,6 @@ const categories = ["Todas", "Magia", "Combate", "Recursos", "Equipamentos", "Al
       <p class="empty-state" id="empty-state" hidden>Nenhuma regra corresponde à sua busca. Tente outro termo ou categoria.</p>
     </section>
 
-    <SiteFooter />
   </main>
   <script>
     const searchInput = document.querySelector<HTMLInputElement>("#rule-search");
