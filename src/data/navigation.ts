@@ -4,27 +4,24 @@ export interface NavigationItem {
   label: string;
   href: string;
   status: NavigationStatus;
-  /** Quando verdadeiro, só fica ativo na rota exata (usado pelo "Início"). */
   exact?: boolean;
-  /** Link para fora do portal: abre em nova aba e não participa do estado "ativo". */
   external?: boolean;
 }
 
 export interface NavigationGroup {
   type: "group";
   label: string;
-  /** "tools" só afeta o rodapé: as ferramentas ganham uma linha própria. */
   variant?: "default" | "tools";
   items: NavigationItem[];
 }
 
 export type NavigationEntry = NavigationItem | NavigationGroup;
 
-/**
- * Fonte única da navegação do portal (navbar e rodapé).
- * Para publicar uma nova página, adicione o item aqui com status "available".
- * Itens "soon" não aparecem na navbar nem no rodapé.
- */
+
+
+
+
+
 export const navigation: NavigationEntry[] = [
   { label: "Início", href: "/", status: "available", exact: true },
   { label: "Os Corvonescos", href: "/corvonescos/", status: "available" },
@@ -60,12 +57,12 @@ export function isNavigationItem(entry: NavigationEntry): entry is NavigationIte
   return (entry as NavigationItem).type !== "group";
 }
 
-/** Itens disponíveis de um grupo ou link solto. */
+
 export function availableItems(items: NavigationItem[]): NavigationItem[] {
   return items.filter((item) => item.status === "available");
 }
 
-/** Entradas visíveis: grupos sem nenhum item disponível são omitidos. */
+
 export function visibleNavigation(): NavigationEntry[] {
   return navigation
     .map((entry) => (isGroup(entry) ? { ...entry, items: availableItems(entry.items) } : entry))

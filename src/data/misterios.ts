@@ -22,5 +22,5 @@ export type MisterioRespondido = {
 
 export type Misterio = MisterioAberto | MisterioRespondido;
 
-/** Sem mistérios cadastrados inicialmente. Aberto não aceita resposta; respondido exige resposta. */
+
 export const misterios: Misterio[] = [];

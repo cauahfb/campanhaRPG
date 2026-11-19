@@ -14,9 +14,9 @@ export interface Sessao {
   marco?: boolean;
 }
 
-/**
- * Sem sessões cadastradas inicialmente.
- * Sessões marcadas com marco:true poderão alimentar a futura Crônica da Campanha,
- * sem transformar este diário interno em um registro dos grandes marcos do mundo.
- */
+
+
+
+
+
 export const sessoes: Sessao[] = [];

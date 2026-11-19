@@ -12,7 +12,7 @@ import { SITE } from "../data/site";
 import type { HubItem } from "../data/hub";
 import "../styles/home.css";
 
-// Contadores: valores manuais (data/campanha.ts) ou, se houver, derivados dos registros do site.
+
 const sessoesJogadas = estatisticas.sessoesJogadas ?? (sessoes.length > 0 ? sessoes.length : undefined);
 const stats = [
   sessoesJogadas !== undefined && { value: sessoesJogadas, label: sessoesJogadas === 1 ? "sessão jogada" : "sessões jogadas" },

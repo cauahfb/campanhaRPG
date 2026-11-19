@@ -12,5 +12,5 @@ export interface Vinculo {
   spoiler?: boolean;
 }
 
-/** Sem registros iniciais: incluir apenas vínculos já conhecidos pelo grupo. */
+
 export const vinculos: Vinculo[] = [];

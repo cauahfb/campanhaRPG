@@ -25,11 +25,11 @@ export const destaque: DestaqueCampanha | null = {
   ],
 };
 
-/**
- * Números da campanha exibidos na home.
- * Preencha manualmente; valores não definidos não aparecem (nada é inventado).
- * Exemplo: { sessoesJogadas: 42, horasJogadas: 168 }
- */
+
+
+
+
+
 export const estatisticas: { sessoesJogadas?: number; horasJogadas?: number } = {
   sessoesJogadas: 64,
   horasJogadas: 336,

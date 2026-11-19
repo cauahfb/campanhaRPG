@@ -16,7 +16,7 @@ export interface CatalogFilterOptions {
   filterGroups?: CatalogFilterGroup[];
 }
 
-/** Inicializa busca textual e múltiplos grupos independentes de filtros. */
+
 export function initCatalogFilter(options: CatalogFilterOptions): void {
   const search = document.querySelector<HTMLInputElement>(options.searchSelector);
   const cards = Array.from(document.querySelectorAll<HTMLElement>(options.cardSelector));
