@@ -4,6 +4,7 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   site: "https://campanharpg.com.br",
   output: "static",
+  trailingSlash: "always",
   prefetch: {
     prefetchAll: false,
     defaultStrategy: "hover",

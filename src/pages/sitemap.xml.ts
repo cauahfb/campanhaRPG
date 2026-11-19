@@ -17,13 +17,27 @@ const pageFiles = Object.keys(import.meta.glob("./**/*.{astro,md}"));
 
 const staticRoutes = pageFiles
   .map((file) => file.replace(/^\.\//, "").replace(/\.(astro|md)$/, ""))
-  .filter((route) => !route.includes("[") && route !== "404")
+  .filter((route) => !route.includes("[") && route !== "404" && route !== "sitemap.xml")
   .map((route) => (route === "index" ? "/" : `/${route.replace(/\/index$/, "")}/`));
 
 const dynamicRoutes = [
   ...personagens.map((item) => `/corvonescos/personagens/${item.slug}/`),
   ...venenos.map((item) => `/tipos-de-venenos/${item.slug}/`),
 ];
+
+function escapeXml(value: string) {
+  return value.replace(/[<>&'"]/g, (character) => {
+    const entities: Record<string, string> = {
+      "<": "&lt;",
+      ">": "&gt;",
+      "&": "&amp;",
+      "'": "&apos;",
+      '"': "&quot;",
+    };
+
+    return entities[character];
+  });
+}
 
 export const GET: APIRoute = ({ site }) => {
   const origin = (site ?? new URL(SITE.url)).origin;
@@ -33,7 +47,9 @@ export const GET: APIRoute = ({ site }) => {
 
   const body = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls.map((route) => `  <url><loc>${origin}${route}</loc></url>`).join("\n")}
+${urls
+  .map((route) => `  <url><loc>${escapeXml(new URL(route, origin).href)}</loc></url>`)
+  .join("\n")}
 </urlset>
 `;
 
