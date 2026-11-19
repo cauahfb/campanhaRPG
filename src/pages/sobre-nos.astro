@@ -168,6 +168,36 @@ const players: Array<{
       )}
     </section>
 
+    <section class="about-section about-gallery-section" aria-labelledby="galeria">
+      <div class="about-heading">
+        <p class="about-kicker">Memórias da mesa</p>
+        <h2 id="galeria">Galeria</h2>
+      </div>
+      <div class="about-gallery">
+        <div class="about-gallery__card">
+          <button class="about-gallery__item" type="button" aria-label="Ampliar foto: Cauã, Gab, Vinicius e Gabriel na primeira saidinha ao se conhecerem" data-gallery-image="/images/galeria/primeira-saidinha.png" data-gallery-caption="Cauã, Gab, Vinicius e Gabriel na primeira saidinha ao se conhecerem">
+            <img src="/images/galeria/primeira-saidinha.png" alt="Cauã, Gab, Vinicius e Gabriel na primeira saidinha ao se conhecerem" loading="lazy" />
+            <span class="about-gallery__zoom" aria-hidden="true">Ampliar</span>
+          </button>
+          <p class="about-gallery__caption">Cauã, Gab, Vinicius e Gabriel na primeira saidinha ao se conhecerem</p>
+        </div>
+        <div class="about-gallery__card">
+          <button class="about-gallery__item" type="button" aria-label="Ampliar foto: Luciano e Cauã pela primeira vez" data-gallery-image="/images/galeria/luciano-e-caua-primeira-vez.png" data-gallery-caption="Luciano e Cauã pela primeira vez">
+            <img src="/images/galeria/luciano-e-caua-primeira-vez.png" alt="Luciano e Cauã pela primeira vez" loading="lazy" />
+            <span class="about-gallery__zoom" aria-hidden="true">Ampliar</span>
+          </button>
+          <p class="about-gallery__caption">Luciano e Cauã pela primeira vez</p>
+        </div>
+        <div class="about-gallery__card">
+          <button class="about-gallery__item" type="button" aria-label="Ampliar foto: Madrugadão com Cauã, Gabriel, Gab e Vinicius" data-gallery-image="/images/galeria/madrugadao.png" data-gallery-caption="Madrugadão com Cauã, Gabriel, Gab e Vinicius">
+            <img src="/images/galeria/madrugadao.png" alt="Madrugadão com Cauã, Gabriel, Gab e Vinicius" loading="lazy" />
+            <span class="about-gallery__zoom" aria-hidden="true">Ampliar</span>
+          </button>
+          <p class="about-gallery__caption">Madrugadão com Cauã, Gabriel, Gab e Vinicius</p>
+        </div>
+      </div>
+    </section>
+
     <section class="about-section about-columns" aria-label="Sobre a mesa e o site">
       <article>
         <p class="about-kicker">Nosso jeito de jogar</p>
@@ -192,3 +222,33 @@ const players: Array<{
     </section>
   </main>
 </BaseLayout>
+
+<dialog class="about-gallery-dialog" aria-labelledby="galeria-dialog-caption">
+  <button class="about-gallery-dialog__close" type="button" aria-label="Fechar imagem">×</button>
+  <figure>
+    <img alt="" />
+    <figcaption id="galeria-dialog-caption"></figcaption>
+  </figure>
+</dialog>
+
+<script>
+  const galleryDialog = document.querySelector<HTMLDialogElement>(".about-gallery-dialog");
+  const galleryDialogImage = galleryDialog?.querySelector<HTMLImageElement>("img");
+  const galleryDialogCaption = galleryDialog?.querySelector<HTMLElement>("figcaption");
+  const galleryDialogClose = galleryDialog?.querySelector<HTMLButtonElement>(".about-gallery-dialog__close");
+
+  document.querySelectorAll<HTMLButtonElement>(".about-gallery__item").forEach((item) => {
+    item.addEventListener("click", () => {
+      if (!galleryDialog || !galleryDialogImage || !galleryDialogCaption) return;
+      galleryDialogImage.src = item.dataset.galleryImage ?? "";
+      galleryDialogImage.alt = item.dataset.galleryCaption ?? "";
+      galleryDialogCaption.textContent = item.dataset.galleryCaption ?? "";
+      galleryDialog.showModal();
+    });
+  });
+
+  galleryDialogClose?.addEventListener("click", () => galleryDialog?.close());
+  galleryDialog?.addEventListener("click", (event) => {
+    if (event.target === galleryDialog) galleryDialog.close();
+  });
+</script>

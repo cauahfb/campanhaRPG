@@ -217,6 +217,116 @@
   line-height: 1.8;
 }
 
+.about-gallery {
+  width: min(100%, 960px);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.about-gallery__card {
+  min-width: 0;
+}
+
+.about-gallery__item {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  cursor: zoom-in;
+}
+
+.about-gallery__item img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  transition: transform .3s ease, filter .3s ease;
+}
+
+.about-gallery__item:hover img,
+.about-gallery__item:focus-visible img {
+  transform: scale(1.03);
+  filter: brightness(.8);
+}
+
+.about-gallery__zoom {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  padding: 7px 10px;
+  border: 1px solid rgba(255, 255, 255, .25);
+  color: var(--text);
+  background: rgba(7, 5, 9, .72);
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.about-gallery__caption {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.about-gallery-dialog {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  width: min(92vw, 1100px);
+  max-width: none;
+  max-height: 92vh;
+  padding: 38px 18px 18px;
+  border: 1px solid var(--line-strong);
+  color: var(--text);
+  background: var(--surface-2);
+}
+
+.about-gallery-dialog::backdrop {
+  background: rgba(7, 5, 9, .88);
+}
+
+.about-gallery-dialog figure {
+  margin: 0;
+}
+
+.about-gallery-dialog img {
+  display: block;
+  width: 100%;
+  max-height: 78vh;
+  object-fit: contain;
+}
+
+.about-gallery-dialog figcaption {
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.about-gallery-dialog__close {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  border: 0;
+  color: var(--text);
+  background: transparent;
+  cursor: pointer;
+  font-size: 28px;
+  line-height: 1;
+}
+
+.about-gallery-dialog__close:hover {
+  color: var(--gold-bright);
+}
+
 .about-columns {
   grid-template-columns: 1fr !important;
 }
