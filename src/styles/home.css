@@ -9,6 +9,7 @@
   grid-template-columns: minmax(0, 1fr) 320px;
   padding-block: 88px 72px;
   background:
+    radial-gradient(circle at 84% 48%, rgba(160, 47, 76, .10) 0 1px, transparent 1.5px),
     radial-gradient(ellipse 34rem 26rem at 84% 50%, rgba(110, 35, 57, .38), transparent 70%),
     radial-gradient(ellipse 30rem 14rem at 0% 0%, rgba(75, 42, 87, .22), transparent 70%);
 }
@@ -39,7 +40,11 @@
   margin-top: 28px;
   background: linear-gradient(90deg, var(--gold-dim), transparent);
 }
-.section-intro--home .intro-description { max-width: 600px; }
+.section-intro--home .intro-description {
+  max-width: 600px;
+  color: #c7bbbd;
+  text-shadow: 0 1px 18px rgba(7, 5, 9, .75);
+}
 
 .home-emblem {
   position: relative;
@@ -47,20 +52,41 @@
   aspect-ratio: 1;
   display: grid;
   place-items: center;
+  isolation: isolate;
   animation: emblem-in 1.2s var(--ease) both;
 }
 .home-emblem::before {
   content: "";
   position: absolute;
-  inset: 4%;
+  inset: 7.3%;
+  z-index: -2;
   border: 1px solid var(--line);
   transform: rotate(45deg);
+}
+.home-emblem::after {
+  content: "";
+  position: absolute;
+  inset: 8%;
+  z-index: -1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 22% 28%, rgba(230, 207, 166, .18) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 72% 24%, rgba(230, 207, 166, .12) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 78% 68%, rgba(160, 47, 76, .28) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 28% 76%, rgba(201, 167, 124, .16) 0 1px, transparent 1.5px),
+    radial-gradient(circle, rgba(160, 47, 76, .12), rgba(110, 35, 57, .045) 48%, transparent 72%);
+  box-shadow: none;
+  animation: emblem-breath 6s ease-in-out infinite;
 }
 .home-emblem img {
   position: relative;
   width: 78%;
   height: auto;
-  filter: drop-shadow(0 0 22px rgba(160, 47, 76, .32)) drop-shadow(0 8px 30px rgba(0, 0, 0, .55));
+  filter: drop-shadow(0 0 18px rgba(160, 47, 76, .24)) drop-shadow(0 8px 30px rgba(0, 0, 0, .55));
+}
+@keyframes emblem-breath {
+  0%, 100% { opacity: .72; transform: scale(.985); }
+  50% { opacity: 1; transform: scale(1.025); }
 }
 
 .intro-actions {
@@ -107,12 +133,33 @@
   border: 1px solid var(--line-strong);
   border-radius: 3px;
   background:
+    linear-gradient(rgba(201, 167, 124, .008) 50%, transparent 50%) 0 0 / 100% 5px,
+    radial-gradient(circle at 18% 24%, rgba(201, 167, 124, .025) 0 1px, transparent 1.5px),
     radial-gradient(ellipse 36rem 18rem at 88% 0%, rgba(110, 35, 57, .3), transparent 70%),
     linear-gradient(150deg, #1d111b 0%, #140b14 60%, #0e080f 100%);
   box-shadow:
     0 24px 60px rgba(0, 0, 0, .45),
-    inset 0 0 0 5px transparent,
+    inset 0 0 0 5px rgba(7, 5, 9, .28),
     inset 0 0 0 6px var(--line-soft);
+}
+.newspaper::before,
+.newspaper::after {
+  content: "";
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  pointer-events: none;
+  opacity: .72;
+  background:
+    linear-gradient(var(--gold-dim), var(--gold-dim)) 0 0 / 34px 1px,
+    linear-gradient(var(--gold-dim), var(--gold-dim)) 0 0 / 1px 34px;
+  background-repeat: no-repeat;
+}
+.newspaper::before { top: 12px; left: 12px; }
+.newspaper::after {
+  right: 12px;
+  bottom: 12px;
+  transform: rotate(180deg);
 }
 .newspaper__masthead {
   padding-bottom: 14px;
@@ -350,6 +397,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .home-emblem { animation: none; }
+  .home-emblem::after { animation: none; }
   .button--primary:hover,
   .button--primary:focus-visible { transform: none; }
 }

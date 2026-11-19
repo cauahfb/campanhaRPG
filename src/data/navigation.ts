@@ -43,6 +43,7 @@ export const navigation: NavigationEntry[] = [
     label: "Ferramentas",
     variant: "tools",
     items: [
+      { label: "Calculadora de Distâncias", href: "/calculador-de-distancia-toril/", status: "available" },
       { label: "Raziel", href: "https://raziel.campanharpg.com.br/", status: "available", external: true },
       { label: "Maleficonomicon", href: "https://maleficonomicon.campanharpg.com.br/", status: "available", external: true },
       { label: "Tradutor Grung", href: "https://grung.campanharpg.com.br/", status: "available", external: true },

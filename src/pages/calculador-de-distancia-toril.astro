@@ -1,0 +1,105 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionIntro from "../components/SectionIntro.astro";
+import Breadcrumb from "../components/Breadcrumb.astro";
+import "../styles/calculador.css";
+---
+<BaseLayout
+  title="Calculadora de Distâncias"
+  description="Calcule distâncias, tempos de viagem, marcha, voo e navegação em Toril."
+>
+  <main class="section-shell distance-page">
+    <Breadcrumb items={[{ label: "Calculadora de Distâncias" }]} />
+    <SectionIntro
+      eyebrow="Ferramenta"
+      title="Distâncias de"
+      emphasis="Toril"
+      description="Estime o percurso entre cidades, o tempo de viagem e as diferentes formas de atravessar o mundo."
+    >
+      <div slot="art" class="intro-art-content">
+        <div class="book-emblem book-emblem--distance">
+          <svg class="distance-emblem" viewBox="0 0 112 148" aria-hidden="true">
+            <circle cx="56" cy="74" r="34" />
+            <path d="M56 32v84M14 74h84M26 44l60 60M86 44l-60 60" />
+            <path d="M56 20l6 14-6 14-6-14ZM56 100l6 14-6 14-6-14Z" class="distance-emblem__north" />
+            <circle cx="56" cy="74" r="5" />
+          </svg>
+        </div>
+        <span>Mapas · Rotas · Jornada</span>
+      </div>
+    </SectionIntro>
+
+    <section class="distance-calculator" aria-label="Calculadora de distâncias">
+      <div class="distance-card distance-card--locations">
+        <div class="distance-field distance-combobox">
+          <label for="distance-origin">Origem</label>
+          <input id="distance-origin" type="text" placeholder="Buscar cidade..." autocomplete="off" />
+          <div id="distance-origin-list" class="distance-combobox__list"></div>
+        </div>
+        <div class="distance-route-mark" aria-hidden="true">→</div>
+        <div class="distance-field distance-combobox">
+          <label for="distance-destination">Destino</label>
+          <input id="distance-destination" type="text" placeholder="Buscar cidade..." autocomplete="off" />
+          <div id="distance-destination-list" class="distance-combobox__list"></div>
+        </div>
+      </div>
+
+      <div class="distance-card distance-card--options">
+        <div class="distance-field">
+          <label for="distance-hours">Horas de viagem por dia</label>
+          <input id="distance-hours" type="number" min="1" max="24" value="8" />
+        </div>
+        <div class="distance-field">
+          <label for="distance-route">Fator de rota</label>
+          <select id="distance-route">
+            <option value="1">1,0 · linha reta</option>
+            <option value="1.2" selected>1,2 · estrada</option>
+            <option value="1.4">1,4 · tortuoso</option>
+          </select>
+        </div>
+        <div class="distance-field">
+          <label for="distance-terrain">Terreno a pé</label>
+          <select id="distance-terrain">
+            <option value="1">Normal / estrada</option>
+            <option value="0.5">Difícil · velocidade ×½</option>
+          </select>
+        </div>
+        <div class="distance-field distance-field--flight">
+          <label class="distance-check" for="distance-flight">
+            <input id="distance-flight" type="checkbox" />
+            <span>Considerar voo</span>
+          </label>
+          <div id="distance-flight-wrap" class="distance-subfield" hidden>
+            <label for="distance-flight-speed">Velocidade de voo</label>
+            <select id="distance-flight-speed">
+              <option value="30">9 m · 30 pés</option>
+              <option value="60" selected>18 m · 60 pés</option>
+              <option value="90">27 m · 90 pés</option>
+              <option value="120">36 m · 120 pés</option>
+              <option value="150">45 m · 150 pés</option>
+            </select>
+          </div>
+        </div>
+        <div id="distance-ship-wrap" class="distance-field" hidden>
+          <label for="distance-ship">Navio · regras do DMG</label>
+          <select id="distance-ship">
+            <option value="veleiro">Veleiro · 3,2 km/h</option>
+            <option value="guerra">Navio de guerra · 4 km/h</option>
+            <option value="dracar" selected>Drácar · 4,8 km/h</option>
+            <option value="gale">Galé · 6,4 km/h</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="distance-output" class="distance-card distance-output" aria-live="polite"></div>
+
+      <aside class="distance-notes">
+        <p><strong>Distâncias aproximadas.</strong> Algumas cidades não possuem localização oficial ou posição exata no D&amp;D 5e. As posições foram estimadas por região e triangulação. Cidades marcadas com ~ na busca têm menor precisão.</p>
+        <p><strong>Base de cálculo.</strong> Esta ferramenta considera apenas cidades. Vilas, fortalezas, florestas e outros locais podem usar a cidade conhecida mais próxima como ponto de referência.</p>
+      </aside>
+    </section>
+  </main>
+  <script>
+    import "../scripts/distance-calculator";
+  </script>
+</BaseLayout>

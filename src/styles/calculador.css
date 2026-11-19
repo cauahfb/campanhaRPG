@@ -1,0 +1,270 @@
+.distance-page { padding-bottom: 80px; }
+
+.distance-calculator {
+  display: grid;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.distance-card,
+.distance-notes {
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background:
+    linear-gradient(140deg, rgba(26, 16, 25, .96), rgba(18, 11, 20, .96) 58%, rgba(10, 6, 12, .98));
+  box-shadow: 0 1px 0 rgba(255, 255, 255, .03) inset;
+}
+
+.distance-card--locations {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 48px minmax(0, 1fr);
+  align-items: start;
+  padding: 18px;
+}
+
+.distance-card--options {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  padding: 18px;
+}
+
+.distance-route-mark {
+  display: grid;
+  place-items: center;
+  height: 76px;
+  color: var(--gold);
+  font-family: var(--font-display);
+  font-size: 26px;
+}
+
+.distance-field { position: relative; min-width: 0; }
+.distance-field label,
+.distance-field > label {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--gold);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.distance-field input[type="text"],
+.distance-field input[type="number"],
+.distance-field select {
+  width: 100%;
+  height: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  outline: none;
+  background: rgba(7, 5, 9, .72);
+  color: var(--text);
+  font-family: var(--font-ui);
+  font-size: 13px;
+}
+
+.distance-field input:focus,
+.distance-field select:focus {
+  border-color: var(--line-strong);
+  box-shadow: 0 0 0 2px rgba(201, 167, 124, .08);
+}
+
+.distance-combobox__list {
+  position: absolute;
+  z-index: 20;
+  top: 70px;
+  left: 0;
+  right: 0;
+  max-height: 280px;
+  overflow-y: auto;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: #100912;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, .48);
+}
+
+.distance-combobox__list:empty { display: none; }
+.distance-combobox__option {
+  width: 100%;
+  min-height: 42px;
+  padding: 8px 11px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  border: 0;
+  border-bottom: 1px solid var(--line-soft);
+  background: transparent;
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+}
+.distance-combobox__option:last-child { border-bottom: 0; }
+.distance-combobox__option:hover,
+.distance-combobox__option:focus-visible {
+  background: rgba(160, 47, 76, .16);
+}
+.distance-combobox__option strong { font-size: 12.5px; }
+.distance-combobox__option small {
+  flex: none;
+  color: var(--dim);
+  font-size: 10px;
+}
+
+.distance-check {
+  height: 44px;
+  display: flex !important;
+  align-items: center;
+  gap: 9px;
+  margin: 0 !important;
+  cursor: pointer;
+}
+.distance-check input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--wine);
+}
+.distance-subfield { margin-top: 10px; }
+.distance-subfield[hidden] { display: none; }
+
+.distance-output { padding: 22px; }
+.distance-output h2 {
+  margin: 0 0 18px;
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 500;
+}
+.distance-output h2 span { color: var(--gold); }
+.distance-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.distance-stats div {
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: rgba(7, 5, 9, .38);
+  text-align: right;
+}
+.distance-stats small {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--dim);
+  font-size: 9.5px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  text-align: left;
+}
+.distance-stats strong {
+  color: var(--gold-bright);
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 500;
+}
+.distance-stats span {
+  margin-left: 5px;
+  color: var(--dim);
+  font-size: 10px;
+}
+
+.distance-mode { margin-top: 14px; }
+.distance-mode h3 {
+  margin: 0;
+  padding: 10px 0 8px;
+  border-bottom: 1px solid var(--line);
+  color: var(--text-soft);
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 500;
+}
+.distance-mode h3 > span { margin-right: 7px; color: var(--gold); }
+.distance-mode h3 small {
+  color: var(--dim);
+  font-family: var(--font-ui);
+  font-size: 10px;
+  font-weight: 500;
+}
+.distance-mode table { width: 100%; border-collapse: collapse; }
+.distance-mode th {
+  padding: 8px 4px 5px;
+  color: var(--dim);
+  font-size: 8.5px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  text-align: right;
+}
+.distance-mode th:first-child { text-align: left; }
+.distance-mode td {
+  padding: 8px 4px;
+  border-top: 1px solid var(--line-soft);
+  color: var(--text-soft);
+  font-size: 12px;
+}
+.distance-mode td small { color: var(--dim); }
+.distance-table__number { width: 100px; text-align: right; white-space: nowrap; }
+
+.distance-empty,
+.distance-unavailable {
+  margin: 0;
+  color: var(--dim);
+  text-align: center;
+  font-style: italic;
+}
+.distance-warning {
+  margin: 10px 0 0;
+  padding: 9px 11px;
+  border-left: 2px solid var(--gold);
+  background: rgba(201, 167, 124, .06);
+  color: var(--text-soft);
+  font-size: 12px;
+}
+
+.distance-notes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  padding: 16px 18px;
+  color: var(--muted);
+  font-size: 11.5px;
+  line-height: 1.7;
+}
+.distance-notes p { margin: 0; }
+.distance-notes strong { color: var(--text-soft); }
+
+.book-emblem--distance {
+  background:
+    radial-gradient(circle at 50% 52%, rgba(201, 167, 124, .16), transparent 40%),
+    radial-gradient(circle at 30% 24%, rgba(160, 47, 76, .18), transparent 28%),
+    linear-gradient(145deg, rgba(42, 22, 35, .96), rgba(13, 8, 16, .98));
+}
+.distance-emblem {
+  position: absolute;
+  inset: 18px;
+  width: calc(100% - 36px);
+  height: calc(100% - 36px);
+  fill: none;
+  stroke: rgba(201, 167, 124, .72);
+  stroke-width: 1;
+  filter: drop-shadow(0 0 7px rgba(201, 167, 124, .18));
+}
+.distance-emblem circle:last-child { fill: var(--gold-bright); stroke: none; }
+.distance-emblem__north { fill: rgba(160, 47, 76, .42); }
+
+@media (max-width: 900px) {
+  .distance-card--options { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 620px) {
+  .distance-card--locations { grid-template-columns: 1fr; gap: 8px; }
+  .distance-route-mark { height: 24px; transform: rotate(90deg); }
+  .distance-card--options,
+  .distance-notes { grid-template-columns: 1fr; }
+  .distance-stats { grid-template-columns: 1fr; }
+  .distance-mode { overflow-x: auto; }
+  .distance-mode table { min-width: 430px; }
+  .distance-combobox__option small { display: none; }
+}
