@@ -40,6 +40,19 @@ const faixas = personagem.status === "Ativo"
       <div class="rule-detail-heading character-profile-heading character-dossier-body">
         <span class="character-status character-status--detail">{personagem.status}</span>
         <h1>{personagem.nome}</h1>
+        <div class="character-player-card">
+          <div class="character-player-photo" aria-hidden="true">?</div>
+          <div>
+            <span class="character-field-kicker">Dados do jogador</span>
+            <strong>Nome e idade ainda não informados</strong>
+            <span>Nome: — · Idade: —</span>
+          </div>
+        </div>
+        <dl class="character-identity" aria-label={`Dados de ${personagem.nome}`}>
+          <div><dt>Raça</dt><dd>{personagem.raca || "—"}</dd></div>
+          <div><dt>Altura</dt><dd>{personagem.altura || "—"}</dd></div>
+          <div><dt>Idade</dt><dd>{personagem.idade || "—"}</dd></div>
+        </dl>
         {personagem.classes.length > 0 && (
           <div class="character-class-list" aria-label="Classes e subclasses">
             {personagem.classes.map((classe) => (
@@ -69,17 +82,95 @@ const faixas = personagem.status === "Ativo"
 
     <section class="character-section">
       <div class="character-section-heading"><span>Personalidade</span><i></i></div>
-      <article class="character-empty-field"><p>Este espaço está reservado para a personalidade de {personagem.nome}.</p></article>
+      {personagem.slug === "corvalina" ? (
+        <article class="character-copy">
+          <p>Corvalina Nightveil é uma Shadar-kai de personalidade alegre, curiosa e excêntrica, cuja espontaneidade contrasta com a natureza sombria de Shadowfell. Tagarela e brincalhona, costuma cantarolar, conversar com seu corvo Winter e inventar mentiras desnecessárias apenas pela diversão de convencer outras pessoas.</p>
+          <p>Apesar de seu comportamento peculiar, demonstra profunda compaixão pelos animais e pelas pessoas, valorizando especialmente os vínculos que constrói. Sua curiosidade e seu desejo de liberdade sempre a levaram a questionar uma existência limitada às obrigações religiosas.</p>
+          <p>Após sua morte e ressurreição, passou a desenvolver uma relação mais madura com a mortalidade. Embora continue sendo uma figura peculiar e afetuosa, encontrou na fé de Kelemvor um novo propósito: oferecer conforto aos vivos, preservar a memória dos falecidos e respeitar o descanso daqueles que partiram.</p>
+        </article>
+      ) : <article class="character-empty-field"><p>Este espaço está reservado para a personalidade de {personagem.nome}.</p></article>}
     </section>
 
     <section class="character-section">
-      <div class="character-section-heading"><span>Biografia</span><i></i></div>
-      <article class="character-empty-field"><p>A história de {personagem.nome} será registrada aqui.</p></article>
+      <div class="character-section-heading"><span>Resumo da Biografia</span><i></i></div>
+      {personagem.slug === "corvalina" ? (
+        <article class="character-copy character-biography">
+          <p>Nascida em Shadowfell, Corvalina Nightveil cresceu ao lado de seus pais, Varok e Nyssara Nightveil, servindo à Rainha Corvo. Desde jovem, sua natureza alegre contrastava com o ambiente sombrio em que vivia. Na Fortaleza das Memórias, conheceu Winter, um corvo que se tornaria seu companheiro inseparável.</p>
+          <h3>O desejo de liberdade</h3>
+          <p>Após décadas dedicadas ao Pendor das Sombras, Corvalina começou a desejar uma vida além de suas obrigações religiosas. Aos 183 anos, recebeu a permissão da Rainha Corvo para partir com sua família rumo ao Plano Material.</p>
+          <h3>Baldur's Gate e Neverwinter</h3>
+          <p>Em Baldur's Gate, ajudou sua família a prosperar ao sugerir a criação de um comércio dedicado aos animais. Posteriormente, foi enviada a Neverwinter para procurar oportunidades de expansão dos negócios familiares.</p>
+          <h3>Os Corvonescos</h3>
+          <p>Durante suas aventuras, Corvalina fundou, ao lado de Kiei, Félypo, Archibald e Perseu, um grupo chamado Os Corvonescos. Unidos pelas experiências e desafios que enfrentaram juntos, tornaram-se companheiros de jornada, compartilhando perigos, descobertas e acontecimentos que marcariam suas histórias.</p>
+          <h3>A morte e o abandono</h3>
+          <p>Durante um confronto contra Edran e Ozimandias, Corvalina perdeu a vida. Ressuscitada por seus aliados em Darkon, foi abandonada pela Rainha Corvo, que considerou seu retorno à vida uma violação dos princípios que deveria seguir.</p>
+          <h3>Um novo caminho</h3>
+          <p>Sem sua antiga conexão divina, Corvalina encontrou um novo propósito em Kelemvor. Retornando a Neverwinter sob o nome Friede, dedicou-se ao estudo dos ritos funerários, ao cuidado dos enfermos e à preservação das histórias dos falecidos. Winter, agora apresentado como Noctis, também passou a trilhar esse novo caminho.</p>
+        </article>
+      ) : <article class="character-empty-field"><p>A história de {personagem.nome} será registrada aqui.</p></article>}
     </section>
 
     <section class="character-section">
       <div class="character-section-heading"><span>Mecânica individual</span><i></i></div>
-      <article class="character-empty-field"><p>Este espaço será utilizado para apresentar as mecânicas e regras individuais de {personagem.nome}.</p></article>
+      {personagem.slug === "corvalina" ? (
+        <div class="winter-compendium">
+          <p class="winter-intro">Winter é uma criatura predominantemente utilitária. A partir do nível 10, todas as cinco formas do Último Caminho estão disponíveis e evoluem nos níveis 10, 13, 15, 17 e 20, em vez de serem desbloqueadas individualmente.</p>
+          <div class="winter-overview">
+            <div><span>Usos do Último Caminho</span><strong>Nível de clérigo − 5</strong><small>Recuperados no Descanso Longo</small></div>
+            <div><span>Turno</span><strong>Logo após Corvalina</strong><small>Não rola iniciativa separadamente</small></div>
+            <div><span>Estatísticas</span><strong>CA 15 · PV 40</strong><small>+4 PV por nível após o 10º</small></div>
+            <div><span>Deslocamento</span><strong>3 m · Voo 18 m</strong><small>Resistência a dano Necrótico</small></div>
+          </div>
+          <p class="winter-note">As cinco formas compartilham a mesma reserva. Uma limitação própria, como “1 vez por Descanso Longo”, não substitui nem elimina o custo em Usos do Último Caminho.</p>
+          <details open>
+            <summary><span>01</span> Balança do Julgamento</summary>
+            <div class="winter-panel">
+              <p>Como uma Ação, Corvalina apresenta duas possibilidades relacionadas a um cadáver ou restos identificáveis. A Balança indica se cada possibilidade é verdadeira conforme aquilo que o morto sabia ou vivenciou. Cada transformação permite um número de ponderações igual ao Bônus de Proficiência de Corvalina.</p>
+              <ul>
+                <li><strong>Níveis 10–17:</strong> passa de fatos conhecidos a cadáveres em decomposição, intenções, sentimentos, desejos, motivações e convicções genuínas.</li>
+                <li><strong>Nível 20 — Julgamento Absoluto:</strong> uma vez por Descanso Longo, consumindo 1 Uso, responde uma pergunta verdadeira e objetiva diretamente ligada à morte, sem depender do conhecimento ou das crenças do morto. Não prevê o futuro.</li>
+              </ul>
+            </div>
+          </details>
+          <details>
+            <summary><span>02</span> Lanterna do Último Caminho</summary>
+            <div class="winter-panel">
+              <p>Como uma Ação Bônus, Corvalina puxa um aliado voluntário até um espaço desocupado a até 1,5 m dela. O alvo normalmente gasta sua Reação e cada chamado consome 1 Uso. Se não houver espaço disponível, a habilidade falha.</p>
+              <ul><li><strong>Alcance:</strong> 9 m, 12 m, 18 m, 24 m e 36 m nos níveis 10, 13, 15, 17 e 20.</li><li>Deixa de provocar Ataques de Oportunidade no nível 13.</li><li>No nível 15, rompe a condição <em>Grappled</em>.</li><li>No nível 17, concede Meia Cobertura (+2 CA e +2 em Salvaguardas de Destreza).</li><li>No nível 20, o aliado não precisa gastar a Reação.</li></ul>
+            </div>
+          </details>
+          <details>
+            <summary><span>03</span> Correntes do Juízo</summary>
+            <div class="winter-panel">
+              <p>Como uma Ação, Corvalina escolhe um Undead a até 9 m. Em uma falha na Salvaguarda de Força contra sua CD de magia, o alvo fica <em>Restrained</em>. No fim de cada turno, pode repetir a salvaguarda. A habilidade exige Concentração e consome 1 Uso.</p>
+              <ul><li><strong>Tamanho máximo:</strong> Medium, Large e Huge nos níveis 10, 13 e 15.</li><li>A partir do nível 15, impede teletransporte e movimento extraplanar.</li><li>No nível 17, o alvo tem Desvantagem para escapar.</li><li>No nível 20, não há limite de duração enquanto Corvalina mantiver a Concentração.</li></ul>
+            </div>
+          </details>
+          <details>
+            <summary><span>04</span> Espada de Kelemvor</summary>
+            <div class="winter-panel">
+              <p>A Sentença consome 5 Usos e pode ser usada uma vez por Descanso Longo. Como uma Ação, Corvalina atinge automaticamente um alvo a até 1,5 m; depois disso, Winter retorna à forma de Corvo.</p>
+              <ul><li><strong>Nível 10:</strong> apenas Undead, 6d10 Radiante.</li><li><strong>Nível 13:</strong> 7d10; o alvo não recupera PV até o início do próximo turno de Corvalina.</li><li><strong>Nível 15:</strong> 8d10; qualquer criatura pode ser alvo, mas não-Undead sofrem metade do dano.</li><li><strong>Nível 17:</strong> 10d10.</li><li><strong>Nível 20 — Sentença Final:</strong> 15d10. Se reduzir um Undead a 0 PV, suprime características intrínsecas que evitariam sua destruição definitiva. Mecanismos externos, como filactérios, pactos ou artefatos, não são destruídos, mas Corvalina percebe que algo ainda impede o julgamento final.</li></ul>
+            </div>
+          </details>
+          <details>
+            <summary><span>05</span> Psicopompa</summary>
+            <div class="winter-panel">
+              <p>Psicopompa alcança uma alma com quem Corvalina possua um Vínculo genuíno — amizade, amor, família, juramento ou rivalidade profunda. Conhecer alguém não é suficiente. A alma precisa existir, estar acessível e aceitar o chamado.</p>
+              <ul><li><strong>Nível 10:</strong> após um ritual de 10 minutos, a alma pode falar através de Winter por 1 minuto.</li><li><strong>Nível 13:</strong> manifesta uma aparência espectral por até 10 minutos, podendo conversar, observar e reconhecer criaturas e lugares.</li><li><strong>Nível 15:</strong> realiza uma interação física simples durante a manifestação.</li><li><strong>Nível 17:</strong> concede Vantagem no próximo teste de uma perícia que dominava em vida.</li><li><strong>Nível 20 — Última Intervenção:</strong> uma vez por Descanso Longo, consumindo 1 Uso e sem ritual, a alma usa uma única habilidade aprovada pelo Mestre. Depois, desaparece; não entra na iniciativa, não ganha turno e não permanece em combate.</li></ul>
+            </div>
+          </details>
+          <details>
+            <summary><span>+</span> Vestígios, Vínculos e Último Repouso</summary>
+            <div class="winter-panel">
+              <p><strong>Vestígios da Morte</strong> são cicatrizes metafísicas deixadas por acontecimentos extraordinários, como massacres, necrópoles, epidemias ou ritos funerários. Winter pode absorver um Vestígio após 10 minutos em contato, enquanto Corvalina ora a Kelemvor.</p>
+              <p>Não há limite de Vestígios, e todos permanecem ativos. Cada um concede uma habilidade única ou modifica uma das cinco formas. Eles são uma progressão horizontal, rara e ligada aos acontecimentos da campanha.</p>
+              <p>Com <strong>Último Repouso</strong>, Corvalina pode destruir permanentemente um Vestígio para provocar uma última manifestação extraordinária baseada em sua natureza. O benefício é perdido e normalmente não pode ser recuperado.</p>
+              <p>Assim, Winter evolui por três caminhos: os níveis de Corvalina aprimoram as formas; os Vestígios adicionam propriedades; e os Vínculos ampliam as almas que a Psicopompa pode alcançar.</p>
+            </div>
+          </details>
+        </div>
+      ) : <article class="character-empty-field"><p>Este espaço será utilizado para apresentar as mecânicas e regras individuais de {personagem.nome}.</p></article>}
     </section>
 
     <section class="character-section">

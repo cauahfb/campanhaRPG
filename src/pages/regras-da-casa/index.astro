@@ -57,7 +57,7 @@ const categories = ["Todas", "Magia", "Combate", "Recursos", "Equipamentos", "Al
     <section class="rules-grid" id="rules-grid" aria-label="Regras da Casa">
       {rules.map((rule, i) => (
         <a class="section-card card-lift rule-card" href={`/regras-da-casa/${rule.slug}/`} data-category={rule.category} data-search={`${rule.title} ${rule.category} ${rule.description}`.toLocaleLowerCase("pt-BR")}>
-          <div class={`rule-card-art rule-card-art--${rule.visual ?? rule.slug}`}>
+          <div class={`rule-card-art rule-card-art--${rule.slug}`}>
             {rule.image ? <img src={rule.image} alt="" loading="lazy" /> : <span class="art-mark" aria-hidden="true"></span>}
             <span class="art-index">{String(i + 1).padStart(2, "0")}</span>
           </div>

@@ -7,6 +7,9 @@ export interface Personagem {
   slug: string;
   nome: string;
   status: "Ativo" | "Ex-Integrante" | "Falecido";
+  raca: string;
+  altura: string;
+  idade: string;
   classes: PersonagemClasse[];
   imagem?: string;
   temas?: {
@@ -20,17 +23,23 @@ export const personagens: Personagem[] = [
     slug: "corvalina",
     nome: "Corvalina Nightveil",
     status: "Ativo",
+    raca: "Shadar-kai",
+    altura: "1,55 m",
+    idade: "190 anos",
     classes: [{ nome: "Clériga", subclasse: "Domínio do Túmulo" }],
     imagem: "/images/personagens/corvalina-nightveil.png",
     temas: {
-      epico: [{ titulo: "Tema Épico", arquivo: "/audio/personagens/corvalina-nightveil/tema-epico.mp3" }],
-      morte: [{ titulo: "Tema de Morte", arquivo: "/audio/personagens/corvalina-nightveil/tema-morte.mp3" }],
+      epico: [{ titulo: "Deacons of the Deep - Dark Souls 3", arquivo: "/audio/personagens/corvalina-nightveil/tema-epico.mp3" }],
+      morte: [{ titulo: "20# - Aphex Twin", arquivo: "/audio/personagens/corvalina-nightveil/tema-morte.mp3" }],
     },
   },
   {
     slug: "novrik",
     nome: "Novrik Vaelar",
     status: "Ativo",
+    raca: "",
+    altura: "",
+    idade: "",
     classes: [{ nome: "Mago", subclasse: "Ordem dos Escribas" }],
     imagem: "/images/personagens/novrik-vaelar.png",
     temas: {
@@ -42,6 +51,9 @@ export const personagens: Personagem[] = [
     slug: "felypo",
     nome: "Félypo D'Argent",
     status: "Ativo",
+    raca: "",
+    altura: "",
+    idade: "",
     classes: [{ nome: "Monge", subclasse: "Caminho do Dragão Ascendente" }],
     imagem: "/images/personagens/felypo-dargent.png",
     temas: {
@@ -53,6 +65,9 @@ export const personagens: Personagem[] = [
     slug: "melvis",
     nome: "Melvis Pulaço",
     status: "Ativo",
+    raca: "",
+    altura: "",
+    idade: "",
     classes: [
       { nome: "Blood Hunter", subclasse: "Lycan" },
       { nome: "Guerreiro", subclasse: "Battle Master" },
@@ -71,6 +86,9 @@ export const personagens: Personagem[] = [
     slug: "moralieu",
     nome: "Moralieu",
     status: "Ativo",
+    raca: "",
+    altura: "",
+    idade: "",
     classes: [],
   },
 ];

@@ -54,7 +54,7 @@ export function isGroup(entry: NavigationEntry): entry is NavigationGroup {
 }
 
 export function isNavigationItem(entry: NavigationEntry): entry is NavigationItem {
-  return (entry as NavigationItem).type !== "group";
+  return !isGroup(entry);
 }
 
 

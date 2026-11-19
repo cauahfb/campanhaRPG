@@ -33,7 +33,7 @@ export function initCatalogFilter(options: CatalogFilterOptions): void {
     const buttons = Array.from(document.querySelectorAll<HTMLButtonElement>(group.filterSelector));
     const initialValue = group.initialValue ?? group.allValue;
     const initial = buttons.find((button) =>
-      (button.dataset.value ?? button.getAttribute(state.group.filterAttribute)) === initialValue,
+      (button.dataset.value ?? button.getAttribute(group.filterAttribute)) === initialValue,
     ) ?? buttons[0];
     return {
       group,
