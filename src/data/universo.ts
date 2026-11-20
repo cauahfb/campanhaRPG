@@ -19,7 +19,7 @@ export const universoHub: HubItem[] = [
   },
   {
     title: "Documentos",
-    description: "Consulte livros, manuscritos, músicas, cartas e documentos encontrados — ou perdidos — ao longo da campanha.",
+    description: "Consulte livros, manuscritos, músicas, cartas e documentos encontrados, ou perdidos, ao longo da campanha.",
     href: "/universo/documentos/",
     icon: "file-text",
     eyebrow: "Arquivos",

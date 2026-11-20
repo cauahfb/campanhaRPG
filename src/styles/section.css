@@ -201,13 +201,14 @@ body:has(.section-shell) {
 }
 .book-emblem__constellation {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  top: 9%;
+  left: 9%;
+  width: 82%;
+  height: 82%;
   fill: var(--gold-bright);
   stroke: rgba(201, 167, 124, .58);
   stroke-width: 1;
-  filter: drop-shadow(0 0 7px rgba(201, 167, 124, .22));
+  filter: drop-shadow(0 0 5px rgba(201, 167, 124, .14));
   transform: rotate(-5deg);
   transition: filter .35s;
 }
@@ -215,7 +216,7 @@ body:has(.section-shell) {
 .book-emblem__constellation circle { fill: var(--gold-bright); }
 .book-emblem__constellation circle {
   stroke: var(--gold-bright);
-  filter: drop-shadow(0 0 4px rgba(230, 207, 166, .6));
+  filter: drop-shadow(0 0 3px rgba(230, 207, 166, .38));
 }
 .book-emblem__constellation .constellation-spark {
   fill: none;
