@@ -125,6 +125,11 @@
   height: 16px;
   accent-color: var(--wine);
 }
+.distance-check--felypo small {
+  margin-left: 4px;
+  color: var(--dim);
+  font-size: 10.5px;
+}
 .distance-subfield { margin-top: 10px; }
 .distance-subfield[hidden] { display: none; }
 

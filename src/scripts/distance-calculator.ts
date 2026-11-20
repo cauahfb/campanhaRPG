@@ -77,6 +77,9 @@ const terrainInput = document.getElementById("distance-terrain") as HTMLSelectEl
 const flightCheckbox = document.getElementById("distance-flight") as HTMLInputElement;
 const flightWrap = document.getElementById("distance-flight-wrap") as HTMLElement;
 const flightInput = document.getElementById("distance-flight-speed") as HTMLSelectElement;
+const felypoCheckbox = document.getElementById("distance-felypo") as HTMLInputElement;
+const FELYPO_SPEED_FEET = 55; // 16,5 m
+const BASE_WALK_FEET = 30; // passo normal padrão: 9 m = 4,8 km/h
 const shipWrap = document.getElementById("distance-ship-wrap") as HTMLElement;
 const shipInput = document.getElementById("distance-ship") as HTMLSelectElement;
 
@@ -125,10 +128,12 @@ function calculate() {
     html += `<p class="distance-warning">Mais de 8 h/dia é marcha forçada: teste de CON (CD 10 + 1 por hora extra) ou 1 nível de exaustão.</p>`;
   }
 
-  html += `<section class="distance-mode"><h3><span aria-hidden="true">◆</span> A pé</h3>`;
+  const felypo = felypoCheckbox.checked;
+  const walkScale = felypo ? FELYPO_SPEED_FEET / BASE_WALK_FEET : 1;
+  html += `<section class="distance-mode"><h3><span aria-hidden="true">◆</span> A pé${felypo ? " <small>Felypo · 16,5 m · 55 pés</small>" : ""}</h3>`;
   if (terrestrial) {
     html += `<table>${tableHeader}<tbody>${walkingPaces
-      .map((pace) => durationRow(pace.name, pace.note, estimatedDistance, pace.speed * terrainFactor, hoursPerDay))
+      .map((pace) => durationRow(pace.name, pace.note, estimatedDistance, pace.speed * walkScale * terrainFactor, hoursPerDay))
       .join("")}</tbody></table>`;
   } else {
     html += `<p class="distance-unavailable">${floating ? "Impossível: cidade flutuante." : "Impossível: há oceano entre os dois pontos."}</p>`;
@@ -136,8 +141,8 @@ function calculate() {
   html += `</section>`;
 
   if (flightCheckbox.checked) {
-    const selected = flightInput.selectedOptions[0]?.text ?? "";
-    const flightSpeed = Number(flightInput.value) * 0.1609;
+    const selected = felypo ? "Felypo · 16,5 m · 55 pés" : flightInput.selectedOptions[0]?.text ?? "";
+    const flightSpeed = (felypo ? FELYPO_SPEED_FEET : Number(flightInput.value)) * 0.1609;
     html += `<section class="distance-mode"><h3><span aria-hidden="true">✦</span> Voando <small>${selected}</small></h3>`;
     html += `<table>${tableHeader}<tbody>${durationRow("Voo contínuo", "", estimatedDistance, flightSpeed, hoursPerDay)}</tbody></table>`;
     if (!terrestrial) {
@@ -160,6 +165,11 @@ function calculate() {
 
   output.innerHTML = html;
 }
+
+felypoCheckbox.addEventListener("change", () => {
+  flightInput.disabled = felypoCheckbox.checked;
+  calculate();
+});
 
 flightCheckbox.addEventListener("change", () => {
   flightWrap.hidden = !flightCheckbox.checked;

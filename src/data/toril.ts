@@ -7,8 +7,8 @@ export interface TorilCity {
   terrain: string;
 }
 
-const REGION_DATA = `Costa da Espada|60|-100|450|A|1|Fireshear@-40,-700;Baldur's Gate@130,960;Beregost@100,820;Daggerford@120,300;Waterdeep@0,0;Neverwinter@20,-480;Luskan@-10,-880;Mirabar@380,-700;Leilon@-10,-330;Port Llast@-40,-620;Amphail;Red Larch;Longsaddle@240,-380;Yartar@480,90;Triboar@260,180;Westbridge;Secomber@330,300;Zundbridge;Goldenfields;Gauntlgrym;Helm's Hold;Phandalin@130,-280;Candlekeep@-10,650
-Fronteira Selvagem|600|-550|300|A|1|Silverymoon@520,-500;Everlund@700,-430;Sundabar@780,-600;Citadel Adbar@830,-680;Citadel Felbarr@560,-760;Mithral Hall@650,-600;Nesmé@180,-640;Jalanthar;Quaervarr;Olostin's Hold;Deadsnows
+const REGION_DATA = `Costa da Espada|60|-100|450|A|1|Fireshear@-40,-700;Baldur's Gate@130,960;Beregost@110,1180;Daggerford@90,224;Waterdeep@0,0;Neverwinter@20,-630;Luskan@-10,-880;Mirabar@380,-700;Leilon@0,-470;Port Llast@13,-686;Amphail;Red Larch;Longsaddle@240,-380;Yartar@410,-105;Triboar@330,-130;Westbridge;Secomber@330,300;Zundbridge;Goldenfields;Gauntlgrym;Helm's Hold;Phandalin@130,-440;Candlekeep@60,1140
+Fronteira Selvagem|600|-550|300|A|1|Silverymoon@520,-500;Everlund@595,-471;Sundabar@780,-600;Citadel Adbar@830,-680;Citadel Felbarr@560,-760;Mithral Hall@650,-600;Nesmé@180,-640;Jalanthar;Quaervarr;Olostin's Hold;Deadsnows
 Lurkwood (floresta)|740|-540|30|A|0|Lurkwood@740,-540
 Icewind Dale|330|-1500|120|A|1|Bryn Shander@330,-1500;Targos;Bremen;Termalaine;Lonelywood;Good Mead;Easthaven;Caer-Konig;Caer-Dineval;Dougan's Hole
 Floresta Alta|900|0|200|A|0|Karse
