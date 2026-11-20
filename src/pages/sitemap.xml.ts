@@ -10,7 +10,6 @@ import { SITE } from "../data/site";
 /** Páginas ainda sem conteúdo ficam fora do sitemap (e recebem noindex no layout). */
 const hiddenRoutes = new Set<string>([
   "/universo/bestiario-do-melvis/",
-  ...(cronicas.length === 0 ? ["/universo/cronicas-da-campanha/"] : []),
   ...(vinculos.length === 0 ? ["/corvonescos/vinculos/"] : []),
   ...(sessoes.length === 0 && misterios.length === 0 ? ["/corvonescos/diario-de-bordo/"] : []),
 ]);

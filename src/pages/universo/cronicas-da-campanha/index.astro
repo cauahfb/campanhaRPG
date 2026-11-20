@@ -10,11 +10,11 @@ import "../../../styles/cronicas.css";
 const base = "/universo/cronicas-da-campanha/";
 const locaisEmUso = [...new Set(cronicas.flatMap((item) => item.locais ?? []))].sort((a, b) => a.localeCompare(b, "pt-BR"));
 const personagemPorSlug = new Map(personagens.map((personagem) => [personagem.slug, personagem]));
+const cronicasMaisAntigasPrimeiro = [...cronicasOrdenadas].reverse();
 ---
 <BaseLayout
   title="Crônicas da Campanha"
   description="Os registros de Nemo Dattimare, o Escriba das Profundezas: feitos, tragédias, intrigas e desventuras vividas pelos Corvonescos."
-  noindex={cronicas.length === 0}
 >
   <main class="section-shell">
     <Breadcrumb items={[{ label: "Universo", href: "/universo/" }, { label: "Crônicas da Campanha" }]} />
@@ -81,15 +81,15 @@ const personagemPorSlug = new Map(personagens.map((personagem) => [personagem.sl
                 {locaisEmUso.map((local) => <option value={local}>{local}</option>)}
               </select>
             </div>
-            <button type="button" class="filter-button" data-order="oldest" aria-pressed="false">Mais antigas primeiro</button>
-            <button type="button" class="filter-button is-active" data-order="newest" aria-pressed="true">Mais recentes primeiro</button>
+            <button type="button" class="filter-button is-active" data-order="oldest" aria-pressed="true">Mais antigas primeiro</button>
+            <button type="button" class="filter-button" data-order="newest" aria-pressed="false">Mais recentes primeiro</button>
           </div>
         </div>
       </div>
 
       {cronicas.length > 0 ? (
         <ol class="cronica-lista cronica-timeline" id="cronica-lista">
-          {cronicasOrdenadas.map((cronica) => {
+          {cronicasMaisAntigasPrimeiro.map((cronica) => {
             const cat = categoriaPorId(cronica.categoria);
             const locais = cronica.locais ?? [];
             const nomesPersonagens = (cronica.personagens ?? [])
@@ -161,24 +161,27 @@ const personagemPorSlug = new Map(personagens.map((personagem) => [personagem.sl
     localSelect?.addEventListener("change", applyFilters);
 
     const orderButtons = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-order]"));
-    orderButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        if (!list) return;
-        const oldestFirst = button.dataset.order === "oldest";
-        const items = Array.from(list.children) as HTMLElement[];
-        items.sort((a, b) => {
-          const delta = Number(a.dataset.ordem) - Number(b.dataset.ordem);
-          return oldestFirst ? delta : -delta;
-        });
-        items.forEach((item) => list.append(item));
-        orderButtons.forEach((item) => {
-          const selected = item === button;
-          item.classList.toggle("is-active", selected);
-          item.setAttribute("aria-pressed", String(selected));
-        });
+    const applyOrder = (button: HTMLButtonElement) => {
+      if (!list) return;
+      const oldestFirst = button.dataset.order === "oldest";
+      const items = Array.from(list.children) as HTMLElement[];
+      items.sort((a, b) => {
+        const delta = Number(a.dataset.ordem) - Number(b.dataset.ordem);
+        return oldestFirst ? delta : -delta;
       });
+      items.forEach((item) => list.append(item));
+      orderButtons.forEach((item) => {
+        const selected = item === button;
+        item.classList.toggle("is-active", selected);
+        item.setAttribute("aria-pressed", String(selected));
+      });
+    };
+    orderButtons.forEach((button) => {
+      button.addEventListener("click", () => applyOrder(button));
     });
 
+    const initialOrderButton = orderButtons.find((button) => button.dataset.order === "oldest");
+    if (initialOrderButton) applyOrder(initialOrderButton);
     applyFilters();
   </script>
 </BaseLayout>
