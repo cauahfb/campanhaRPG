@@ -13,7 +13,9 @@ const grupos = ["Ativo", "Ex-Integrante", "Falecido"] as const;
     <a class="back-link" href="/corvonescos/">← Voltar aos Corvonescos</a>
     <SectionIntro eyebrow="O Grupo" title="Os" emphasis="Personagens" description="Conheça os aventureiros que compõem, ou já compuseram, a história dos Corvonescos." />
     {grupos.map((status) => {
-      const lista = personagens.filter((personagem) => personagem.status === status);
+      const lista = personagens
+        .filter((personagem) => personagem.status === status)
+        .sort((a, b) => a.nome.localeCompare(b.nome, "pt-BR", { sensitivity: "base" }));
       return lista.length > 0 && (
         <section class="character-roster-group" aria-label={`Personagens: ${status}`}>
           <div class="character-roster-heading"><span>{status}</span><i></i></div>

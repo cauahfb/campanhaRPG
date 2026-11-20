@@ -4,11 +4,13 @@ import { personagens } from "../data/personagens";
 import { vinculos } from "../data/vinculos";
 import { sessoes } from "../data/sessoes";
 import { misterios } from "../data/misterios";
+import { cronicas } from "../data/cronicas";
 import { SITE } from "../data/site";
 
 /** Páginas ainda sem conteúdo ficam fora do sitemap (e recebem noindex no layout). */
 const hiddenRoutes = new Set<string>([
   "/universo/bestiario-do-melvis/",
+  ...(cronicas.length === 0 ? ["/universo/cronicas-da-campanha/"] : []),
   ...(vinculos.length === 0 ? ["/corvonescos/vinculos/"] : []),
   ...(sessoes.length === 0 && misterios.length === 0 ? ["/corvonescos/diario-de-bordo/"] : []),
 ]);
@@ -22,6 +24,7 @@ const staticRoutes = pageFiles
 
 const dynamicRoutes = [
   ...personagens.map((item) => `/corvonescos/personagens/${item.slug}/`),
+  ...cronicas.map((item) => `/universo/cronicas-da-campanha/${item.slug}/`),
   ...venenos.map((item) => `/tipos-de-venenos/${item.slug}/`),
 ];
 

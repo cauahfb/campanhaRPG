@@ -5,7 +5,7 @@ import SectionIntro from "../../../components/SectionIntro.astro";
 import { universoHub } from "../../../data/universo";
 
 export function getStaticPaths() {
-  return universoHub.filter((item) => item.href !== "/universo/bestiario-do-melvis/").map((item) => ({
+  return universoHub.filter((item) => item.href !== "/universo/bestiario-do-melvis/" && item.href !== "/universo/cronicas-da-campanha/").map((item) => ({
     params: { section: item.href.split("/").filter(Boolean).at(-1) },
     props: { item },
   }));

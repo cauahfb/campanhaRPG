@@ -1,0 +1,89 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Breadcrumb from "../../../components/Breadcrumb.astro";
+import { cronicas, cronicasOrdenadas, nemo } from "../../../data/cronicas";
+import type { Cronica } from "../../../data/cronicas";
+import { personagens } from "../../../data/personagens";
+import "../../../styles/regras.css";
+import "../../../styles/corvonescos.css";
+import "../../../styles/cronicas.css";
+import textoAsura from "../../../content/cronicas/asura-o-reino-que-apodreceu-por-dentro.md?raw";
+import textoOakhuster from "../../../content/cronicas/oakhuster-a-arvore-que-dava-frutos-a-morte.md?raw";
+
+interface Props { cronica: Cronica }
+
+export function getStaticPaths() {
+  return cronicas.map((cronica) => ({ params: { slug: cronica.slug }, props: { cronica } }));
+}
+
+const { cronica } = Astro.props as Props;
+const base = "/universo/cronicas-da-campanha/";
+const indice = cronicasOrdenadas.findIndex((item) => item.slug === cronica.slug);
+const maisNova = indice > 0 ? cronicasOrdenadas[indice - 1] : undefined;
+const maisAntiga = indice < cronicasOrdenadas.length - 1 ? cronicasOrdenadas[indice + 1] : undefined;
+const nomePersonagem = (slug: string) => personagens.find((p) => p.slug === slug)?.nome ?? slug;
+const textoManuscrito = cronica.slug === "oakhuster-a-arvore-que-dava-frutos-a-morte"
+  ? textoOakhuster
+  : textoAsura;
+const inicioTomo = textoManuscrito.indexOf("## Tomo");
+const blocosCronica = inicioTomo >= 0
+  ? textoManuscrito.slice(inicioTomo).split(/\n\s*\n/).map((bloco) => bloco.trim()).filter(Boolean)
+  : [];
+---
+<BaseLayout title={`${cronica.titulo} | Crônicas da Campanha`} description={cronica.resumo} type="article">
+  <main class="section-shell section-shell--detail">
+    <Breadcrumb items={[{ label: "Universo", href: "/universo/" }, { label: "Crônicas da Campanha", href: base }, { label: cronica.titulo }]} />
+    <a class="back-link" href={base}>← Voltar às Crônicas</a>
+
+    <article class="cronica-leitura">
+      <header>
+        <span class="cronica-meta">{cronica.dataNoMundo}</span>
+        <h1>{cronica.titulo}</h1>
+        {cronica.subtitulo && <p class="cronica-leitura__sub">{cronica.subtitulo}</p>}
+        <div class="cronica-assinatura">
+          <img src={nemo.imagem} alt="" width="48" height="48" loading="lazy" />
+          <span>Registrado por <strong>{nemo.nome}</strong>, {nemo.titulo}</span>
+        </div>
+      </header>
+
+      <div class="cronica-corpo">
+        {blocosCronica.length > 0 ? blocosCronica.map((bloco) => {
+          if (bloco.startsWith("## ")) return <h2>{bloco.replace(/^##\s*/, "").replace(/\n/g, " ")}</h2>;
+          if (bloco.startsWith("# ")) return <h2>{bloco.replace(/^#\s*/, "").replace(/\n/g, " ")}</h2>;
+          if (bloco.startsWith("*Por ")) return <p class="cronica-corpo__credit"><em>{bloco.replace(/^\*|\*$/g, "")}</em></p>;
+          const linhas = bloco.split("\n");
+          if (linhas.some((linha) => linha.trim().startsWith("•"))) {
+            const indices = linhas.map((linha, indice) => linha.trim().startsWith("•") ? indice : -1).filter((indice) => indice >= 0);
+            const inicioLista = indices[0];
+            const fimLista = indices[indices.length - 1];
+            const preambulo = linhas.slice(0, inicioLista).join(" ").trim();
+            const posLista = linhas.slice(fimLista + 1).join(" ").trim();
+            return (
+              <>
+                {preambulo && <p>{preambulo}</p>}
+                <ul>{linhas.slice(inicioLista, fimLista + 1).map((linha) => <li>{linha.replace(/^•\s*/, "").replace(/\n/g, " ").trim()}</li>)}</ul>
+                {posLista && <p>{posLista}</p>}
+              </>
+            );
+          }
+          return <p>{bloco.replace(/\n/g, " ").trim()}</p>;
+        }) : cronica.paragrafos.map((texto) => <p>{texto}</p>)}
+      </div>
+
+      {(cronica.personagens?.length || cronica.locais?.length || cronica.sessao !== undefined) && (
+        <footer class="session-chips cronica-chips">
+          {cronica.personagens?.map((slug) => <a href={`/corvonescos/personagens/${slug}/`}>{nomePersonagem(slug)}</a>)}
+          {cronica.locais?.map((local) => <span>{local}</span>)}
+          {cronica.sessao !== undefined && <a href={`/corvonescos/diario-de-bordo/#sessao-${cronica.sessao}`}>Sessão {cronica.sessao} no Diário de Bordo</a>}
+        </footer>
+      )}
+    </article>
+
+    {(maisNova || maisAntiga) && (
+      <nav class="cronica-navegacao" aria-label="Outras crônicas">
+        {maisAntiga ? <a href={`${base}${maisAntiga.slug}/`}><small>← Anterior</small><span>{maisAntiga.titulo}</span></a> : <span></span>}
+        {maisNova ? <a class="is-next" href={`${base}${maisNova.slug}/`}><small>Seguinte →</small><span>{maisNova.titulo}</span></a> : <span></span>}
+      </nav>
+    )}
+  </main>
+</BaseLayout>

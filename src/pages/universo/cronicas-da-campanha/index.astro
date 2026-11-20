@@ -1,0 +1,184 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Breadcrumb from "../../../components/Breadcrumb.astro";
+import { categoriaPorId, cronicas, cronicasOrdenadas, nemo, dataCalendarioParaOrdem } from "../../../data/cronicas";
+import { personagens } from "../../../data/personagens";
+import "../../../styles/regras.css";
+import "../../../styles/corvonescos.css";
+import "../../../styles/cronicas.css";
+
+const base = "/universo/cronicas-da-campanha/";
+const locaisEmUso = [...new Set(cronicas.flatMap((item) => item.locais ?? []))].sort((a, b) => a.localeCompare(b, "pt-BR"));
+const personagemPorSlug = new Map(personagens.map((personagem) => [personagem.slug, personagem]));
+---
+<BaseLayout
+  title="Crônicas da Campanha"
+  description="Os registros de Nemo Dattimare, o Escriba das Profundezas: feitos, tragédias, intrigas e desventuras vividas pelos Corvonescos."
+  noindex={cronicas.length === 0}
+>
+  <main class="section-shell">
+    <Breadcrumb items={[{ label: "Universo", href: "/universo/" }, { label: "Crônicas da Campanha" }]} />
+
+    <header class="section-intro cronicas-intro">
+      <div class="intro-copy">
+        <span class="eyebrow">A história</span>
+        <h1>Crônicas da <em>Campanha</em></h1>
+        <p class="intro-description">
+          Aqui você encontra toda a história de nossa campanha, contado pelo melhor cronista que já existiu, datada com o calendário de Harptos.
+        </p>
+        <div class="intro-meta">
+          <span>{cronicas.length} {cronicas.length === 1 ? "crônica registrada" : "crônicas registradas"}</span>
+          <span class="meta-divider" aria-hidden="true"></span>
+          <span>{locaisEmUso.length} {locaisEmUso.length === 1 ? "local marcado" : "locais marcados"}</span>
+        </div>
+      </div>
+
+      <figure class="nemo-figure">
+        <div class="nemo-frame">
+          <img src={nemo.imagem} alt={nemo.imagemAlt} width="1000" height="914" fetchpriority="high" />
+        </div>
+        <figcaption>
+          <div class="nemo-identity">
+            <strong>{nemo.nome}</strong>
+            <span>{nemo.titulo}</span>
+            <button type="button" class="nemo-trigger" id="nemo-open" aria-haspopup="dialog" aria-controls="nemo-dialog">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.2-4.4L16.6 4.2a2 2 0 0 1 2.8 0l.4.4a2 2 0 0 1 0 2.8L8.4 18.8Z" /><path d="M14.5 6.3l3.2 3.2" /></svg>
+              {nemo.perguntaBotao}
+            </button>
+          </div>
+        </figcaption>
+      </figure>
+    </header>
+
+    <dialog class="nemo-dialog" id="nemo-dialog" aria-labelledby="nemo-dialog-title">
+      <div class="nemo-dialog__inner">
+        <button type="button" class="nemo-dialog__close" id="nemo-close" aria-label="Fechar">×</button>
+        <img class="nemo-dialog__portrait" src={nemo.imagem} alt="" loading="lazy" />
+        <div class="nemo-dialog__text">
+          <span class="nemo-dialog__kicker">{nemo.titulo}</span>
+          <h2 id="nemo-dialog-title">{nemo.perguntaBotao}</h2>
+          {nemo.biografia.map((texto) => <p>{texto}</p>)}
+        </div>
+      </div>
+    </dialog>
+
+    <section class="cronicas-catalogo" aria-labelledby="catalogo-title">
+      <div class="cronicas-view-header">
+        <h2 id="catalogo-title" class="cronicas-timeline-title">Todos os Registros </h2>
+      </div>
+      <div class="cronicas-controles">
+        <label class="search-field">
+          <span class="search-icon" aria-hidden="true"></span>
+          <input id="cronica-search" type="search" placeholder="Buscar por título, lugar, personagem ou data" autocomplete="off" />
+        </label>
+        <div class="diary-toolbar">
+          <p class="result-count" aria-live="polite"><span id="cronica-count">{cronicas.length}</span> crônicas</p>
+          <div class="cronicas-order">
+            <div class="cronicas-local-filter">
+              <label for="cronica-local">Local</label>
+              <select id="cronica-local" class="cronica-select">
+                <option value="todos">Todos os locais</option>
+                {locaisEmUso.map((local) => <option value={local}>{local}</option>)}
+              </select>
+            </div>
+            <button type="button" class="filter-button" data-order="oldest" aria-pressed="false">Mais antigas primeiro</button>
+            <button type="button" class="filter-button is-active" data-order="newest" aria-pressed="true">Mais recentes primeiro</button>
+          </div>
+        </div>
+      </div>
+
+      {cronicas.length > 0 ? (
+        <ol class="cronica-lista cronica-timeline" id="cronica-lista">
+          {cronicasOrdenadas.map((cronica) => {
+            const cat = categoriaPorId(cronica.categoria);
+            const locais = cronica.locais ?? [];
+            const nomesPersonagens = (cronica.personagens ?? [])
+              .map((slug) => personagemPorSlug.get(slug)?.nome)
+              .filter((nome): nome is string => Boolean(nome));
+            return (
+              <li class="cronica-item" data-categoria={cronica.categoria} data-ordem={dataCalendarioParaOrdem(cronica.dataNoMundo)}
+                  data-local={(cronica.locais ?? []).join("|")}
+                  data-search={[cronica.titulo, cronica.subtitulo, cronica.resumo, cronica.dataNoMundo, cat?.nome, ...locais, ...nomesPersonagens, ...(cronica.personagens ?? [])].join(" ")}>
+                <time class="cronica-timeline__date" datetime={cronica.dataNoMundo}>{cronica.dataNoMundo}</time>
+                <span class="cronica-timeline__marker" aria-hidden="true"></span>
+                <article class="section-card card-lift cronica-card cronica-timeline__card">
+                  <a href={`${base}${cronica.slug}/`} aria-label={`Ler ${cronica.titulo}`}>
+                    <h3>{cronica.titulo}</h3>
+                    {cronica.subtitulo && <p class="cronica-card__sub">{cronica.subtitulo}</p>}
+                    <p>{cronica.resumo}</p>
+                    <span class="cronica-card__foot">
+                      {cronica.presencaCorvonescos && <span class="cronica-corvonescos">Presença dos Corvonescos</span>}
+                      {locais.length > 0 && <span>{locais.join(" · ")}</span>}
+                      {cronica.sessao !== undefined && <span>Sessão {cronica.sessao}</span>}
+                    </span>
+                  </a>
+                </article>
+              </li>
+            );
+          })}
+        </ol>
+      ) : null}
+      <p class="empty-state" id="cronica-empty" hidden>Nemo ainda não escreveu nada que corresponda a essa busca.</p>
+    </section>
+  </main>
+
+  <script>
+    const dialog = document.querySelector<HTMLDialogElement>("#nemo-dialog");
+    const openButton = document.querySelector<HTMLButtonElement>("#nemo-open");
+    openButton?.addEventListener("click", () => dialog?.showModal());
+    document.querySelector("#nemo-close")?.addEventListener("click", () => dialog?.close());
+    dialog?.addEventListener("click", (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+    dialog?.addEventListener("close", () => openButton?.focus());
+
+    const list = document.querySelector<HTMLOListElement>("#cronica-lista");
+    const search = document.querySelector<HTMLInputElement>("#cronica-search");
+    const localSelect = document.querySelector<HTMLSelectElement>("#cronica-local");
+    const count = document.querySelector<HTMLElement>("#cronica-count");
+    const empty = document.querySelector<HTMLElement>("#cronica-empty");
+    const timelineItems = Array.from(document.querySelectorAll<HTMLElement>(".cronica-item"));
+
+    const applyFilters = () => {
+      const query = (search?.value ?? "").trim().toLocaleLowerCase("pt-BR");
+      const local = localSelect?.value ?? "todos";
+      let visible = 0;
+
+      timelineItems.forEach((item) => {
+        const matchesSearch = (item.dataset.search ?? "").toLocaleLowerCase("pt-BR").includes(query);
+        const matchesLocal = local === "todos" || (item.dataset.local ?? "").split("|").includes(local);
+        const show = matchesSearch && matchesLocal;
+        item.hidden = !show;
+        item.style.display = show ? "" : "none";
+        if (show) visible += 1;
+      });
+
+      if (count) count.textContent = String(visible);
+      if (empty) empty.hidden = visible > 0;
+    };
+
+    search?.addEventListener("input", applyFilters);
+    localSelect?.addEventListener("change", applyFilters);
+
+    const orderButtons = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-order]"));
+    orderButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        if (!list) return;
+        const oldestFirst = button.dataset.order === "oldest";
+        const items = Array.from(list.children) as HTMLElement[];
+        items.sort((a, b) => {
+          const delta = Number(a.dataset.ordem) - Number(b.dataset.ordem);
+          return oldestFirst ? delta : -delta;
+        });
+        items.forEach((item) => list.append(item));
+        orderButtons.forEach((item) => {
+          const selected = item === button;
+          item.classList.toggle("is-active", selected);
+          item.setAttribute("aria-pressed", String(selected));
+        });
+      });
+    });
+
+    applyFilters();
+  </script>
+</BaseLayout>

@@ -1,0 +1,333 @@
+/* ==========================================================================
+   Crônicas da Campanha — cabeçalho do cronista, listagem e leitura
+   Reaproveita os tokens de global.css (vinho, latão, marfim).
+   ========================================================================== */
+
+/* ---------- Cabeçalho com o cronista ---------- */
+.cronicas-intro {
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 300px);
+  min-height: 0;
+  padding-block: 48px;
+}
+.nemo-figure { margin: 0; }
+.nemo-frame {
+  position: relative;
+  max-width: 300px;
+  margin-inline: auto;
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  overflow: hidden;
+  background: #140a13;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, .5), 0 0 0 5px rgba(201, 167, 124, .05);
+}
+.nemo-frame img { display: block; width: 100%; height: auto; }
+.nemo-figure figcaption {
+  display: grid;
+  gap: 10px;
+  justify-items: start;
+  padding: 16px 2px 0;
+}
+.nemo-identity { display: grid; gap: 4px; min-width: 0; }
+.nemo-figure figcaption strong {
+  color: var(--gold-bright);
+  font: 600 26px/1.1 var(--font-display);
+}
+.nemo-identity > span { color: var(--muted); font-size: 12px; font-style: italic; }
+.nemo-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 0;
+  padding: 9px 18px;
+  border: 1px solid var(--gold-dim);
+  border-radius: 999px;
+  background: linear-gradient(120deg, rgba(110, 35, 57, .5), rgba(75, 42, 87, .25));
+  color: var(--gold-bright);
+  font: 500 12px var(--font-ui);
+  letter-spacing: .04em;
+  cursor: pointer;
+  transition: border-color .25s, background .25s, transform .25s var(--ease);
+}
+.nemo-trigger svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.nemo-trigger:hover { border-color: var(--gold); transform: translateY(-1px); }
+.nemo-trigger:focus-visible,
+.nemo-dialog__close:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+/* ---------- Modal "Quem é Nemo Dattimare?" ---------- */
+.nemo-dialog {
+  width: min(880px, calc(100% - 32px));
+  max-height: calc(100dvh - 48px);
+  margin: auto;
+  position: fixed;
+  inset: 0;
+  padding: 0;
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  background: linear-gradient(150deg, var(--surface-3), var(--surface) 60%);
+  color: var(--text);
+  overflow: auto;
+}
+.nemo-dialog::backdrop { background: rgba(7, 5, 9, .82); backdrop-filter: blur(3px); }
+.nemo-dialog__inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 32px;
+  padding: 36px;
+}
+.nemo-dialog__portrait {
+  width: 100%;
+  align-self: start;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+}
+.nemo-dialog__kicker { color: var(--gold); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; }
+.nemo-dialog__text h2 { margin: 8px 0 18px; font: 500 38px/1.05 var(--font-display); color: var(--text); }
+.nemo-dialog__text p { margin: 0 0 14px; color: var(--text-soft); font-size: 14px; line-height: 1.8; }
+.nemo-dialog__close {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+}
+.nemo-dialog__close:hover { color: var(--gold-bright); }
+
+/* ---------- Catálogo ---------- */
+.cronicas-catalogo { margin: 32px 0 48px; }
+.cronicas-timeline-title {
+  margin: 0 0 16px;
+  color: var(--text);
+  font: 500 34px/1.1 var(--font-display);
+}
+.cronicas-view-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 12px;
+}
+.cronicas-view-header .cronicas-timeline-title { margin: 0; }
+.cronicas-order {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 0;
+}
+.cronicas-order label {
+  color: var(--dim);
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.cronica-select {
+  min-width: 170px;
+  height: 34px;
+  padding: 0 34px 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text-soft);
+  font: 500 11px var(--font-ui);
+}
+.cronicas-order .filter-button { margin-top: 0; }
+.cronicas-controles .filter-button small { margin-left: 4px; color: var(--dim); font-size: 10px; }
+.cronicas-controles .search-field { margin-inline: auto; }
+.cronicas-controles .diary-toolbar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+.cronicas-controles .diary-toolbar .result-count { margin: 0; text-align: center; }
+.cronicas-controles .diary-toolbar .filter-button { margin-top: 0; }
+.cronicas-order {
+  justify-content: center;
+  align-items: flex-end;
+  margin-top: 0;
+}
+.cronicas-local-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+}
+.cronica-lista {
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.cronica-timeline {
+  position: relative;
+  display: grid;
+  gap: 16px;
+  padding-left: 178px;
+}
+.cronica-timeline::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  left: 154px;
+  width: 1px;
+  background: linear-gradient(180deg, var(--gold-dim), var(--line) 65%, transparent);
+}
+.cronica-timeline > .cronica-item {
+  position: relative;
+  display: grid;
+}
+.cronica-timeline__marker {
+  position: absolute;
+  top: 16px;
+  left: -31px;
+  width: 11px;
+  height: 11px;
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  background: var(--surface);
+  box-shadow: 0 0 0 5px var(--surface), 0 0 18px rgba(201, 167, 124, .22);
+  z-index: 2;
+}
+.cronica-timeline__date {
+  position: absolute;
+  top: 12px;
+  right: calc(100% + 48px);
+  width: 130px;
+  color: var(--gold);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  line-height: 1.5;
+  text-align: right;
+  text-transform: uppercase;
+}
+.cronica-item { min-width: 0; }
+.cronica-card { display: flex; flex-direction: column; height: 100%; padding: 18px 18px 16px; }
+.cronica-timeline__card { height: auto; }
+.cronica-timeline__card > a {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  color: inherit;
+  text-decoration: none;
+}
+.cronica-meta { color: var(--gold); font-size: 10px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; }
+.cronica-card h3 { margin: 6px 0 8px; font: 600 26px/1.15 var(--font-display); color: var(--text); }
+.cronica-card__sub { margin: 0 0 10px; color: var(--text); font: 500 19px/1.35 var(--font-display); }
+.cronica-card p { margin: 0 0 10px; color: var(--muted); font-size: 13px; line-height: 1.55; }
+.cronica-card__foot { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: auto; padding-top: 10px; color: var(--dim); font-size: 11px; }
+.cronica-corvonescos {
+  color: var(--gold-bright);
+  font-weight: 600;
+}
+.cronica-card:hover h3 { color: var(--gold-bright); }
+
+/* ---------- Página de leitura ---------- */
+.cronica-leitura { max-width: 720px; margin: 36px auto 0; }
+.cronica-leitura h1 { margin: 12px 0 10px; font: 500 clamp(38px, 5.5vw, 64px)/1.02 var(--font-display); color: var(--text); }
+.cronica-leitura__sub { margin: 0; color: var(--gold); font: italic 500 22px/1.4 var(--font-display); }
+.cronica-assinatura {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 26px 0 0;
+  padding: 14px 0;
+  border-block: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 12px;
+}
+.cronica-assinatura img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; object-position: 50% 28%; border: 1px solid var(--gold-dim); }
+.cronica-assinatura strong { color: var(--gold-bright); font-weight: 600; }
+.cronica-corpo { margin-top: 32px; }
+.cronica-corpo p { margin: 0 0 1.3em; color: var(--text-soft); font: 400 20px/1.8 var(--font-display); }
+.cronica-corpo h2 {
+  margin: 42px 0 18px;
+  color: var(--gold-bright);
+  font: 600 clamp(28px, 4vw, 38px)/1.15 var(--font-display);
+}
+.cronica-corpo ul {
+  margin: 0 0 1.3em;
+  padding-left: 24px;
+  color: var(--text-soft);
+  font: 400 20px/1.8 var(--font-display);
+}
+.cronica-corpo__credit {
+  color: var(--gold);
+  text-align: right;
+}
+.cronica-corpo > p:first-child::first-letter {
+  float: left;
+  margin: 6px 12px 0 0;
+  color: var(--gold-bright);
+  font: 500 68px/.8 var(--font-display);
+}
+.cronica-chips { margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--line); }
+.cronica-navegacao {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  max-width: 720px;
+  margin: 48px auto 72px;
+}
+.cronica-navegacao a {
+  display: grid;
+  gap: 4px;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  color: var(--text);
+  text-decoration: none;
+  transition: border-color .25s;
+}
+.cronica-navegacao a:hover { border-color: var(--gold-dim); }
+.cronica-navegacao a.is-next { text-align: right; }
+.cronica-navegacao small { color: var(--dim); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
+.cronica-navegacao span { font: 600 19px var(--font-display); }
+
+/* ---------- Responsivo ---------- */
+@media (max-width: 860px) {
+  .cronicas-intro { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .nemo-figure { max-width: 300px; justify-self: start; }
+  .nemo-figure figcaption { gap: 8px; }
+  .cronicas-view-header { align-items: flex-start; flex-direction: column; }
+  .nemo-dialog__inner { grid-template-columns: minmax(0, 1fr); gap: 20px; padding: 28px 22px; }
+  .nemo-dialog__portrait { max-width: 260px; }
+}
+@media (max-width: 560px) {
+  .cronicas-intro { padding-block: 36px; }
+  .nemo-figure { max-width: 260px; }
+  .nemo-figure figcaption strong { font-size: 22px; }
+  .nemo-trigger { width: 100%; justify-content: center; }
+  .nemo-dialog { width: calc(100% - 20px); max-height: calc(100dvh - 20px); }
+  .cronicas-view-header { gap: 14px; }
+  .cronicas-order { justify-content: center; }
+  .cronicas-local-filter { width: 100%; }
+  .cronicas-order label { width: 100%; text-align: center; }
+  .cronica-select { width: 100%; }
+  .cronicas-timeline-title { font-size: 28px; }
+  .cronica-timeline { gap: 10px; padding-left: 24px; }
+  .cronica-timeline::before { left: 5px; }
+  .cronica-timeline__marker { left: -26px; top: 38px; }
+  .cronica-timeline__date {
+    position: static;
+    width: auto;
+    margin-bottom: 8px;
+    text-align: left;
+  }
+  .cronica-timeline__card { margin-top: 0; }
+  .cronica-navegacao { grid-template-columns: 1fr; }
+  .cronica-corpo p { font-size: 18px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nemo-trigger { transition: none; }
+}
