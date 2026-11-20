@@ -19,10 +19,18 @@ export const universoHub: HubItem[] = [
   },
   {
     title: "Documentos",
-    description: "Consulte livros, manuscritos, cartas e documentos encontrados ou perdidos... ao longo da campanha.",
+    description: "Consulte livros, manuscritos, músicas, cartas e documentos encontrados — ou perdidos — ao longo da campanha.",
     href: "/universo/documentos/",
     icon: "file-text",
     eyebrow: "Arquivos",
+    status: "available",
+  },
+  {
+    title: "Bestiário do Melvis",
+    description: "Quase um blog pessoal do Melvis com registros de criaturas, relacionamentos interespecíficos e sei lá mais o que deveria ser isso...",
+    href: "/universo/bestiario-do-melvis/",
+    icon: "book-open",
+    eyebrow: "Crônicas de Melvis",
     status: "available",
   },
   {

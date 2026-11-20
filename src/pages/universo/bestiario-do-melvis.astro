@@ -1,18 +1,18 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import SectionIntro from "../components/SectionIntro.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SectionIntro from "../../components/SectionIntro.astro";
 ---
 <BaseLayout
   title="Bestiário do Melvis"
-  description="O Bestiário do Melvis ainda está em construção. Volte depois."
+  description="O blog pessoal de Melvis com registros de criaturas, relacionamentos interespecíficos e descobertas da campanha."
   noindex
 >
   <main class="section-shell">
     <SectionIntro
-      eyebrow="Biblioteca"
+      eyebrow="Universo"
       title="Bestiário do"
       emphasis="Melvis"
-      description="Um registro das criaturas encontradas ao longo da campanha."
+      description="Um registro pessoal das criaturas encontradas e dos relacionamentos interespecíficos observados ao longo da campanha."
     />
     <section class="construction-notice" aria-labelledby="construction-title">
       <svg class="construction-notice__icon" viewBox="0 0 48 48" width="44" height="44" aria-hidden="true">
@@ -21,7 +21,7 @@ import SectionIntro from "../components/SectionIntro.astro";
       </svg>
       <h2 id="construction-title">Em construção</h2>
       <p>Volte depois.</p>
-      <a class="back-link" href="/">← Voltar ao início</a>
+      <a class="back-link" href="/universo/">← Voltar ao Universo</a>
     </section>
   </main>
 </BaseLayout>

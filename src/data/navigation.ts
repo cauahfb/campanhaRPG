@@ -33,7 +33,6 @@ export const navigation: NavigationEntry[] = [
     items: [
       { label: "Regras da Casa", href: "/regras-da-casa/", status: "available" },
       { label: "Atividades de Downtimes", href: "/atividades-de-downtimes/", status: "available" },
-      { label: "Bestiário do Melvis", href: "/bestiario-do-melvis/", status: "available" },
       { label: "Tipos de Venenos", href: "/tipos-de-venenos/", status: "available" },
     ],
   },
