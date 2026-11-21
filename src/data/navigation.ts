@@ -45,6 +45,7 @@ export const navigation: NavigationEntry[] = [
       { label: "Raziel", href: "https://raziel.campanharpg.com.br/", status: "available", external: true },
       { label: "Maleficonomicon", href: "https://maleficonomicon.campanharpg.com.br/", status: "available", external: true },
       { label: "Tradutor Grung", href: "https://grung.campanharpg.com.br/", status: "available", external: true },
+      { label: "Tradutor Vedalken", href: "https://vedalken.campanharpg.com.br/", status: "available", external: true },
       { label: "Tradutor de Dracônico", href: "https://altovaliriano.campanharpg.com.br/", status: "available", external: true },
     ],
   },
