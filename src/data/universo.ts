@@ -1,4 +1,5 @@
 import type { HubItem } from "./hub";
+import { documentos } from "./documentos";
 
 export const universoHub: HubItem[] = [
   {
@@ -18,11 +19,13 @@ export const universoHub: HubItem[] = [
     status: "available",
   },
   {
-    title: "Documentos",
-    description: "Consulte livros, manuscritos, músicas, cartas e documentos encontrados, ou perdidos, ao longo da campanha.",
+    title: "Biblioteca de Documentos",
+    description: "Consulte livros, manuscritos, músicas, cartas e documentos encontrados ou destruídos ao longo da campanha.",
     href: "/universo/documentos/",
     icon: "file-text",
     eyebrow: "Arquivos",
+    count: documentos.length,
+    countLabel: documentos.length === 1 ? "documento" : "documentos",
     status: "available",
   },
   {

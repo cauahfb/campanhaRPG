@@ -1,0 +1,146 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Breadcrumb from "../../../components/Breadcrumb.astro";
+import DocumentoIcon from "../../../components/DocumentoIcon.astro";
+import DocumentoBloco from "../../../components/DocumentoBloco.astro";
+import { documentos, documentosOrdenados, situacaoPorId, tipoPorId } from "../../../data/documentos";
+import type { Documento } from "../../../data/documentos";
+import { personagens } from "../../../data/personagens";
+import { formatarInline, idDaSecao, semMarcacao } from "../../../scripts/doc-texto";
+import "../../../styles/regras.css";
+import "../../../styles/documentos.css";
+
+interface Props { documento: Documento }
+
+export function getStaticPaths() {
+  return documentos.map((documento) => ({ params: { slug: documento.slug }, props: { documento } }));
+}
+
+const { documento } = Astro.props as Props;
+const base = "/universo/documentos/";
+const tipo = tipoPorId(documento.tipo);
+const situacao = situacaoPorId(documento.situacao);
+const indice = documentosOrdenados.findIndex((item) => item.slug === documento.slug);
+const anterior = indice > 0 ? documentosOrdenados[indice - 1] : undefined;
+const seguinte = indice < documentosOrdenados.length - 1 ? documentosOrdenados[indice + 1] : undefined;
+const nomePersonagem = (slug: string) => personagens.find((p) => p.slug === slug)?.nome ?? slug;
+
+const ficha = [
+  { rotulo: "Tipo", valor: tipo.singular },
+  { rotulo: "Autoria", valor: documento.autor },
+  { rotulo: "Data no mundo", valor: documento.dataNoMundo },
+  { rotulo: "Idioma", valor: documento.idioma },
+  { rotulo: "Origem", valor: documento.origem },
+].filter((linha): linha is { rotulo: string; valor: string } => Boolean(linha.valor));
+
+const secoes = documento.secoes ?? [];
+const temSumario = secoes.filter((secao) => secao.nivel).length >= 3;
+---
+<BaseLayout title={`${documento.titulo} | Documentos`} description={documento.resumo} type="article">
+  <main class="section-shell section-shell--detail">
+    <Breadcrumb items={[{ label: "Universo", href: "/universo/" }, { label: "Documentos", href: base }, { label: documento.titulo }]} />
+    <a class="back-link doc-back" href={base}>← Voltar à Biblioteca</a>
+
+    <article class="doc-leitura">
+      <header class="doc-leitura__header">
+        <span class="doc-leitura__kicker">
+          <DocumentoIcon name={tipo.icone} class="doc-leitura__icon" />
+          {tipo.singular}
+        </span>
+        <h1>{documento.titulo}</h1>
+        {documento.subtitulo && <p class="doc-leitura__sub">{documento.subtitulo}</p>}
+      </header>
+
+      <div class="doc-leitura__layout">
+        <aside class="doc-ficha" aria-label="Ficha do documento">
+          {documento.capa && (
+            <img class="doc-ficha__capa" src={documento.capa} alt={`Capa de ${semMarcacao(documento.titulo)}: ${documento.subtitulo ?? ""}`.replace(/: $/, "")} width="640" loading="eager" decoding="async" />
+          )}
+          <div class="doc-ficha__head">
+            <span>Ficha de catálogo</span>
+            <span class:list={["doc-status", `doc-status--${documento.situacao}`]}>{situacao.nome}</span>
+          </div>
+          <dl>
+            {ficha.map((linha) => (
+              <div>
+                <dt>{linha.rotulo}</dt>
+                <dd>{linha.valor}</dd>
+              </div>
+            ))}
+            {documento.sessao !== undefined && (
+              <div>
+                <dt>Sessão</dt>
+                <dd><a href={`/corvonescos/diario-de-bordo/#sessao-${documento.sessao}`}>Sessão {documento.sessao} no Diário de Bordo</a></dd>
+              </div>
+            )}
+            {documento.regra && (
+              <div>
+                <dt>Regra da casa</dt>
+                <dd><a href={documento.regra.href}>{documento.regra.titulo}</a></dd>
+              </div>
+            )}
+          </dl>
+          {(documento.locais?.length || documento.personagens?.length) && (
+            <div class="doc-chips">
+              {documento.locais?.map((local) => <span>{local}</span>)}
+              {documento.personagens?.map((slug) => <a href={`/corvonescos/personagens/${slug}/`}>{nomePersonagem(slug)}</a>)}
+            </div>
+          )}
+          {documento.exemplo && <p class="doc-ficha__example">Registro de exemplo: substitua pelo conteúdo real da campanha.</p>}
+        </aside>
+
+        <div class:list={["doc-folha", `doc-folha--${documento.tipo}`, documento.situacao === "destruido" && "doc-folha--destruido"]}>
+          {documento.fragmento && <p class="doc-folha__tag">Fragmento</p>}
+
+          {temSumario && (
+            <nav class="doc-sumario" aria-label="Sumário do livro">
+              <p class="doc-sumario__titulo">Sumário</p>
+              <ol>
+                {secoes.map((secao, i) => (
+                  <li class:list={[secao.nivel === 2 && "is-sub"]}>
+                    <a href={`#${idDaSecao(i)}`}>{semMarcacao(secao.titulo)}</a>
+                  </li>
+                ))}
+              </ol>
+            </nav>
+          )}
+
+          {secoes.length > 0 && (
+            <div class="doc-secoes">
+              {secoes.map((secao, i) => (
+                <section class:list={["doc-secao", secao.nivel ? `doc-secao--n${secao.nivel}` : "doc-secao--avulsa"]} id={idDaSecao(i)}>
+                  {secao.nivel === 2
+                    ? <h3 class="doc-secao__titulo" set:html={formatarInline(secao.titulo)} />
+                    : <h2 class="doc-secao__titulo" set:html={formatarInline(secao.titulo)} />}
+                  {secao.subtitulo && <p class="doc-secao__sub">{secao.subtitulo}</p>}
+                  <div class="doc-secao__corpo">
+                    {secao.blocos.map((bloco) => <DocumentoBloco bloco={bloco} nivel={secao.nivel ?? 1} />)}
+                  </div>
+                </section>
+              ))}
+            </div>
+          )}
+
+          {documento.texto && documento.texto.length > 0 && (
+            <div class="doc-corpo">
+              {documento.texto.map((paragrafo) => (
+                paragrafo.startsWith("[") && paragrafo.endsWith("]")
+                  ? <p class="doc-corpo__lacuna">{paragrafo}</p>
+                  : <p>{paragrafo}</p>
+              ))}
+            </div>
+          )}
+
+          {documento.nota && <p class="doc-nota"><strong>Nota do escriba</strong>{documento.nota}</p>}
+        </div>
+      </div>
+    </article>
+
+    {(anterior || seguinte) && (
+      <nav class="doc-navegacao" aria-label="Outros documentos">
+        {anterior ? <a href={`${base}${anterior.slug}/`}><small>← Anterior</small><span>{anterior.titulo}</span></a> : <span></span>}
+        {seguinte ? <a class="is-next" href={`${base}${seguinte.slug}/`}><small>Seguinte →</small><span>{seguinte.titulo}</span></a> : <span></span>}
+      </nav>
+    )}
+  </main>
+</BaseLayout>

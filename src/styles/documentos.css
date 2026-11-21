@@ -1,0 +1,613 @@
+/* ==========================================================================
+   Documentos — a biblioteca da campanha
+   Estantes (filtros), cartões de documento e página de leitura.
+   Usa os tokens de global.css; busca e filtros vêm de regras.css.
+   ========================================================================== */
+
+/* ---------- Emblema do cabeçalho ---------- */
+.book-emblem--documentos {
+  background:
+    radial-gradient(circle at 50% 54%, rgba(201, 167, 124, .15), transparent 42%),
+    radial-gradient(circle at 76% 20%, rgba(160, 47, 76, .24), transparent 28%),
+    linear-gradient(145deg, rgba(42, 22, 35, .96), rgba(13, 8, 16, .98));
+}
+.book-emblem__shelf {
+  position: absolute;
+  inset: 9%;
+  width: 82%;
+  height: 82%;
+  fill: rgba(160, 47, 76, .22);
+  stroke: rgba(230, 207, 166, .82);
+  stroke-width: 1.1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transform: rotate(-5deg);
+  filter: drop-shadow(0 0 5px rgba(201, 167, 124, .14));
+  transition: filter .35s;
+}
+.book-emblem__shelf path:not(.shelf-spark) { vector-effect: non-scaling-stroke; }
+.book-emblem__shelf .shelf-spark { fill: none; stroke: rgba(230, 207, 166, .9); }
+.intro-art-content:hover .book-emblem__shelf,
+.intro-art-content:focus-within .book-emblem__shelf { filter: drop-shadow(0 0 10px rgba(201, 167, 124, .38)); }
+
+/* ---------- Estantes (filtro por tipo) ---------- */
+.doc-controls { display: grid; justify-items: center; }
+.doc-shelves {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 10px;
+}
+.doc-shelf {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  padding: 18px 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: linear-gradient(160deg, var(--surface-2), var(--surface));
+  color: var(--muted);
+  font-family: var(--font-ui);
+  cursor: pointer;
+  transition: border-color .3s, color .3s, background .3s, transform .3s var(--ease);
+}
+/* "tábua" da prateleira sob cada estante */
+.doc-shelf::after {
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+  opacity: .35;
+  transition: opacity .3s;
+}
+.doc-shelf:hover { border-color: var(--line-strong); color: var(--text); transform: translateY(-2px); }
+.doc-shelf:hover::after { opacity: .8; }
+.doc-shelf:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.doc-shelf.is-active {
+  border-color: var(--gold-dim);
+  background: linear-gradient(150deg, rgba(110, 35, 57, .5), rgba(75, 42, 87, .22));
+  color: var(--gold-bright);
+}
+.doc-shelf.is-active::after { opacity: 1; }
+.doc-shelf__icon { width: 24px; height: 24px; stroke-width: 1.4; }
+.doc-shelf__name { font-size: 11.5px; font-weight: 500; letter-spacing: .06em; text-align: center; line-height: 1.3; }
+.doc-shelf__count {
+  min-width: 26px;
+  padding: 2px 8px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--dim);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .06em;
+}
+.doc-shelf.is-active .doc-shelf__count { border-color: var(--gold-dim); color: var(--gold); }
+.doc-shelf-caption {
+  margin: 16px 0 22px;
+  color: var(--muted);
+  font: italic 400 18px/1.4 var(--font-display);
+  text-align: center;
+}
+.doc-controls .search-field { margin-inline: auto; }
+.doc-toolbar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  margin-top: 18px;
+}
+.doc-toolbar .result-count { margin: 0; }
+.doc-toolbar .filter-list { margin-top: 0; }
+
+/* ---------- Cartões ---------- */
+.doc-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  padding: 32px 0 80px;
+}
+.doc-card { --card-lift-line-left: 88px; }
+.doc-card > a {
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr);
+  height: 100%;
+  min-height: 188px;
+  color: inherit;
+  text-decoration: none;
+}
+.doc-card__spine {
+  position: relative;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-right: 1px solid var(--line);
+  background:
+    radial-gradient(circle at 50% 46%, rgba(160, 47, 76, .26), transparent 70%),
+    #140a13;
+}
+/* lombada: frisos de latão no topo e na base */
+.doc-card__spine::before,
+.doc-card__spine::after {
+  content: "";
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+  opacity: .55;
+}
+.doc-card__spine::before { top: 22px; }
+.doc-card__spine::after { bottom: 22px; }
+.doc-card__icon { width: 30px; height: 30px; stroke-width: 1.25; color: var(--gold); transition: color .3s, transform .5s var(--ease); }
+.doc-card:hover .doc-card__icon { color: var(--gold-bright); transform: scale(1.08); }
+.doc-card__body { display: flex; flex-direction: column; gap: 6px; min-width: 0; padding: 18px 20px 16px; }
+.doc-card__top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.doc-card__type { color: var(--gold); font-size: 10px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; }
+.doc-card h2 { margin: 2px 0 0; color: var(--text); font: 600 25px/1.15 var(--font-display); transition: color .3s; }
+.doc-card:hover h2 { color: var(--gold-bright); }
+.doc-card__sub { color: var(--text-soft); font: italic 500 17px/1.35 var(--font-display); }
+.doc-card__summary { color: var(--muted); font-size: 13px; line-height: 1.6; }
+.doc-card__foot { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: auto; padding-top: 10px; color: var(--dim); font-size: 11px; }
+/* documento destruído: esmaecido, com lombada tracejada */
+.doc-card--destruido { border-style: dashed; }
+.doc-card--destruido .doc-card__spine { border-right-style: dashed; }
+.doc-card--destruido .doc-card__icon { color: var(--rose); opacity: .8; }
+.doc-card--destruido h2 { color: var(--text-soft); }
+
+.doc-status {
+  display: inline-block;
+  padding: 3px 9px;
+  border: 1px solid var(--gold-dim);
+  border-radius: 999px;
+  color: var(--gold-bright);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.doc-status--destruido { border-color: rgba(208, 154, 166, .5); border-style: dashed; color: var(--rose); }
+.doc-example { color: var(--rose); font-style: italic; }
+.doc-grid .empty-state { grid-column: 1 / -1; }
+
+/* ---------- Página de leitura ---------- */
+.doc-back { display: inline-block; margin-top: 22px; }
+.doc-leitura { max-width: 1040px; margin: 28px auto 0; }
+.doc-leitura__header { max-width: 720px; }
+.doc-leitura__kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+}
+.doc-leitura__icon { width: 18px; height: 18px; stroke-width: 1.5; }
+.doc-leitura h1 { animation: none; opacity: 1; margin: 12px 0 10px; color: var(--text); font: 500 clamp(38px, 5.5vw, 64px)/1.02 var(--font-display); }
+.doc-leitura__sub { margin: 0; color: var(--gold); font: italic 500 22px/1.4 var(--font-display); }
+.doc-leitura__layout {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  gap: 36px;
+  align-items: start;
+  margin-top: 34px;
+  padding-top: 34px;
+  border-top: 1px solid var(--line);
+}
+
+/* ficha de catálogo (como o cartão do fichário de uma biblioteca) */
+.doc-ficha {
+  position: sticky;
+  top: 24px;
+  padding: 18px 20px 20px;
+  border: 1px solid var(--line-strong);
+  border-radius: 3px;
+  background: linear-gradient(150deg, var(--surface-3), var(--surface));
+}
+.doc-ficha__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--gold-dim);
+  color: var(--gold);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+.doc-ficha dl { margin: 0; }
+.doc-ficha dl > div { padding: 12px 0; border-bottom: 1px solid var(--line-soft); }
+.doc-ficha dt { color: var(--dim); font-size: 9.5px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; }
+.doc-ficha dd { margin: 4px 0 0; color: var(--text-soft); font-size: 13.5px; line-height: 1.55; }
+.doc-ficha dd a { color: var(--gold-bright); text-decoration: underline; text-decoration-color: var(--gold-dim); text-underline-offset: 3px; }
+.doc-chips { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 16px; }
+.doc-chips a,
+.doc-chips span {
+  padding: 5px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 10px;
+  text-decoration: none;
+  transition: border-color .25s, color .25s;
+}
+.doc-chips a:hover { border-color: var(--gold-dim); color: var(--gold-bright); }
+.doc-ficha__example { margin: 16px 0 0; color: var(--rose); font-size: 11px; font-style: italic; line-height: 1.6; }
+
+/* a folha do documento */
+.doc-folha {
+  position: relative;
+  padding: 44px clamp(24px, 5vw, 56px) 40px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background:
+    radial-gradient(ellipse 30rem 14rem at 100% 0%, rgba(110, 35, 57, .18), transparent 70%),
+    linear-gradient(160deg, var(--surface-2), var(--surface) 60%, #0a060c);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, .35);
+}
+.doc-folha::before {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border: 1px solid var(--line-soft);
+  border-radius: 2px;
+  pointer-events: none;
+}
+.doc-folha--destruido { border-style: dashed; }
+.doc-folha__tag {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  margin: 0;
+  color: var(--dim);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+}
+.doc-corpo p,
+.doc-versos p {
+  margin: 0 0 1.25em;
+  color: var(--text-soft);
+  font: 400 20px/1.8 var(--font-display);
+  text-wrap: pretty;
+}
+.doc-corpo p:last-child,
+.doc-versos p:last-child { margin-bottom: 0; }
+.doc-folha--livro .doc-corpo > p:first-child::first-letter {
+  float: left;
+  margin: 6px 12px 0 0;
+  color: var(--gold-bright);
+  font: 500 68px/.8 var(--font-display);
+}
+.doc-corpo .doc-corpo__lacuna {
+  padding: 10px 14px;
+  border-left: 1px solid var(--rose);
+  background: rgba(110, 35, 57, .12);
+  color: var(--muted);
+  font-size: 17px;
+  font-style: italic;
+}
+.doc-versos { text-align: center; }
+.doc-versos p { font-style: italic; font-size: 21px; line-height: 1.9; }
+.doc-versos p + p { margin-top: 1.6em; }
+.doc-assinatura {
+  margin: 28px 0 0;
+  color: var(--gold);
+  font: italic 500 21px/1.4 var(--font-display);
+  text-align: right;
+}
+.doc-nota {
+  display: grid;
+  gap: 4px;
+  margin: 34px 0 0;
+  padding: 14px 16px;
+  border-left: 1px solid var(--gold-dim);
+  background: rgba(110, 35, 57, .1);
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+.doc-nota strong { color: var(--gold); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; }
+
+/* anterior / seguinte */
+.doc-navegacao {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  max-width: 1040px;
+  margin: 48px auto 72px;
+}
+.doc-navegacao a {
+  display: grid;
+  gap: 4px;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  color: var(--text);
+  text-decoration: none;
+  transition: border-color .25s;
+}
+.doc-navegacao a:hover { border-color: var(--gold-dim); }
+.doc-navegacao a.is-next { text-align: right; }
+.doc-navegacao small { color: var(--dim); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
+.doc-navegacao span { font: 600 19px var(--font-display); }
+
+/* ---------- Livros com capa ---------- */
+.doc-card__spine--capa { background: #140a13; }
+.doc-card__spine--capa::before,
+.doc-card__spine--capa::after { display: none; }
+.doc-card__capa {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: saturate(.95) brightness(.92);
+  transition: transform .6s var(--ease), filter .4s;
+}
+.doc-card:hover .doc-card__capa { transform: scale(1.05); filter: saturate(1.05) brightness(1.02); }
+.doc-ficha__capa {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 0 18px;
+  border: 1px solid var(--line-strong);
+  border-radius: 3px;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, .5), 0 0 0 4px rgba(0, 0, 0, .2);
+}
+
+/* ---------- Sumário ---------- */
+.doc-sumario {
+  margin: 0 0 40px;
+  padding: 20px 24px 22px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: rgba(110, 35, 57, .1);
+}
+.doc-sumario__titulo {
+  margin: 0 0 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--gold-dim);
+  color: var(--gold);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+}
+.doc-sumario ol { margin: 0; padding: 0; list-style: none; columns: 2 240px; column-gap: 32px; }
+.doc-sumario li { break-inside: avoid; padding: 3px 0; }
+.doc-sumario li.is-sub { padding-left: 16px; }
+.doc-sumario a {
+  color: var(--text-soft);
+  font: 500 17px/1.4 var(--font-display);
+  text-decoration: none;
+  transition: color .25s;
+}
+.doc-sumario li:not(.is-sub) a { color: var(--gold-bright); font-weight: 600; }
+.doc-sumario a:hover { color: var(--gold-bright); text-decoration: underline; text-decoration-color: var(--gold-dim); text-underline-offset: 3px; }
+
+/* ---------- Seções (capítulos) ---------- */
+.doc-secoes { display: grid; }
+.doc-secao { scroll-margin-top: 24px; }
+.doc-secao + .doc-secao { margin-top: 38px; }
+.doc-secao--n1 { margin-top: 64px !important; padding-top: 38px; border-top: 1px solid var(--line); }
+.doc-secao--n1:first-child, .doc-secao--avulsa:first-child { margin-top: 0 !important; padding-top: 0; border-top: 0; }
+.doc-secao__titulo { margin: 0; color: var(--text); font: 500 clamp(30px, 4vw, 42px)/1.12 var(--font-display); text-wrap: balance; }
+.doc-secao--n2 .doc-secao__titulo { color: var(--gold-bright); font-size: clamp(25px, 3vw, 31px); font-weight: 600; }
+.doc-secao--avulsa .doc-secao__titulo { color: var(--gold); font-size: 15px; font-weight: 600; letter-spacing: .24em; text-transform: uppercase; font-family: var(--font-ui); }
+.doc-secao__sub { margin: 8px 0 0; color: var(--gold); font: italic 500 19px/1.4 var(--font-display); }
+.doc-secao__corpo { margin-top: 22px; }
+.doc-secao__corpo > * + * { margin-top: 1.25em; }
+.doc-secao__corpo > p {
+  margin-bottom: 0;
+  color: var(--text-soft);
+  font: 400 20px/1.8 var(--font-display);
+  text-wrap: pretty;
+}
+.doc-secao__corpo strong { color: var(--text); font-weight: 700; }
+.doc-secao__corpo em { color: var(--muted); }
+.doc-subtitulo {
+  margin: 1.9em 0 0 !important;
+  color: var(--gold);
+  font: 600 14px/1.4 var(--font-ui);
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+.doc-subtitulo + * { margin-top: .8em !important; }
+
+/* termos e palavras corrompidas */
+.doc-termo { color: var(--gold-bright); font-weight: 700; }
+.doc-cifra {
+  display: inline;
+  color: #e0738d;
+  font-family: "Cambria Math", "Noto Sans Math", "Segoe UI Symbol", "DejaVu Sans", ui-serif, serif;
+  font-size: .92em;
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: .05em;
+  text-decoration: line-through;
+  text-decoration-color: rgba(224, 115, 141, .55);
+  text-decoration-thickness: 1px;
+  text-shadow: 0 0 10px rgba(160, 47, 76, .55);
+  word-break: break-word;
+  animation: doc-cifra-tremor 5s ease-in-out infinite;
+}
+@keyframes doc-cifra-tremor {
+  0%, 100% { opacity: 1; text-shadow: 0 0 10px rgba(160, 47, 76, .55); }
+  47% { opacity: 1; }
+  50% { opacity: .62; text-shadow: 2px 0 12px rgba(160, 47, 76, .8), -2px 0 8px rgba(110, 35, 57, .6); }
+  53% { opacity: 1; }
+}
+
+/* citações e epígrafes */
+.doc-citacao {
+  position: relative;
+  margin: 1.7em 0;
+  padding: 4px 0 4px 26px;
+  border-left: 2px solid var(--gold-dim);
+}
+.doc-citacao p { margin: 0; color: var(--text); font: italic 500 22px/1.65 var(--font-display); text-wrap: pretty; }
+.doc-citacao cite {
+  display: block;
+  margin-top: 10px;
+  color: var(--gold);
+  font: normal 600 11px/1.5 var(--font-ui);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.doc-citacao cite::before { content: "— "; }
+
+/* listas, passos e rituais */
+.doc-bloco-lista__titulo { margin: 0 0 8px; color: var(--gold); font: 600 11px/1.4 var(--font-ui); letter-spacing: .18em; text-transform: uppercase; }
+.doc-lista, .doc-passos { margin: 0; padding: 0; list-style: none; }
+.doc-lista li, .doc-passos li {
+  position: relative;
+  padding: 10px 0 10px 30px;
+  border-bottom: 1px solid var(--line-soft);
+  color: var(--text-soft);
+  font: 400 19px/1.65 var(--font-display);
+}
+.doc-lista li:last-child, .doc-passos li:last-child { border-bottom: 0; }
+.doc-lista li::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 1.12em;
+  width: 7px;
+  height: 7px;
+  border: 1px solid var(--gold);
+  background: rgba(201, 167, 124, .2);
+  transform: rotate(45deg);
+}
+.doc-passos { counter-reset: passo; }
+.doc-passos li { counter-increment: passo; }
+.doc-passos li::before {
+  content: counter(passo);
+  position: absolute;
+  left: 0;
+  top: .62em;
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border: 1px solid var(--gold-dim);
+  border-radius: 50%;
+  color: var(--gold-bright);
+  font: 600 11px/1 var(--font-ui);
+}
+
+/* versos dentro de seções */
+.doc-versos--bloco { margin: 1.6em 0; padding: 4px 0; }
+.doc-versos--bloco p { margin: 0; font-size: 21px; }
+.doc-versos__titulo { margin: 0 0 12px; color: var(--gold); font: 600 13px/1.4 var(--font-ui); letter-spacing: .2em; text-transform: uppercase; }
+
+/* notas à margem e destaques */
+.doc-margem {
+  display: grid;
+  gap: 6px;
+  padding: 14px 18px;
+  border: 1px dashed var(--gold-dim);
+  border-radius: 3px;
+  background: rgba(110, 35, 57, .12);
+  transform: rotate(-.35deg);
+}
+.doc-margem strong { color: var(--gold); font: 600 10px/1.4 var(--font-ui); letter-spacing: .18em; text-transform: uppercase; }
+.doc-margem p { margin: 0; color: var(--muted); font: italic 400 18px/1.65 var(--font-display); }
+.doc-secao__corpo > .doc-destaque {
+  padding: 18px 22px;
+  border: 1px solid rgba(208, 154, 166, .45);
+  border-radius: 40px 40px 40px 40px / 26px 26px 26px 26px;
+  background: radial-gradient(ellipse at 50% 0, rgba(160, 47, 76, .2), transparent 75%);
+  color: var(--text);
+  font: 500 21px/1.65 var(--font-display);
+  text-align: center;
+}
+
+/* frases rúnicas, runas e figuras */
+.doc-frases { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.doc-frases li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 4px 18px;
+  padding: 14px 18px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: linear-gradient(150deg, var(--surface-3), var(--surface));
+}
+.doc-frases__runa { color: var(--gold-bright); font: 600 26px/1.2 var(--font-display); letter-spacing: .22em; }
+.doc-frases__sentido { color: var(--muted); font: italic 400 18px/1.4 var(--font-display); }
+.doc-runas { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin: 0; padding: 0; list-style: none; }
+.doc-runas li {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  min-width: 150px;
+  padding: 22px 20px 18px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: radial-gradient(circle at 50% 38%, rgba(160, 47, 76, .18), transparent 70%), var(--surface);
+  text-align: center;
+}
+.doc-runas__glifo { display: block; width: auto; height: 120px; max-width: 100%; margin-bottom: 6px; filter: drop-shadow(0 0 8px rgba(201, 167, 124, .3)); }
+.doc-runas strong { color: var(--gold-bright); font: 600 22px/1 var(--font-display); letter-spacing: .2em; }
+.doc-runas span { color: var(--muted); font-size: 12px; letter-spacing: .04em; }
+.doc-figura { display: grid; justify-items: center; gap: 10px; margin: 1.8em 0; }
+.doc-figura img { width: min(220px, 60%); height: auto; border-radius: 4px; box-shadow: 0 14px 30px rgba(0, 0, 0, .45); }
+.doc-figura figcaption { color: var(--dim); font: italic 400 15px/1.4 var(--font-display); text-align: center; }
+
+@media (max-width: 560px) {
+  .doc-secao__corpo > p, .doc-lista li, .doc-passos li { font-size: 18px; }
+  .doc-citacao p { font-size: 20px; }
+  .doc-sumario { padding: 16px 16px 18px; }
+  .doc-margem { transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .doc-cifra { animation: none; }
+  .doc-card__capa { transition: none; }
+  .doc-card:hover .doc-card__capa { transform: none; }
+}
+
+/* ---------- Responsivo ---------- */
+@media (max-width: 1000px) {
+  .doc-shelves { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .doc-leitura__layout { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .doc-ficha { position: static; }
+}
+@media (max-width: 860px) {
+  .doc-grid { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 560px) {
+  .doc-shelves { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .doc-shelf { padding: 14px 8px 12px; }
+  .doc-shelf-caption { font-size: 16px; }
+  .doc-toolbar { justify-content: center; }
+  .doc-card > a { grid-template-columns: 60px minmax(0, 1fr); }
+  .doc-card { --card-lift-line-left: 60px; }
+  .doc-card__icon { width: 24px; height: 24px; }
+  .doc-card__body { padding: 16px 16px 14px; }
+  .doc-card h2 { font-size: 22px; }
+  .doc-folha { padding: 40px 22px 30px; }
+  .doc-corpo p, .doc-versos p { font-size: 18px; }
+  .doc-navegacao { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .doc-shelf, .doc-card__icon { transition: none; }
+  .doc-shelf:hover { transform: none; }
+}
+
+/* ficha com capa é alta demais para ficar fixa na tela */
+.doc-ficha:has(.doc-ficha__capa) { position: static; }

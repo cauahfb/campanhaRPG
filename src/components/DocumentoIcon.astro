@@ -1,0 +1,22 @@
+---
+import { BookOpen, Mail, Music, ScrollText, Stamp, Library } from "@lucide/astro";
+import type { DocumentoIcone } from "../data/documentos";
+
+interface Props {
+  name: DocumentoIcone | "library";
+  class?: string;
+}
+
+const icons = {
+  "book-open": BookOpen,
+  "scroll-text": ScrollText,
+  mail: Mail,
+  music: Music,
+  stamp: Stamp,
+  library: Library,
+};
+
+const { name, class: className } = Astro.props;
+const Icon = icons[name];
+---
+<Icon class={className} aria-hidden="true" />

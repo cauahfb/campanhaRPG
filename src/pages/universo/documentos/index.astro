@@ -1,0 +1,145 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Breadcrumb from "../../../components/Breadcrumb.astro";
+import SectionIntro from "../../../components/SectionIntro.astro";
+import DocumentoIcon from "../../../components/DocumentoIcon.astro";
+import { textoPlano } from "../../../scripts/doc-texto";
+import { documentosOrdenados, documentosDoTipo, situacaoPorId, tipoPorId, tipos, situacoes } from "../../../data/documentos";
+import "../../../styles/regras.css";
+import "../../../styles/documentos.css";
+
+const base = "/universo/documentos/";
+const total = documentosOrdenados.length;
+const destruidos = documentosOrdenados.filter((documento) => documento.situacao === "destruido").length;
+const prateleiras = tipos.filter((tipo) => documentosDoTipo(tipo.id).length > 0).length;
+---
+<BaseLayout
+  title="Documentos"
+  description="A biblioteca da campanha: livros, manuscritos, músicas, cartas e documentos encontrados ou destruídos ao longo da jornada."
+>
+  <main class="section-shell">
+    <Breadcrumb items={[{ label: "Universo", href: "/universo/" }, { label: "Documentos" }]} />
+
+    <SectionIntro
+      eyebrow="Arquivos"
+      title="A Biblioteca de"
+      emphasis="Documentos"
+      description="Livros, manuscritos, músicas, cartas e papéis encontrados ou destruídos ao longo da campanha. Escolha uma estante ou procure pelo que lembra ter lido."
+      meta={[
+        `${total} ${total === 1 ? "DOCUMENTO" : "DOCUMENTOS"}`,
+        `${prateleiras} ${prateleiras === 1 ? "ESTANTE" : "ESTANTES"}`,
+        `${destruidos} ${destruidos === 1 ? "DESTRUÍDO" : "DESTRUÍDOS"}`,
+      ]}
+    >
+      <div slot="art" class="intro-art-content">
+        <div class="book-emblem book-emblem--documentos">
+          <svg class="book-emblem__shelf" viewBox="0 0 112 148" aria-hidden="true">
+            <path d="M18 108h76" />
+            <path d="M22 108V62h11v46M36 108V50h10v58M49 108V68h9v40" />
+            <path d="M62 108l-4-44 10-2 8 46" />
+            <path d="M80 108V56h12v52" />
+            <path d="M25 72h5M25 98h5M39 62h4M39 98h4M83 66h6M83 98h6" />
+            <path d="M18 116h76" opacity=".5" />
+            <path class="shelf-spark" d="M56 22v10M51 27h10M30 30v5M27.5 32.5h5M86 34v5M83.5 36.5h5" />
+          </svg>
+        </div>
+        <span>Livros · Cartas · Canções</span>
+      </div>
+    </SectionIntro>
+
+    <section class="catalog-controls doc-controls" aria-label="Busca e filtros de documentos">
+      <div class="doc-shelves" role="group" aria-label="Estantes">
+        <button type="button" class="doc-shelf is-active" data-tipo-filter data-value="todos" aria-pressed="true" data-descricao="Todos os documentos reunidos pela campanha.">
+          <DocumentoIcon name="library" class="doc-shelf__icon" />
+          <span class="doc-shelf__name">Todo o acervo</span>
+          <span class="doc-shelf__count">{total}</span>
+        </button>
+        {tipos.map((tipo) => (
+          <button type="button" class="doc-shelf" data-tipo-filter data-value={tipo.id} aria-pressed="false" data-descricao={tipo.descricao}>
+            <DocumentoIcon name={tipo.icone} class="doc-shelf__icon" />
+            <span class="doc-shelf__name">{tipo.nome}</span>
+            <span class="doc-shelf__count">{documentosDoTipo(tipo.id).length}</span>
+          </button>
+        ))}
+      </div>
+      <p class="doc-shelf-caption" id="doc-shelf-caption" aria-live="polite">Todos os documentos reunidos pela campanha.</p>
+
+      <label class="search-field">
+        <span class="search-icon" aria-hidden="true"></span>
+        <input id="doc-search" type="search" placeholder="Buscar por título, autor, lugar ou trecho" autocomplete="off" aria-label="Buscar documentos" />
+      </label>
+
+      <div class="doc-toolbar">
+        <p class="result-count" aria-live="polite"><span id="doc-count">{total}</span> documentos</p>
+        <div class="filter-list doc-situacoes" role="group" aria-label="Filtrar por situação">
+          <button type="button" class="filter-button is-active" data-situacao-filter data-value="todos" aria-pressed="true">Todos</button>
+          {situacoes.map((situacao) => (
+            <button type="button" class="filter-button" data-situacao-filter data-value={situacao.id} aria-pressed="false" title={situacao.descricao}>{situacao.nome}s</button>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="doc-grid" id="doc-lista" aria-label="Documentos">
+      {documentosOrdenados.map((documento) => {
+        const tipo = tipoPorId(documento.tipo);
+        const situacao = situacaoPorId(documento.situacao);
+        const locais = documento.locais ?? [];
+        return (
+          <article
+            class:list={["section-card", "card-lift", "doc-card", `doc-card--${documento.situacao}`]}
+            data-tipo={documento.tipo}
+            data-situacao={documento.situacao}
+            data-search={[documento.titulo, documento.subtitulo, documento.resumo, documento.autor, documento.origem, tipo.nome, tipo.singular, situacao.nome, ...locais, ...textoPlano(documento)].filter(Boolean).join(" ")}
+          >
+            <a href={`${base}${documento.slug}/`} aria-label={`Abrir ${documento.titulo}`}>
+              <span class:list={["doc-card__spine", documento.capa && "doc-card__spine--capa"]} aria-hidden="true">
+                {documento.capa
+                  ? <img class="doc-card__capa" src={documento.capa} alt="" loading="lazy" decoding="async" />
+                  : <DocumentoIcon name={tipo.icone} class="doc-card__icon" />}
+              </span>
+              <span class="doc-card__body">
+                <span class="doc-card__top">
+                  <span class="doc-card__type">{tipo.singular}</span>
+                  <span class:list={["doc-status", `doc-status--${documento.situacao}`]}>{situacao.nome}</span>
+                </span>
+                <h2>{documento.titulo}</h2>
+                {documento.subtitulo && <span class="doc-card__sub">{documento.subtitulo}</span>}
+                <span class="doc-card__summary">{documento.resumo}</span>
+                <span class="doc-card__foot">
+                  {documento.autor && <span>{documento.autor}</span>}
+                  {locais.length > 0 && <span>{locais.join(" · ")}</span>}
+                  {documento.fragmento && <span>Fragmento</span>}
+                  {documento.exemplo && <span class="doc-example">Exemplo</span>}
+                </span>
+              </span>
+            </a>
+          </article>
+        );
+      })}
+      <p class="empty-state" id="doc-empty" hidden>Nenhum documento nesta estante corresponde à sua busca.</p>
+    </section>
+  </main>
+
+  <script>
+    import { initCatalogFilter } from "../../../scripts/catalog-filter";
+
+    initCatalogFilter({
+      searchSelector: "#doc-search",
+      cardSelector: ".doc-card",
+      countSelector: "#doc-count",
+      emptySelector: "#doc-empty",
+      filterGroups: [
+        { filterSelector: "[data-tipo-filter]", filterAttribute: "data-tipo", allValue: "todos" },
+        { filterSelector: "[data-situacao-filter]", filterAttribute: "data-situacao", allValue: "todos" },
+      ],
+    });
+
+    const caption = document.querySelector<HTMLElement>("#doc-shelf-caption");
+    document.querySelectorAll<HTMLButtonElement>("[data-tipo-filter]").forEach((button) => {
+      button.addEventListener("click", () => {
+        if (caption) caption.textContent = button.dataset.descricao ?? "";
+      });
+    });
+  </script>
+</BaseLayout>

@@ -5,6 +5,7 @@ import { vinculos } from "../data/vinculos";
 import { sessoes } from "../data/sessoes";
 import { misterios } from "../data/misterios";
 import { cronicas } from "../data/cronicas";
+import { documentos } from "../data/documentos";
 import { SITE } from "../data/site";
 
 /** Páginas ainda sem conteúdo ficam fora do sitemap (e recebem noindex no layout). */
@@ -24,6 +25,7 @@ const staticRoutes = pageFiles
 const dynamicRoutes = [
   ...personagens.map((item) => `/corvonescos/personagens/${item.slug}/`),
   ...cronicas.map((item) => `/universo/cronicas-da-campanha/${item.slug}/`),
+  ...documentos.map((item) => `/universo/documentos/${item.slug}/`),
   ...venenos.map((item) => `/tipos-de-venenos/${item.slug}/`),
 ];
 

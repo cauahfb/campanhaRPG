@@ -1,0 +1,92 @@
+---
+import type { DocumentoBloco } from "../data/documentos";
+import { formatarInline } from "../scripts/doc-texto";
+
+interface Props {
+  bloco: DocumentoBloco;
+  /** Nível da seção que contém o bloco; define o nível do título menor. */
+  nivel?: 1 | 2;
+}
+
+const { bloco, nivel = 1 } = Astro.props;
+const Subtitulo = nivel === 2 ? "h4" : "h3";
+const inline = formatarInline;
+---
+{typeof bloco === "string" && <p set:html={inline(bloco)} />}
+
+{typeof bloco !== "string" && "citacao" in bloco && (
+  <blockquote class="doc-citacao">
+    <p set:html={inline(bloco.citacao)} />
+    {bloco.autoria && <cite>{bloco.autoria}</cite>}
+  </blockquote>
+)}
+
+{typeof bloco !== "string" && "subtitulo" in bloco && (
+  <Subtitulo class="doc-subtitulo" set:html={inline(bloco.subtitulo)} />
+)}
+
+{typeof bloco !== "string" && "lista" in bloco && (
+  <div class="doc-bloco-lista">
+    {bloco.titulo && <p class="doc-bloco-lista__titulo">{bloco.titulo}</p>}
+    <ul class="doc-lista">
+      {bloco.lista.map((item) => <li set:html={inline(item)} />)}
+    </ul>
+  </div>
+)}
+
+{typeof bloco !== "string" && "passos" in bloco && (
+  <div class="doc-bloco-lista">
+    {bloco.titulo && <p class="doc-bloco-lista__titulo">{bloco.titulo}</p>}
+    <ol class="doc-passos">
+      {bloco.passos.map((passo) => <li set:html={inline(passo)} />)}
+    </ol>
+  </div>
+)}
+
+{typeof bloco !== "string" && "versos" in bloco && (
+  <div class="doc-versos doc-versos--bloco">
+    {bloco.titulo && <h4 class="doc-versos__titulo">{bloco.titulo}</h4>}
+    <p set:html={bloco.versos.map(inline).join("<br />")} />
+  </div>
+)}
+
+{typeof bloco !== "string" && "margem" in bloco && (
+  <aside class="doc-margem">
+    <strong>{bloco.rotulo ?? "Nota à margem"}</strong>
+    <p set:html={inline(bloco.margem)} />
+  </aside>
+)}
+
+{typeof bloco !== "string" && "destaque" in bloco && (
+  <p class="doc-destaque" set:html={inline(bloco.destaque)} />
+)}
+
+{typeof bloco !== "string" && "frases" in bloco && (
+  <ul class="doc-frases">
+    {bloco.frases.map((item) => (
+      <li>
+        <span class="doc-frases__runa">{item.frase}</span>
+        <span class="doc-frases__sentido">{item.sentido}</span>
+      </li>
+    ))}
+  </ul>
+)}
+
+{typeof bloco !== "string" && "figura" in bloco && (
+  <figure class="doc-figura">
+    <img src={bloco.figura} alt={bloco.alt} loading="lazy" decoding="async" />
+    {bloco.legenda && <figcaption>{bloco.legenda}</figcaption>}
+  </figure>
+)}
+
+{typeof bloco !== "string" && "runas" in bloco && (
+  <ul class="doc-runas">
+    {bloco.runas.map((runa) => (
+      <li>
+        <img class="doc-runas__glifo" src={runa.imagem} alt={`Glifo da runa ${runa.nome}`} loading="lazy" decoding="async" />
+        <strong>{runa.nome}</strong>
+        <span>{runa.sentido}</span>
+      </li>
+    ))}
+  </ul>
+)}
