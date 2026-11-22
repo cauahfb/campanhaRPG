@@ -432,6 +432,16 @@
   line-height: 1.7;
 }
 .doc-nota strong { color: var(--gold); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; }
+.doc-nota--musica {
+  margin-top: 42px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  border-left: 0;
+  background: transparent;
+  text-align: center;
+}
+.doc-nota--musica strong { display: block; }
+.doc-nota--musica em { font-size: 13px; line-height: 1.8; }
 
 /* anterior / seguinte */
 .doc-navegacao {

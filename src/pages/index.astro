@@ -105,14 +105,22 @@ const websiteSchema = {
 
     <section class="home-section" aria-labelledby="explorar-titulo">
       <h2 class="home-section__title" id="explorar-titulo">Por onde começar</h2>
+      <aside class="home-wiki-note" aria-label="Sobre o conteúdo da wiki">
+        <span class="home-wiki-note__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 3.5 20 7v5c0 5-3.4 8.2-8 9.5C7.4 20.2 4 17 4 12V7l8-3.5Z" /><path d="m8.5 12 2.2 2.2 4.8-5" /></svg>
+        </span>
+        <p>O conteúdo acompanha o que já descobrimos na mesa, então você pode explorar sem encontrar segredos ainda por revelar.</p>
+      </aside>
       <SectionHub items={exploreItems} label="Áreas do portal" />
     </section>
 
-    <aside class="home-note" aria-labelledby="nota-titulo">
-      <h2 id="nota-titulo">Só o que já foi descoberto</h2>
+    <aside class="home-note home-lore-note" aria-labelledby="universo-titulo">
+      <h2 id="universo-titulo">Uma versão própria de Forgotten Realms</h2>
       <p>
-        Esta wiki cresce junto com a campanha. Só entra aqui o que o grupo já descobriu, então é seguro navegar
-        por tudo sem medo de spoilers.
+        O universo desta wiki é baseado em Forgotten Realms, mas foi adaptado e expandido para acompanhar a história da nossa campanha. Personagens, lugares, acontecimentos e até mesmo elementos da lore original podem, e provavelmente vão, apresentar diferenças em relação ao cânone oficial.
+      </p>
+      <p>
+        Se você joga ou acompanha nossa mesa, considere esta wiki como a referência definitiva sobre o universo da campanha. Afinal, esta é a nossa versão de Forgotten Realms, construída e transformada ao longo da nossa jornada.
       </p>
     </aside>
 

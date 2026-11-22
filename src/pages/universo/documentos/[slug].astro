@@ -192,6 +192,12 @@ const temSumario = secoes.filter((secao) => secao.nivel).length >= 3;
           )}
 
           {documento.nota && <p class="doc-nota"><strong>Nota do escriba</strong>{documento.nota}</p>}
+          {documento.tipo === "musica" && (
+            <p class="doc-nota doc-nota--musica">
+              <strong>Nota</strong>
+              <em>Esta composição foi escrita pelo Mestre e desenvolvida especialmente para esta campanha de RPG. Sua produção em áudio contou com o auxílio de ferramentas de inteligência artificial. Embora ainda não tenhamos os meios para investir em uma produção musical com músicos profissionais, esperamos que a música consiga transmitir a essência e a atmosfera que imaginamos para este universo. Quem sabe, no futuro, possamos dar a ela uma produção ainda mais especial.</em>
+            </p>
+          )}
         </div>
       </div>
     </article>
