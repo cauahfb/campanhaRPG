@@ -9,7 +9,7 @@ export const oCorvoAmaldicoado: Documento = {
   autor: "Bianca ShadowBane",
   idioma: "Comum",
   origem: "Cantada por Bianca ShadowBane, da Sinfonia.",
-  resumo: "Balada sombria cantada por Bianca ShadowBane sobre um corvo marcado por uma maldição.",
+  resumo: "Balada sombria cantada por Bianca ShadowBane sobre alguém marcado por uma maldição.",
   locais: ["Luskan"],
   vinculos: ["bianca-shadowbane"],
   faixas: [

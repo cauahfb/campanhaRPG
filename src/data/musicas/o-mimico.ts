@@ -9,7 +9,7 @@ export const oMimico: Documento = {
   autor: "Baurdo - O Bardo Mímico",
   idioma: "Comum",
   origem: "Cantada em Luskan pelo mímico que abandonou o posto para apostar na música.",
-  resumo: "A canção de Baurdo, o mímico que trocou a emboscada pelo palco. Félypo é seu fã número 1.",
+  resumo: "A canção de Baurdo, o mímico que trocou a emboscada pelo palco.",
   locais: ["Luskan"],
   personagens: ["felypo"],
   vinculos: ["bardo-mimico"],
