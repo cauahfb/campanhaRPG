@@ -1,11 +1,16 @@
 ---
+import "../styles/track-player.css";
+
 interface Props {
   titulo: string;
   arquivo: string;
   rotulo: string;
-  tipo: "epico" | "morte";
+  /** epico/morte: temas dos personagens · cancao: músicas da Biblioteca de Documentos */
+  tipo: "epico" | "morte" | "cancao";
+  /** Linha opcional abaixo do título (ex.: quem canta esta versão). */
+  subtitulo?: string;
 }
-const { titulo, arquivo, rotulo, tipo } = Astro.props;
+const { titulo, arquivo, rotulo, tipo, subtitulo } = Astro.props;
 ---
 <div class:list={["track-player", `track-player--${tipo}`]} data-track-player>
   <audio controls preload="metadata" src={arquivo}>Seu navegador não oferece suporte ao player de áudio.</audio>
@@ -17,6 +22,7 @@ const { titulo, arquivo, rotulo, tipo } = Astro.props;
     <div class="track-info">
       <span class="character-field-kicker">{rotulo}</span>
       <strong class="track-title">{titulo}</strong>
+      {subtitulo && <span class="track-sub">{subtitulo}</span>}
     </div>
     <div class="track-timeline">
       <input class="track-seek" type="range" min="0" max="1000" step="1" value="0" data-seek aria-label={`Posição de ${titulo}`} />

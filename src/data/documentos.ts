@@ -16,10 +16,20 @@
  * próprios dentro de `src/data/livros/` e são importados no array abaixo.
  * Use `secoes` para dividir o texto em capítulos; a marcação inline aceita
  * **negrito**, *itálico*, {{termo}} e [[trecho cifrado]].
+ *
+ * Músicas (tipo "musica") ficam em `src/data/musicas/`. Elas usam `faixas`
+ * (um player por gravação/versão) e a letra vai em `secoes` com um bloco
+ * `{ versos: [...] }`. Os arquivos de áudio ficam em `public/audio/musicas/`.
  */
 
 import { grazzt } from "./livros/grazzt";
 import { lexiconArcanum } from "./livros/lexicon-arcanum";
+import { ergaAlto } from "./musicas/erga-alto";
+import { oCorvoAmaldicoado } from "./musicas/o-corvo-amaldicoado";
+import { aGrandeJornada } from "./musicas/a-grande-jornada";
+import { cantigaDoHerdeiro } from "./musicas/cantiga-do-herdeiro";
+import { rezeParaMim } from "./musicas/reze-para-mim";
+import { oMimico } from "./musicas/o-mimico";
 
 /** Cada tipo de documento é uma "estante" da biblioteca. */
 export type DocumentoTipoId = "livro" | "manuscrito" | "carta" | "musica" | "registro";
@@ -83,6 +93,16 @@ export interface DocumentoSecao {
   blocos: DocumentoBloco[];
 }
 
+export interface DocumentoFaixa {
+  titulo: string;
+  /** Caminho em /public, ex.: /audio/musicas/erga-alto/bianca.mp3 */
+  arquivo: string;
+  /** Linha pequena acima do título do player. */
+  rotulo?: string;
+  /** Linha abaixo do título, ex.: "Voz de Bianca ShadowBane". */
+  subtitulo?: string;
+}
+
 export interface Documento {
   /** Usado na URL: /universo/documentos/{slug}/ */
   slug: string;
@@ -110,6 +130,12 @@ export interface Documento {
   secoes?: DocumentoSecao[];
   /** Ligação opcional com uma página de regras ou outra parte do site. */
   regra?: { titulo: string; href: string };
+  /** Gravações da música (tipo "musica"): um player por faixa/versão. */
+  faixas?: DocumentoFaixa[];
+  /** slugs de /corvonescos/vinculos/ (aliados, especiais...) ligados ao documento. */
+  vinculos?: string[];
+  /** Conteúdo gerado como rascunho, a ser revisado pela mesa. */
+  rascunho?: boolean;
   /** Marca que só se tem um trecho, e não o documento inteiro. */
   fragmento?: boolean;
   /** Observação do escriba sobre o estado do documento. */
@@ -124,6 +150,12 @@ export interface Documento {
 export const documentos: Documento[] = [
   grazzt,
   lexiconArcanum,
+  ergaAlto,
+  oCorvoAmaldicoado,
+  aGrandeJornada,
+  cantigaDoHerdeiro,
+  rezeParaMim,
+  oMimico,
 ];
 
 export const documentosOrdenados = [...documentos].sort((a, b) => a.titulo.localeCompare(b.titulo, "pt-BR"));

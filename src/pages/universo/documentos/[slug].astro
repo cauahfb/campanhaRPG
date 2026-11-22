@@ -3,9 +3,11 @@ import BaseLayout from "../../../layouts/BaseLayout.astro";
 import Breadcrumb from "../../../components/Breadcrumb.astro";
 import DocumentoIcon from "../../../components/DocumentoIcon.astro";
 import DocumentoBloco from "../../../components/DocumentoBloco.astro";
+import TrackPlayer from "../../../components/TrackPlayer.astro";
 import { documentos, documentosOrdenados, situacaoPorId, tipoPorId } from "../../../data/documentos";
 import type { Documento } from "../../../data/documentos";
 import { personagens } from "../../../data/personagens";
+import { vinculos } from "../../../data/vinculos";
 import { formatarInline, idDaSecao, semMarcacao } from "../../../scripts/doc-texto";
 import "../../../styles/regras.css";
 import "../../../styles/documentos.css";
@@ -23,7 +25,14 @@ const situacao = situacaoPorId(documento.situacao);
 const indice = documentosOrdenados.findIndex((item) => item.slug === documento.slug);
 const anterior = indice > 0 ? documentosOrdenados[indice - 1] : undefined;
 const seguinte = indice < documentosOrdenados.length - 1 ? documentosOrdenados[indice + 1] : undefined;
+const nomeVinculo = (slug: string) => vinculos.find((v) => v.slug === slug)?.nome ?? slug;
+const faixas = documento.faixas ?? [];
 const nomePersonagem = (slug: string) => personagens.find((p) => p.slug === slug)?.nome ?? slug;
+const temChips = Boolean(
+  (documento.locais?.length ?? 0) ||
+  (documento.personagens?.length ?? 0) ||
+  (documento.vinculos?.length ?? 0)
+);
 
 const ficha = [
   { rotulo: "Tipo", valor: tipo.singular },
@@ -80,17 +89,34 @@ const temSumario = secoes.filter((secao) => secao.nivel).length >= 3;
               </div>
             )}
           </dl>
-          {(documento.locais?.length || documento.personagens?.length) && (
+          {temChips && (
             <div class="doc-chips">
               {documento.locais?.map((local) => <span>{local}</span>)}
               {documento.personagens?.map((slug) => <a href={`/corvonescos/personagens/${slug}/`}>{nomePersonagem(slug)}</a>)}
+              {documento.vinculos?.map((slug) => <a href="/corvonescos/vinculos/">{nomeVinculo(slug)}</a>)}
             </div>
           )}
+          {documento.rascunho && <p class="doc-ficha__example">Rascunho: texto gerado a partir do que se sabe da campanha, a ser revisado pela mesa.</p>}
           {documento.exemplo && <p class="doc-ficha__example">Registro de exemplo: substitua pelo conteúdo real da campanha.</p>}
         </aside>
 
         <div class:list={["doc-folha", `doc-folha--${documento.tipo}`, documento.situacao === "destruido" && "doc-folha--destruido"]}>
           {documento.fragmento && <p class="doc-folha__tag">Fragmento</p>}
+
+          {faixas.length > 0 && (
+            <section class="doc-player" aria-label={faixas.length > 1 ? "Versões para ouvir" : "Ouvir a música"}>
+              <div class="doc-player__heading">
+                <span>
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V6l11-2v12" /><circle cx="6.5" cy="18" r="2.5" /><circle cx="17.5" cy="16" r="2.5" /></svg>
+                  {faixas.length > 1 ? "Ouvir as versões" : "Ouvir"}
+                </span>
+                <i></i>
+              </div>
+              <div class="track-list">
+                {faixas.map((faixa) => <TrackPlayer titulo={faixa.titulo} arquivo={faixa.arquivo} rotulo={faixa.rotulo ?? "Gravação"} subtitulo={faixa.subtitulo} tipo="cancao" />)}
+              </div>
+            </section>
+          )}
 
           {temSumario && (
             <nav class="doc-sumario" aria-label="Sumário do livro">

@@ -110,6 +110,8 @@ const prateleiras = tipos.filter((tipo) => documentosDoTipo(tipo.id).length > 0)
                   {documento.autor && <span>{documento.autor}</span>}
                   {locais.length > 0 && <span>{locais.join(" · ")}</span>}
                   {documento.fragmento && <span>Fragmento</span>}
+                  {documento.faixas && documento.faixas.length > 1 && <span>{documento.faixas.length} versões</span>}
+                  {documento.rascunho && <span class="doc-example">Rascunho</span>}
                   {documento.exemplo && <span class="doc-example">Exemplo</span>}
                 </span>
               </span>
