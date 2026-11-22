@@ -232,7 +232,16 @@
 .doc-ficha dd a { color: var(--gold-bright); text-decoration: underline; text-decoration-color: var(--gold-dim); text-underline-offset: 3px; }
 .doc-chips { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 16px; }
 .doc-chips a,
-.doc-chips span {
+.doc-chips span,
+.doc-chip {
+  appearance: none;
+  font-family: inherit;
+  background: transparent;
+  cursor: default;
+}
+.doc-chips a,
+.doc-chips span,
+.doc-chip {
   padding: 5px 10px;
   border: 1px solid var(--line);
   border-radius: 999px;
@@ -241,7 +250,111 @@
   text-decoration: none;
   transition: border-color .25s, color .25s;
 }
-.doc-chips a:hover { border-color: var(--gold-dim); color: var(--gold-bright); }
+.doc-chips a:hover,
+.doc-chip:hover,
+.doc-chip:focus-visible { border-color: var(--gold-dim); color: var(--gold-bright); cursor: pointer; }
+.doc-catalog-dialog {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  width: min(860px, calc(100% - 32px));
+  max-height: calc(100vh - 32px);
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  background: linear-gradient(140deg, var(--surface-2), var(--surface) 55%, #0a060c);
+  color: var(--text);
+  box-shadow: 0 28px 80px rgba(0, 0, 0, .62);
+}
+.doc-catalog-dialog::backdrop { background: rgba(7, 5, 9, .82); backdrop-filter: blur(5px); }
+.doc-catalog-dialog-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: rgba(7, 5, 9, .82);
+  color: var(--text);
+  font-size: 22px;
+  cursor: pointer;
+}
+.doc-catalog-dialog-layout {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  min-height: 420px;
+}
+.doc-catalog-dialog-image {
+  min-height: 420px;
+  border-right: 1px solid var(--line);
+  background: radial-gradient(circle, rgba(160, 47, 76, .24), transparent 70%), #140a13;
+}
+.doc-catalog-dialog-image[hidden] { display: none; }
+.doc-catalog-dialog-image img { width: 100%; height: 100%; min-height: 420px; object-fit: cover; }
+.doc-catalog-dialog-content { max-height: calc(100vh - 32px); overflow-y: auto; padding: 38px 42px 34px; }
+.doc-catalog-dialog-kicker,
+.doc-catalog-dialog-description h3,
+.doc-catalog-dialog-location h3,
+.doc-catalog-dialog-music h3 {
+  color: var(--gold);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+.doc-catalog-dialog-content h2 { margin: 8px 0 4px; color: var(--text); font: 600 38px/1.1 var(--font-display); }
+.doc-catalog-dialog-subtitle { margin: 0 0 28px; color: var(--gold-bright); font-size: 13px; font-weight: 600; }
+.doc-catalog-dialog-description,
+.doc-catalog-dialog-location,
+.doc-catalog-dialog-music {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+.doc-catalog-dialog-description h3,
+.doc-catalog-dialog-location h3,
+.doc-catalog-dialog-music h3 { margin: 0 0 8px; }
+.doc-catalog-dialog-description p,
+.doc-catalog-dialog-location p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.75; }
+.doc-catalog-dialog-location[hidden],
+.doc-catalog-dialog-music[hidden],
+.doc-catalog-dialog-note[hidden],
+.doc-catalog-dialog-link[hidden] { display: none; }
+.doc-catalog-dialog-music > div { display: flex; flex-wrap: wrap; gap: 7px; }
+.doc-catalog-dialog-music a {
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--gold-bright);
+  font-size: 11px;
+  text-decoration: none;
+}
+.doc-catalog-dialog-note {
+  margin: 22px 0 0;
+  padding: 16px 18px;
+  border-left: 3px solid var(--gold);
+  background: rgba(201, 167, 124, .07);
+  color: var(--text-soft);
+  font: italic 500 16px/1.6 var(--font-display);
+}
+.doc-catalog-dialog-note span { display: block; color: var(--gold); font: 600 9px var(--font-ui); letter-spacing: .16em; text-transform: uppercase; }
+.doc-catalog-dialog-note p { margin: 6px 0 0; }
+.doc-catalog-dialog-link {
+  display: inline-flex;
+  margin-top: 22px;
+  padding: 10px 14px;
+  border: 1px solid var(--gold-dim);
+  border-radius: 3px;
+  color: var(--gold-bright);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
 .doc-ficha__example { margin: 16px 0 0; color: var(--rose); font-size: 11px; font-style: italic; line-height: 1.6; }
 
 /* a folha do documento */
@@ -589,6 +702,19 @@
 }
 @media (max-width: 860px) {
   .doc-grid { grid-template-columns: minmax(0, 1fr); }
+  .doc-catalog-dialog-layout { grid-template-columns: 1fr; }
+  .doc-catalog-dialog-image {
+    min-height: 180px;
+    height: 180px;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .doc-catalog-dialog-image img { min-height: 180px; object-position: center 28%; }
+  .doc-catalog-dialog-content {
+    max-height: calc(100vh - 212px);
+    padding: 26px 22px;
+  }
+  .doc-catalog-dialog-content h2 { font-size: 30px; }
 }
 @media (max-width: 560px) {
   .doc-shelves { grid-template-columns: repeat(2, minmax(0, 1fr)); }

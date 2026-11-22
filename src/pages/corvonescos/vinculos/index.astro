@@ -42,6 +42,7 @@ const tipoFilters = [{ label: "Aliados", value: "aliado" }, { label: "Inimigos",
                 data-vinculo-imagem={item.imagem ?? ""}
                 data-vinculo-ficha={item.fichaPersonagem ?? ""}
                 data-vinculo-nota-mestre={item.notaMestre ?? ""}
+                data-vinculo-musicas={JSON.stringify(item.musicas ?? [])}
                 role="button"
                 tabindex="0"
                 aria-label={`Ler informações de ${item.nome}`}
@@ -77,6 +78,10 @@ const tipoFilters = [{ label: "Aliados", value: "aliado" }, { label: "Inimigos",
         <div class="vinculo-dialog-section">
           <h3>Localização inicial</h3>
           <p class="vinculo-dialog-location"></p>
+        </div>
+        <div class="vinculo-dialog-section vinculo-dialog-music" hidden>
+          <h3>Autor de:</h3>
+          <div class="vinculo-dialog-music-links"></div>
         </div>
         <blockquote class="vinculo-dialog-master-note" hidden>
           <span>Nota do Mestre</span>
@@ -130,6 +135,8 @@ const tipoFilters = [{ label: "Aliados", value: "aliado" }, { label: "Inimigos",
     const vinculoDialogClose = vinculoDialog?.querySelector<HTMLButtonElement>(".vinculo-dialog-close");
     const vinculoDialogPlayerLink = vinculoDialog?.querySelector<HTMLAnchorElement>(".vinculo-dialog-player-link");
     const vinculoDialogMasterNote = vinculoDialog?.querySelector<HTMLQuoteElement>(".vinculo-dialog-master-note");
+    const vinculoDialogMusic = vinculoDialog?.querySelector<HTMLElement>(".vinculo-dialog-music");
+    const vinculoDialogMusicLinks = vinculoDialog?.querySelector<HTMLElement>(".vinculo-dialog-music-links");
 
     const openVinculoDialog = (card: HTMLElement): void => {
       if (!vinculoDialog || !vinculoDialogImage || !vinculoDialogName || !vinculoDialogRole || !vinculoDialogDescription || !vinculoDialogLocation) return;
@@ -164,6 +171,21 @@ const tipoFilters = [{ label: "Aliados", value: "aliado" }, { label: "Inimigos",
         vinculoDialogImage.removeAttribute("src");
         vinculoDialogImage.alt = "";
         vinculoDialogImage.parentElement?.setAttribute("hidden", "");
+      }
+      if (vinculoDialogMusic && vinculoDialogMusicLinks) {
+        const musicas = JSON.parse(card.dataset.vinculoMusicas ?? "[]") as { titulo: string; slug: string }[];
+        vinculoDialogMusicLinks.replaceChildren();
+        if (musicas.length > 0) {
+          vinculoDialogMusic.hidden = false;
+          musicas.forEach((musica) => {
+            const link = document.createElement("a");
+            link.href = `/universo/documentos/${musica.slug}/`;
+            link.textContent = musica.titulo;
+            vinculoDialogMusicLinks.append(link);
+          });
+        } else {
+          vinculoDialogMusic.hidden = true;
+        }
       }
       vinculoDialog.showModal();
     };

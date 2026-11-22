@@ -92,8 +92,42 @@ const temSumario = secoes.filter((secao) => secao.nivel).length >= 3;
           {temChips && (
             <div class="doc-chips">
               {documento.locais?.map((local) => <span>{local}</span>)}
-              {documento.personagens?.map((slug) => <a href={`/corvonescos/personagens/${slug}/`}>{nomePersonagem(slug)}</a>)}
-              {documento.vinculos?.map((slug) => <a href="/corvonescos/vinculos/">{nomeVinculo(slug)}</a>)}
+              {documento.personagens?.map((slug) => {
+                const personagemRelacionado = personagens.find((personagem) => personagem.slug === slug);
+                return (
+                  <button
+                    type="button"
+                    class="doc-chip"
+                    data-doc-personagem
+                    data-personagem-nome={personagemRelacionado?.nome ?? nomePersonagem(slug)}
+                    data-personagem-status={personagemRelacionado?.status ?? ""}
+                    data-personagem-raca={personagemRelacionado?.raca ?? ""}
+                    data-personagem-imagem={personagemRelacionado?.imagem ?? ""}
+                    data-personagem-ficha={`/corvonescos/personagens/${slug}/`}
+                  >
+                    {nomePersonagem(slug)}
+                  </button>
+                );
+              })}
+              {documento.vinculos?.map((slug) => {
+                const vinculoRelacionado = vinculos.find((vinculo) => vinculo.slug === slug);
+                return vinculoRelacionado ? (
+                  <button
+                    type="button"
+                    class="doc-chip"
+                    data-doc-vinculo
+                    data-vinculo-nome={vinculoRelacionado.nome}
+                    data-vinculo-papel={vinculoRelacionado.papel}
+                    data-vinculo-descricao={vinculoRelacionado.descricao ?? ""}
+                    data-vinculo-localizacao={vinculoRelacionado.localizacaoInicial ?? ""}
+                    data-vinculo-imagem={vinculoRelacionado.imagem ?? ""}
+                    data-vinculo-nota-mestre={vinculoRelacionado.notaMestre ?? ""}
+                    data-vinculo-musicas={JSON.stringify(vinculoRelacionado.musicas ?? [])}
+                  >
+                    {nomeVinculo(slug)}
+                  </button>
+                ) : null;
+              })}
             </div>
           )}
           {documento.rascunho && <p class="doc-ficha__example">Rascunho: texto gerado a partir do que se sabe da campanha, a ser revisado pela mesa.</p>}
@@ -169,4 +203,124 @@ const temSumario = secoes.filter((secao) => secao.nivel).length >= 3;
       </nav>
     )}
   </main>
+  <dialog class="doc-catalog-dialog" aria-labelledby="doc-catalog-dialog-nome">
+    <button class="doc-catalog-dialog-close" type="button" aria-label="Fechar detalhes">×</button>
+    <div class="doc-catalog-dialog-layout">
+      <div class="doc-catalog-dialog-image"><img alt="" /></div>
+      <div class="doc-catalog-dialog-content">
+        <span class="doc-catalog-dialog-kicker"></span>
+        <h2 id="doc-catalog-dialog-nome"></h2>
+        <p class="doc-catalog-dialog-subtitle"></p>
+        <div class="doc-catalog-dialog-description">
+          <h3>Descrição</h3>
+          <p></p>
+        </div>
+        <div class="doc-catalog-dialog-location">
+          <h3>Localização inicial</h3>
+          <p></p>
+        </div>
+        <div class="doc-catalog-dialog-music" hidden>
+          <h3>Autor de:</h3>
+          <div></div>
+        </div>
+        <blockquote class="doc-catalog-dialog-note" hidden><span>Nota do Mestre</span><p></p></blockquote>
+        <a class="doc-catalog-dialog-link" hidden>Ver ficha completa</a>
+      </div>
+    </div>
+  </dialog>
+  <script>
+    const dialog = document.querySelector<HTMLDialogElement>(".doc-catalog-dialog");
+    const close = dialog?.querySelector<HTMLButtonElement>(".doc-catalog-dialog-close");
+    const image = dialog?.querySelector<HTMLImageElement>(".doc-catalog-dialog-image img");
+    const name = dialog?.querySelector<HTMLElement>("#doc-catalog-dialog-nome");
+    const kicker = dialog?.querySelector<HTMLElement>(".doc-catalog-dialog-kicker");
+    const subtitle = dialog?.querySelector<HTMLElement>(".doc-catalog-dialog-subtitle");
+    const description = dialog?.querySelector<HTMLElement>(".doc-catalog-dialog-description p");
+    const location = dialog?.querySelector<HTMLElement>(".doc-catalog-dialog-location p");
+    const locationSection = dialog?.querySelector<HTMLElement>(".doc-catalog-dialog-location");
+    const musicSection = dialog?.querySelector<HTMLElement>(".doc-catalog-dialog-music");
+    const musicLinks = dialog?.querySelector<HTMLElement>(".doc-catalog-dialog-music > div");
+    const note = dialog?.querySelector<HTMLElement>(".doc-catalog-dialog-note");
+    const link = dialog?.querySelector<HTMLAnchorElement>(".doc-catalog-dialog-link");
+
+    const openDialog = (source: HTMLElement, tipo: "vinculo" | "personagem"): void => {
+      if (!dialog || !image || !name || !kicker || !subtitle || !description || !location || !locationSection) return;
+
+      name.textContent = source.dataset[tipo === "vinculo" ? "vinculoNome" : "personagemNome"] ?? "";
+      kicker.textContent = tipo === "vinculo" ? "Ficha de vínculo" : "Ficha de personagem";
+      subtitle.textContent = tipo === "vinculo"
+        ? source.dataset.vinculoPapel ?? ""
+        : [source.dataset.personagemStatus, source.dataset.personagemRaca].filter(Boolean).join(" · ");
+      description.textContent = tipo === "vinculo"
+        ? source.dataset.vinculoDescricao || "Descrição ainda não registrada."
+        : "Ficha completa do personagem dos Corvonescos.";
+
+      const imagem = tipo === "vinculo" ? source.dataset.vinculoImagem : source.dataset.personagemImagem;
+      if (imagem) {
+        image.src = imagem;
+        image.alt = name.textContent ?? "";
+        image.parentElement?.removeAttribute("hidden");
+      } else {
+        image.removeAttribute("src");
+        image.alt = "";
+        image.parentElement?.setAttribute("hidden", "");
+      }
+
+      if (tipo === "vinculo") {
+        locationSection.hidden = false;
+        location.textContent = source.dataset.vinculoLocalizacao || "Localização inicial ainda não registrada.";
+        if (note) {
+          if (source.dataset.vinculoNotaMestre) {
+            note.hidden = false;
+            const noteText = note.querySelector<HTMLElement>("p");
+            if (noteText) noteText.textContent = source.dataset.vinculoNotaMestre;
+          } else {
+            note.hidden = true;
+          }
+        }
+        if (musicSection && musicLinks) {
+          const musicas = JSON.parse(source.dataset.vinculoMusicas ?? "[]") as { titulo: string; slug: string }[];
+          musicLinks.replaceChildren();
+          if (musicas.length > 0) {
+            musicSection.hidden = false;
+            musicas.forEach((musica) => {
+              const musicLink = document.createElement("a");
+              musicLink.href = `/universo/documentos/${musica.slug}/`;
+              musicLink.textContent = musica.titulo;
+              musicLinks.append(musicLink);
+            });
+          } else {
+            musicSection.hidden = true;
+          }
+        }
+      } else {
+        locationSection.hidden = true;
+        if (note) note.hidden = true;
+        if (musicSection) musicSection.hidden = true;
+      }
+
+      if (link) {
+        const ficha = tipo === "vinculo" ? "" : source.dataset.personagemFicha;
+        if (ficha) {
+          link.href = ficha;
+          link.hidden = false;
+        } else {
+          link.removeAttribute("href");
+          link.hidden = true;
+        }
+      }
+      dialog.showModal();
+    };
+
+    document.querySelectorAll<HTMLElement>("[data-doc-vinculo]").forEach((button) => {
+      button.addEventListener("click", () => openDialog(button, "vinculo"));
+    });
+    document.querySelectorAll<HTMLElement>("[data-doc-personagem]").forEach((button) => {
+      button.addEventListener("click", () => openDialog(button, "personagem"));
+    });
+    close?.addEventListener("click", () => dialog?.close());
+    dialog?.addEventListener("click", (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+  </script>
 </BaseLayout>

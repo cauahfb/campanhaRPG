@@ -365,6 +365,23 @@
   font-size: 13px;
   line-height: 1.75;
 }
+.vinculo-dialog-music[hidden] { display: none; }
+.vinculo-dialog-music-links {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 7px;
+}
+.vinculo-dialog-music-links a {
+ padding: 6px 10px;
+ border: 1px solid var(--line);
+ border-radius: 999px;
+ color: var(--gold-bright);
+ font-size: 11px;
+ text-decoration: none;
+}
+.vinculo-dialog-music-links a:hover {
+ border-color: var(--gold-dim);
+}
 .vinculo-dialog-player-link {
   display: inline-flex;
   margin-top: 22px;
