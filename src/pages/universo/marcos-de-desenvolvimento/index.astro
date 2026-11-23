@@ -1,0 +1,232 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Breadcrumb from "../../../components/Breadcrumb.astro";
+import SectionIntro from "../../../components/SectionIntro.astro";
+
+const milestones = [
+  { level: 1, rank: "Iniciante", public: "Um desconhecido com equipamento e alguma coragem.", world: "Uma pessoa comum que decidiu se arriscar. Guardas e comerciantes não têm motivo para reconhecê-la.", reach: "Uma aldeia, uma estrada ou um pequeno grupo.", example: "Resolver um problema local, escoltar uma carroça ou sobreviver ao primeiro contrato.", holdings: "Nenhum patrimônio relevante. Normalmente possui apenas equipamento inicial, roupas, provisões e algumas moedas; pode estar devendo pela hospedagem ou pelo equipamento." },
+  { level: 2, rank: "Iniciante", public: "Alguém que já voltou vivo de uma missão perigosa.", world: "Ainda é tratado como mão de obra aventureira; a experiência começa a aparecer nas atitudes.", reach: "Vizinhança e contratantes recorrentes.", example: "Conhecer trilhas, identificar ameaças comuns e cumprir trabalhos simples sem supervisão constante.", holdings: "Equipamento básico próprio e uma pequena reserva para alguns dias ou semanas. Ainda costuma alugar cama, dividir quarto ou depender da guilda." },
+  { level: 3, rank: "Iniciante", public: "Um aventureiro promissor, talvez recomendado por outro grupo.", world: "Uma guilda ou milícia local pode começar a guardar seu nome.", reach: "Uma vila grande ou um distrito urbano.", example: "Derrotar uma ameaça que intimidava moradores ou liderar uma pequena equipe.", holdings: "Kit de aventura mais completo, ferramentas próprias e economias modestas. Pode pagar hospedagem sem depender do próximo contrato, mas ainda não costuma possuir imóvel." },
+  { level: 4, rank: "Iniciante", public: "Um profissional ainda jovem, mas já confiável em tarefas específicas.", world: "É conhecido por alguns contratantes, não necessariamente pelo público.", reach: "Uma cidade pequena e seus arredores.", example: "Ser chamado novamente, negociar melhor pagamento e receber indicações.", holdings: "Uma montaria simples ou equipamento de valor, reserva financeira e talvez um quarto alugado de longo prazo. Começa a ter bens que não carrega consigo." },
+  { level: 5, rank: "Experiente", public: "Um aventureiro competente; já não parece um amador.", world: "Guardas, mercadores e guildas podem reconhecer sua reputação local.", reach: "Uma cidade ou uma rota comercial.", example: "Enfrentar monstros que exigem preparação e coordenação de um grupo.", holdings: "Uma casa pequena e simples, própria ou financiada, em uma vila ou bairro modesto. É um marco plausível para quem trabalha com constância, embora não seja garantido." },
+  { level: 6, rank: "Experiente", public: "Um especialista em campo, capaz de orientar iniciantes.", world: "Seu nome circula entre profissionais e autoridades locais.", reach: "Uma região próxima.", example: "Treinar auxiliares, investigar uma série de ataques ou proteger uma comunidade por semanas.", holdings: "Uma casa melhorada, pequeno terreno ou oficina, além de montaria e equipamento especializado. Pode manter um ajudante ou pagar serviços regularmente." },
+  { level: 7, rank: "Experiente", public: "Um nome respeitado em círculos aventureiros.", world: "Pode receber contratos melhores e ser ouvido por líderes locais.", reach: "Várias comunidades de uma mesma região.", example: "Lidar com ameaças que mobilizam guardas, caçadores e recursos de uma cidade.", holdings: "Uma propriedade confortável, participação em um negócio ou terras produtivas. Já consegue sustentar auxiliares e manter seus bens mesmo entre aventuras." },
+  { level: 8, rank: "Experiente", public: "Um veterano em ascensão, cuja presença transmite segurança.", world: "É lembrado por guildas, comerciantes influentes e oficiais.", reach: "Uma região inteira.", example: "Ser enviado para resolver crises que não podem ser confiadas a patrulhas comuns.", holdings: "Uma propriedade rural, hospedaria, oficina próspera ou sede própria para um pequeno grupo. Pode ter empregados fixos e renda que não depende apenas de contratos." },
+  { level: 9, rank: "Experiente", public: "Um dos aventureiros mais capazes que a maioria das pessoas já conheceu.", world: "Sua reputação pode precedê-lo entre cidades vizinhas.", reach: "Uma província ou rede de cidades.", example: "Deter uma criatura excepcional ou impedir que um conflito regional se agrave.", holdings: "Uma propriedade de prestígio, como uma casa senhorial, uma pequena fortificação ou um negócio consolidado, com funcionários e fontes de renda." },
+  { level: 10, rank: "Experiente", public: "Um herói regional em formação.", world: "Autoridades podem solicitar sua ajuda diretamente; rivais também podem conhecê-lo.", reach: "Uma região ampla, com repercussão política local.", example: "Mudar o destino de uma cidade ou decidir o resultado de uma campanha militar menor.", holdings: "Pode possuir ou controlar uma pequena vila, um domínio rural ou uma propriedade que sustente uma comunidade. Em geral isso significa título, concessão, participação ou responsabilidade política, não necessariamente ser dono de cada casa." },
+  { level: 11, rank: "Veterano", public: "Um nome de peso, não apenas mais um aventureiro.", world: "É tratado como ativo estratégico por governantes e organizações poderosas.", reach: "Múltiplas regiões ou uma nação pequena.", example: "Enfrentar ameaças capazes de derrubar fortalezas ou desestabilizar governos.", holdings: "Uma grande propriedade, fortim ou conjunto de terras com renda regular. É plausível manter guarda, funcionários especializados e uma pequena comitiva." },
+  { level: 12, rank: "Veterano", public: "Uma figura cuja competência é difícil de contestar.", world: "Pode negociar com nobres e comandantes em posição de relativa igualdade.", reach: "Uma nação e seus vizinhos.", example: "Ser convocado para crises que exigem campeões, arcanistas ou agentes de elite.", holdings: "Uma torre, fortaleza ou solar de importância regional, com terras e dependências. Pode administrar uma comunidade vinculada à propriedade." },
+  { level: 13, rank: "Veterano", public: "Um herói conhecido por feitos extraordinários.", world: "Seu nome aparece em relatos, canções, registros e conversas de corte.", reach: "Escala nacional.", example: "Derrotar inimigos que ameaçam capitais, exércitos ou instituições centenárias.", holdings: "Um domínio relevante ou participação em uma cidade: imóveis, negócios, terras e rendas diversificadas. Sua riqueza já movimenta fornecedores e trabalhadores." },
+  { level: 14, rank: "Veterano", public: "Uma personalidade lendária para quem vive longe dos grandes centros.", world: "Reinos podem disputar sua lealdade, temer sua influência ou tentar controlá-la.", reach: "Vários reinos ou uma grande potência.", example: "Alterar alianças, frustrar uma invasão ou expor uma conspiração de Estado.", holdings: "Uma fortaleza importante, várias propriedades ou um domínio concedido por uma autoridade. Pode sustentar uma casa nobre menor ou uma organização própria." },
+  { level: 15, rank: "Veterano", public: "Um dos maiores nomes de sua geração.", world: "Sua presença muda cálculos militares, diplomáticos e religiosos.", reach: "Internacional.", example: "Confrontar ameaças que exigem coalizões e mobilizam recursos de diversos povos.", holdings: "Um patrimônio de escala internacional: propriedades em mais de uma cidade, negócios influentes e terras extensas. Pode financiar expedições ou apoiar instituições." },
+  { level: 16, rank: "Veterano", public: "Uma lenda viva em muitos lugares.", world: "Mesmo quem nunca o viu pode conhecer seus feitos; instituições mantêm registros sobre ele.", reach: "Internacional e extraplanar em círculos especializados.", example: "Sobreviver a missões que seriam consideradas suicidas para forças convencionais.", holdings: "Um castelo, grande domínio ou sede institucional com estrutura permanente. Mantém funcionários, especialistas, guardas e aliados sem depender de renda imediata." },
+  { level: 17, rank: "Lendário", public: "Uma figura histórica ainda em atividade.", world: "Governantes, grandes ordens e poderes sobrenaturais acompanham seus movimentos.", reach: "Mundial.", example: "Impedir catástrofes que ameaçam continentes ou o equilíbrio entre grandes poderes.", holdings: "Vários domínios ou propriedades estratégicas em diferentes regiões. Pode sustentar uma ordem, companhia ou rede de aliados e ainda conservar reservas extraordinárias." },
+  { level: 18, rank: "Lendário", public: "Um campeão cuja existência parece contrariar os limites mortais.", world: "Seu nome pode ser conhecido em cortes, templos, academias e planos próximos.", reach: "Mundial e planar.", example: "Enfrentar entidades e exércitos que não poderiam ser detidos por um reino isolado.", holdings: "Uma fortaleza lendária ou sede extraplanar, além de propriedades no mundo material. Seus bens podem incluir relíquias, embarcações especiais ou infraestrutura mágica." },
+  { level: 19, rank: "Lendário", public: "Uma lenda entre lendas.", world: "É tratado como uma força política e militar por si só.", reach: "Mundial, com influência planar significativa.", example: "Decidir o futuro de reinos ou impedir que uma ameaça planar se estabeleça.", holdings: "Um domínio comparável ao de uma grande casa nobre, com influência sobre cidades, rotas ou territórios. A gestão costuma exigir representantes e administradores." },
+  { level: 20, rank: "Lendário", public: "O ápice de uma carreira heroica mortal.", world: "Seu nome entra para a história; reis e arquimagos precisam considerá-lo em seus planos.", reach: "Mundial e além.", example: "Realizar feitos que se tornam referência por gerações.", holdings: "Pode deter uma cidade, um principado ou um conjunto de domínios, por conquista, título, aliança ou fundação. Não é automático: muitos heróis desse nível preferem não governar." },
+  { level: 21, rank: "Épico", public: "Algo além do que a maioria considera possível para um mortal.", world: "As grandes potências passam a avaliar não só seus feitos, mas o risco de sua existência.", reach: "Mundial e planar.", example: "Atuar em conflitos que atravessam planos ou ameaçam estruturas mágicas antigas.", holdings: "Além de grandes propriedades materiais, pode estabelecer uma base segura em outro plano ou financiar uma organização capaz de operar entre mundos." },
+  { level: 22, rank: "Épico", public: "Uma presença quase mítica, difícil de comparar a qualquer herói conhecido.", world: "Ordens secretas, entidades planares e governantes mantêm interesse direto.", reach: "Múltiplos planos.", example: "Confrontar campeões sobrenaturais e alterar o equilíbrio de uma região planar.", holdings: "Uma fortaleza planar, enclave extraplanar ou domínio protegido, com recursos para viagens e operações entre planos." },
+  { level: 23, rank: "Épico", public: "Um nome que pode ser confundido com lenda ou presságio.", world: "Aventureiros comuns passam a ser vistos como incapazes de compreender sua escala.", reach: "Múltiplos planos e grandes organizações.", example: "Interferir em disputas entre poderes que tratam mundos como territórios.", holdings: "Pode manter vários enclaves, santuários ou propriedades em planos distintos, além de uma rede de agentes e aliados." },
+  { level: 24, rank: "Épico", public: "Uma força cuja chegada pode mudar o curso de uma guerra planar.", world: "Seu favor ou oposição pode definir o destino de cidades, ordens e povos inteiros.", reach: "Planar amplo.", example: "Romper cercos sobrenaturais ou derrotar ameaças que exigem campeões de vários mundos.", holdings: "Um domínio planar amplo ou uma fortaleza capaz de abrigar forças consideráveis. Seus recursos já são estratégicos para facções sobrenaturais." },
+  { level: 25, rank: "Épico", public: "Uma figura de escala mitológica.", world: "Até seres poderosos precisam negociar, preparar defesas ou buscar alianças.", reach: "Vários planos e domínios extraplanares.", example: "Desafiar poderes que influenciam civilizações inteiras há séculos.", holdings: "Um reino menor, domínio próprio ou território sob sua proteção em algum plano pode estar ao seu alcance, por concessão, conquista ou pacto." },
+  { level: 26, rank: "Épico", public: "Um protagonista de histórias que atravessam mundos.", world: "Seus atos podem ser interpretados como sinais de mudança por cultos e profecias.", reach: "Multiplanar.", example: "Alterar fronteiras planares ou frustrar planos de entidades de grande poder.", holdings: "Patrimônio distribuído entre mundos: fortalezas, portais, santuários e propriedades vinculadas a aliados ou seguidores." },
+  { level: 27, rank: "Épico", public: "Uma existência excepcional mesmo entre os seres lendários.", world: "Sua reputação já não depende de mensageiros: poderes distantes observam seus movimentos.", reach: "Multiplanar e cosmológico em repercussão.", example: "Intervir em eventos capazes de afetar várias realidades conectadas.", holdings: "Pode sustentar uma organização multiplanar ou exercer autoridade sobre territórios e comunidades de mais de um mundo." },
+  { level: 28, rank: "Épico", public: "Um nome que pode sobreviver ao próprio império que o registrou.", world: "É tratado como potência independente, não como simples campeão de uma nação.", reach: "Escala cosmológica localizada.", example: "Enfrentar ameaças que colocam em risco a continuidade de mundos ou domínios.", holdings: "Um domínio de escala cosmológica localizada, com fortalezas e recursos que não cabem na economia de uma única nação." },
+  { level: 29, rank: "Transcendente", public: "Uma presença quase incompreensível para pessoas comuns.", world: "A distinção entre indivíduo, símbolo e força histórica começa a desaparecer.", reach: "Cosmológico.", example: "Mudar o destino de planos inteiros ou desafiar poderes de magnitude extraordinária.", holdings: "Uma rede de domínios e enclaves que atravessa planos. Sua manutenção depende de pactos, servos, aliados e estruturas próprias." },
+  { level: 30, rank: "Transcendente", public: "O limite máximo da progressão mortal desta campanha — se é que ainda cabe chamá-lo de mortal.", world: "Sua existência pode entrar no campo de interesse de entidades divinas e forças primordiais.", reach: "Cosmológico, conforme os feitos e a história do personagem.", example: "Protagonizar acontecimentos que redefinem eras, planos ou o equilíbrio do cenário.", holdings: "Pode possuir ou governar um domínio lendário, uma fortaleza entre planos ou uma estrutura comparável a um pequeno reino extraplanar. O patrimônio é singular e depende inteiramente da história do personagem." },
+];
+
+const tiers = [
+  { name: "Iniciante", levels: "1–4", summary: "Sobrevive, aprende e conquista confiança local.", tone: "local" },
+  { name: "Experiente", levels: "5–10", summary: "Torna-se profissional reconhecido e herói regional.", tone: "regional" },
+  { name: "Veterano", levels: "11–16", summary: "Influencia nações e decisões de grandes organizações.", tone: "national" },
+  { name: "Lendário", levels: "17–20", summary: "Seus feitos entram para a história e alcançam escala mundial.", tone: "legend" },
+  { name: "Épico", levels: "21–28", summary: "Ultrapassa referências mortais e atua em escala planar.", tone: "epic" },
+  { name: "Transcendente", levels: "29–30", summary: "Alcança o extremo da escala de poder desta campanha.", tone: "transcendent" },
+];
+---
+
+<BaseLayout title="Marcos de Desenvolvimento" description="Como o mundo de Toril percebe aventureiros do nível 1 ao 30, sua influência e a escala econômica das pessoas comuns.">
+  <main class="section-shell milestone-page">
+    <Breadcrumb items={[{ label: "Universo", href: "/universo/" }, { label: "Marcos de Desenvolvimento" }]} />
+    <SectionIntro
+      eyebrow="Atlas social · Escala de poder"
+      title="Marcos de"
+      emphasis="Desenvolvimento"
+      description="O que muda quando alguém deixa de ser uma pessoa armada em busca de trabalho e passa a ser uma figura capaz de alterar o destino de reinos, ou de mundos?"
+      meta={["30 NÍVEIS OBSERVADOS", "6 GRANDES MARCOS"]}
+    >
+      <div slot="art" class="intro-art-content">
+        <div class="book-emblem book-emblem--marcos">
+          <svg class="book-emblem__milestones" viewBox="0 0 112 148" aria-hidden="true">
+            <path class="milestone-orbit" d="M17 76c0-23 17-42 39-42s39 19 39 42-17 42-39 42-39-19-39-42Z" />
+            <path class="milestone-orbit" d="M27 76c0-17 13-31 29-31s29 14 29 31-13 31-29 31-29-14-29-31Z" />
+            <path d="M56 19v15M56 118v12M8 76h14M90 76h14" />
+            <path d="m56 48 5 17 17 5-17 5-5 17-5-17-17-5 17-5Z" />
+            <path d="M28 100h12V88h12V76h12V64h12" />
+            <path d="m68 56 8 8-8 8" />
+            <circle cx="56" cy="74" r="3" />
+            <path class="milestone-spark" d="M28 34v8m-4-4h8M84 108v8m-4-4h8M88 30v6m-3-3h6" />
+          </svg>
+        </div>
+        <span>Progressão · Reputação · Patrimônio</span>
+      </div>
+    </SectionIntro>
+
+    <section class="milestone-intro prose-block">
+      <span class="section-kicker">Uma escala de percepção</span>
+      <h2>O nível mede capacidade. O mundo mede consequências.</h2>
+      <p>Os níveis de personagem não são uma classificação oficial reconhecida por toda Toril. Um camponês não costuma perguntar o nível de quem entra em sua estalagem, e um rei não recebe uma ficha de personagem antes de uma audiência. As faixas abaixo traduzem a progressão mecânica em uma leitura social: reputação, alcance dos feitos, recursos mobilizados e o tipo de atenção que um aventureiro atrai.</p>
+      <p>Esta é uma referência de ambientação para a campanha. O comportamento de cada cidade, guilda ou indivíduo ainda depende de cultura, informação disponível, feitos públicos e interesses particulares.</p>
+      <aside class="milestone-callout" aria-label="Aviso sobre poder e influência">
+        <strong>Poder não é a mesma coisa que influência</strong>
+        <p>Dois personagens podem ter o mesmo nível e ocupar posições sociais muito diferentes.</p>
+      </aside>
+    </section>
+
+    <section class="tier-section" aria-labelledby="tier-heading">
+      <div class="section-heading"><div><span class="section-kicker">Visão geral</span><h2 id="tier-heading">Seis grandes marcos</h2></div><p>Uma leitura rápida da transformação de um aventureiro ao longo da carreira.</p></div>
+      <div class="tier-grid">
+        {tiers.map((tier, index) => <article class={`tier-card tier-${tier.tone}`}><span class="tier-index">0{index + 1}</span><span class="tier-level">NÍVEIS {tier.levels}</span><h3>{tier.name}</h3><p>{tier.summary}</p></article>)}
+      </div>
+    </section>
+
+    <section class="social-section" aria-labelledby="social-heading">
+      <div class="section-heading"><div><span class="section-kicker">A percepção das pessoas</span><h2 id="social-heading">Como o mundo enxerga cada marco</h2></div><p>A mesma pessoa pode ser desconhecida numa capital e uma lenda numa aldeia distante, ou o contrário.</p></div>
+      <div class="social-columns">
+        <article><span class="column-symbol">◈</span><h3>O povo comum</h3><p>Julga pelo que vê: roupas, comportamento, histórias e resultados. Um aventureiro famoso pode ser recebido como salvador, ameaça, celebridade ou problema ambulante.</p></article>
+        <article><span class="column-symbol">⌂</span><h3>Autoridades e guildas</h3><p>Observam confiabilidade, influência e risco. Conforme a escala cresce, contratos simples dão lugar a negociações, alianças, vigilância e tentativas de recrutamento.</p></article>
+        <article><span class="column-symbol">✧</span><h3>O próprio mundo</h3><p>Reage à dimensão dos acontecimentos. Criaturas, organizações e poderes capazes de perceber ameaças extraordinárias passam a notar indivíduos cujos atos afetam regiões, planos ou equilíbrios antigos.</p></article>
+      </div>
+    </section>
+
+    <section class="level-section" aria-labelledby="level-heading">
+      <div class="section-heading"><div><span class="section-kicker">Consulta detalhada</span><h2 id="level-heading">Do nível 1 ao 30</h2></div><p>Selecione um nível para consultar sua posição social, alcance típico e exemplos de feitos.</p></div>
+      <p class="milestone-wealth-note">Os patrimônios abaixo são referências narrativas do que um aventureiro bem-sucedido pode ter acumulado ao longo da carreira, não recompensas automáticas por nível. Heranças, gastos, estilo de vida, divisão de tesouros, dívidas, escolhas pessoais e região podem deixar alguém muito acima ou abaixo dessa referência. Propriedades também podem ser compartilhadas, arrendadas, concedidas ou administradas em nome de terceiros.</p>
+      <div class="level-explorer">
+        <div class="level-selector" role="group" aria-label="Selecionar nível de personagem">
+          {milestones.map((item) => <button type="button" class:list={["level-button", { "is-selected": item.level === 1 }]} data-level={item.level} aria-pressed={item.level === 1 ? "true" : "false"}>{item.level}</button>)}
+        </div>
+        <article class="level-detail" aria-live="polite">
+          <div class="level-detail-top"><span id="detail-rank">INICIANTE</span><strong>NÍVEL <b id="detail-level">01</b></strong></div>
+          <h3 id="detail-title">Um começo quase anônimo</h3>
+          <p class="level-lead" id="detail-public">Um desconhecido com equipamento e alguma coragem.</p>
+          <div class="detail-grid">
+            <div><span>Como as pessoas veem</span><p id="detail-world">Uma pessoa comum que decidiu se arriscar. Guardas e comerciantes não têm motivo para reconhecê-la.</p></div>
+            <div><span>Alcance típico</span><p id="detail-reach">Uma aldeia, uma estrada ou um pequeno grupo.</p></div>
+            <div class="detail-example"><span>Um feito compatível</span><p id="detail-example">Resolver um problema local, escoltar uma carroça ou sobreviver ao primeiro contrato.</p></div>
+            <div class="detail-holdings"><span>Patrimônio normalmente plausível</span><p id="detail-holdings">Nenhum patrimônio relevante além do equipamento inicial e algumas moedas.</p></div>
+          </div>
+          <div class="level-nav"><button id="prev-level" type="button" disabled>← Nível anterior</button><button id="next-level" type="button">Próximo nível →</button></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="tiamat-section" aria-labelledby="tiamat-heading">
+      <div class="section-heading"><div><span class="section-kicker">Exemplo extremo</span><h2 id="tiamat-heading">Enfrentando Tiamat</h2></div><p>Cinco aventureiros iguais ao nível selecionado. Uma régua narrativa para medir esperança, risco e escala.</p></div>
+      <div class="tiamat-benchmark">
+        <div class="tiamat-party" aria-label="Cinco aventureiros">
+          <div><span>01</span><strong>Monge</strong></div>
+          <div><span>02</span><strong>Mago</strong></div>
+          <div><span>03</span><strong>Clérigo</strong></div>
+          <div><span>04</span><strong>Ladino</strong></div>
+          <div><span>05</span><strong>Druida</strong></div>
+        </div>
+        <div class="tiamat-verdict" aria-live="polite">
+          <div class="tiamat-level"><span>Grupo</span><strong><b id="tiamat-level">01</b>º nível</strong></div>
+          <h3 id="tiamat-status">SEM CHANCE ALGUMA</h3>
+          <p id="tiamat-description">Os aventureiros perceberiam o dragão apenas pelo impacto de suas ações no mundo, e provavelmente não chegariam perto dele vivos.</p>
+          <div class="tiamat-chance"><span id="tiamat-chance-label">Sobrevivência improvável</span><div><i id="tiamat-chance-bar"></i></div></div>
+        </div>
+      </div>
+      <p class="economy-note">Esta comparação é ilustrativa e não tenta calcular uma vitória mecânica. Preparação, itens, aliados, terreno, estratégia, versões da criatura e escolhas narrativas podem alterar completamente o resultado.</p>
+      <aside class="milestone-callout" aria-label="Aviso sobre aliados e influência">
+        <p><strong>Uma lenda sem aliados pode ser isolada.</strong> Um personagem menos poderoso com apoios, recursos e prestígio pode decidir o destino de uma região. Sempre considere vínculos, responsabilidades e inimigos ao calcular influência.</p>
+      </aside>
+    </section>
+
+    <section class="economy-section" aria-labelledby="economy-heading">
+      <div class="section-heading"><div><span class="section-kicker">A escala das moedas</span><h2 id="economy-heading">Quanto vale uma semana de trabalho?</h2></div><p>Uma referência econômica ajuda a perceber o tamanho real de recompensas, contratos e fortunas.</p></div>
+      <div class="economy-callout"><div class="coin-mark">₲</div><div><h3>Ouro não é uma medida real para a maioria das pessoas.</h3><p>Para um trabalhador comum, algumas moedas de prata podem representar uma semana inteira de esforço. Uma recompensa de dezenas de peças de ouro já pode mudar o orçamento de uma família; centenas de peças de ouro são valores que exigem contexto, risco ou patrocínio.</p></div></div>
+      <div class="wage-grid">
+        <article class="wage-card"><span class="wage-label">Trabalhador sem qualificação</span><strong>1,4 PO</strong><span class="wage-period">por semana · referência</span><p>Equivalente a 2 peças de prata por dia, usando a tarifa de um auxiliar não especializado.</p></article>
+        <article class="wage-card wage-featured"><span class="wage-label">Profissional especializado contratado</span><strong>14 PO</strong><span class="wage-period">por semana · referência</span><p>Equivalente a 2 peças de ouro por dia, usando a tarifa de um contratado especializado.</p></article>
+        <article class="wage-card"><span class="wage-label">Mensageiro</span><strong>2 PC</strong><span class="wage-period">por milha · referência</span><p>Uma tarifa de serviço por distância, não um salário semanal fixo.</p></article>
+      </div>
+
+    </section>
+
+    <section class="reward-section" aria-labelledby="reward-heading">
+      <div class="section-heading"><div><span class="section-kicker">Contratos e recompensas</span><h2 id="reward-heading">Quando uma missão vira fortuna?</h2></div><p>O valor de uma recompensa depende menos do nível do grupo e mais do que está em jogo para quem paga.</p></div>
+      <div class="reward-table-wrap"><table class="reward-table"><thead><tr><th>Valor oferecido</th><th>O que representa para uma pessoa comum</th><th>O que pode justificar o contrato</th></tr></thead><tbody>
+        <tr><td><strong>1–5 PO</strong></td><td>Uma quantia relevante para despesas imediatas, mas não uma fortuna.</td><td>Um serviço curto, uma entrega valiosa ou um risco limitado.</td></tr>
+        <tr><td><strong>10–25 PO</strong></td><td>Dinheiro considerável; pode cobrir semanas de despesas modestas.</td><td>Escolta perigosa, investigação ou ameaça localizada.</td></tr>
+        <tr><td><strong>50–100 PO</strong></td><td>Uma recompensa extraordinária para muitos trabalhadores.</td><td>Risco alto, urgência, perda comercial importante ou ameaça a uma comunidade.</td></tr>
+        <tr><td><strong>250–1.000 PO</strong></td><td>Patrimônio capaz de mudar a vida de uma família, dependendo da região.</td><td>Interesses de nobres, guildas, templos ou autoridades de uma cidade.</td></tr>
+        <tr><td><strong>5.000 PO ou mais</strong></td><td>Uma soma fora do alcance da economia cotidiana da maioria.</td><td>Crises estratégicas, artefatos, guerras, ameaças nacionais ou interesses extraplanares.</td></tr>
+      </tbody></table></div>
+      <p class="economy-note">Esta tabela de recompensas é uma régua narrativa sugerida para a campanha, não uma tabela oficial de preços nem uma promessa de pagamento por nível. Um contratante pobre pode oferecer pouco por uma missão perigosa; um templo ou governante pode pagar muito por algo que considere vital.</p>
+    </section>
+
+  </main>
+
+  <script define:vars={{ milestones }}>
+    const buttons = Array.from(document.querySelectorAll(".level-button"));
+    const fields = {
+      rank: document.querySelector("#detail-rank"), level: document.querySelector("#detail-level"),
+      title: document.querySelector("#detail-title"), public: document.querySelector("#detail-public"),
+      world: document.querySelector("#detail-world"), reach: document.querySelector("#detail-reach"),
+      example: document.querySelector("#detail-example"), holdings: document.querySelector("#detail-holdings"), prev: document.querySelector("#prev-level"), next: document.querySelector("#next-level"),
+      tiamatLevel: document.querySelector("#tiamat-level"), tiamatStatus: document.querySelector("#tiamat-status"),
+      tiamatDescription: document.querySelector("#tiamat-description"), tiamatChanceLabel: document.querySelector("#tiamat-chance-label"),
+      tiamatChanceBar: document.querySelector("#tiamat-chance-bar"),
+    };
+    const titles = ["Um começo quase anônimo", "Aprendendo a sobreviver", "Promessa em formação", "Um profissional em início de carreira", "Competência reconhecida", "Experiência que inspira", "Um nome entre aventureiros", "Veterano em ascensão", "Entre os mais capazes", "Herói regional", "Uma força de peso", "Aliado de governantes", "Herói de feitos extraordinários", "Lenda além das fronteiras", "Um dos grandes nomes", "Lenda viva", "Figura histórica", "Campeão além dos limites", "Lenda entre lendas", "O ápice mortal", "Além das referências mortais", "Presença quase mítica", "Nome de profecia", "Força de escala planar", "Figura mitológica", "Histórias que atravessam mundos", "Excepcional entre os lendários", "Potência independente", "Quase incompreensível", "O marco transcendente"];
+    function getTiamatAssessment(level) {
+      if (level <= 4) return ["SEM CHANCE ALGUMA", "Os aventureiros perceberiam o dragão apenas pelo impacto de suas ações no mundo, e provavelmente não chegariam perto dele vivos.", "Sobrevivência improvável", 3];
+      if (level <= 8) return ["PODERIAM ATRASAR O DESASTRE", "Uma preparação excepcional poderia impedir civis de serem atingidos, mas Tiamat continuaria praticamente intocada.", "Chance mínima", 10];
+      if (level <= 12) return ["CONSEGUIRIAM FUGIR POR POUCO", "O grupo teria recursos para sobreviver a alguns ataques, desde que evitasse lutar frontalmente.", "Sobrevivência possível", 20];
+      if (level <= 16) return ["UM CONFRONTO REALMENTE POSSÍVEL", "Com preparação, aliados e informação perfeita, o grupo poderia montar uma estratégia para ferir Tiamat.", "Vitória improvável", 38];
+      if (level <= 20) return ["PODERIAM FAZER TIAMAT LUTAR DE VERDADE", "A batalha seria épica, arriscada e longa. A vitória dependeria muito de cada escolha.", "Vitória possível", 58];
+      if (level <= 24) return ["Tiamat teria um problema sério", "Cinco personagens desse nível já poderiam disputar a guerra toda, não apenas o campo de batalha.", "Fortes chances", 75];
+      if (level <= 28) return ["A batalha seria curta demais para Tiamat", "O grupo poderia quebrar parte de suas defesas com estratégia, aliados e poder mágico extraordinário.", "Grande vantagem", 92];
+      return ["NÃO DARIA NEM PARA SENTIR O CHEIRO", "No nível 30, um dos personagens poderia desfazer o desafio sozinho, ou Tiamat nem precisaria ser mencionada na história.", "Tiamat derrotada", 100];
+    }
+    let current = 1;
+    function selectLevel(level) {
+      current = Math.max(1, Math.min(30, level));
+      const item = milestones[current - 1];
+      fields.rank.textContent = item.rank.toLocaleUpperCase("pt-BR");
+      fields.level.textContent = String(item.level).padStart(2, "0");
+      fields.title.textContent = titles[current - 1];
+      fields.public.textContent = item.public;
+      fields.world.textContent = item.world;
+      fields.reach.textContent = item.reach;
+      fields.example.textContent = item.example;
+      fields.holdings.textContent = item.holdings;
+      fields.prev.disabled = current === 1;
+      fields.next.disabled = current === 30;
+      const assessment = getTiamatAssessment(current);
+      fields.tiamatLevel.textContent = String(current).padStart(2, "0");
+      fields.tiamatStatus.textContent = assessment[0];
+      fields.tiamatDescription.textContent = assessment[1];
+      fields.tiamatChanceLabel.textContent = assessment[2];
+      fields.tiamatChanceBar.style.width = `${assessment[3]}%`;
+      buttons.forEach((button) => {
+        const selected = Number(button.dataset.level) === current;
+        button.classList.toggle("is-selected", selected);
+        button.setAttribute("aria-pressed", String(selected));
+      });
+    }
+    buttons.forEach((button) => button.addEventListener("click", () => selectLevel(Number(button.dataset.level))));
+    fields.prev.addEventListener("click", () => selectLevel(current - 1));
+    fields.next.addEventListener("click", () => selectLevel(current + 1));
+  </script>
+
+  <style>
+    .milestone-page{padding-bottom:5rem}.book-emblem--marcos{background:radial-gradient(circle at 50% 52%,rgba(201,167,124,.17),transparent 40%),radial-gradient(circle at 76% 22%,rgba(160,47,76,.22),transparent 28%),linear-gradient(145deg,rgba(42,22,35,.96),rgba(13,8,16,.98))}.book-emblem__milestones{position:absolute;inset:8%;width:84%;height:84%;fill:none;stroke:rgba(230,207,166,.82);stroke-width:1.15;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 6px rgba(201,167,124,.22));transition:filter .35s,transform .6s}.book-emblem__milestones .milestone-orbit{stroke:rgba(201,167,124,.48);stroke-dasharray:2 4}.book-emblem__milestones .milestone-spark{stroke:rgba(230,207,166,.95);stroke-width:1.4}.intro-art-content:hover .book-emblem__milestones{filter:drop-shadow(0 0 11px rgba(201,167,124,.42));transform:rotate(5deg)}.prose-block{max-width:880px;margin:0 auto 4.5rem}.prose-block h2,.section-heading h2{margin:.6rem 0 1rem;color:#eee3d9;font-family:Georgia,serif;font-size:clamp(1.9rem,4vw,2.8rem);font-weight:400}.prose-block p,.section-heading>p{color:#bcb1b4;line-height:1.85}.section-kicker{display:inline-flex;align-items:center;gap:.65rem;color:#c49a75;font-size:.68rem;font-weight:700;line-height:1.4;letter-spacing:.24em;text-transform:uppercase}.section-kicker::before{content:"";width:1.8rem;height:1px;background:#b88d69}.prose-block>.section-kicker{margin-bottom:.15rem}.tier-section,.social-section,.level-section,.economy-section,.reward-section{margin:4.5rem 0}.section-heading{display:flex;align-items:end;justify-content:space-between;gap:2rem;margin-bottom:1.6rem}.section-heading>p{max-width:420px;margin:0 0 .35rem;font-size:.9rem}.tier-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}.tier-card{position:relative;min-height:180px;padding:1.5rem;border:1px solid rgba(190,151,111,.18);background:linear-gradient(145deg,rgba(34,25,31,.9),rgba(17,14,19,.95));border-radius:5px}.tier-index{position:absolute;top:1rem;right:1.2rem;color:rgba(205,165,130,.3);font-family:Georgia,serif;font-size:2rem}.tier-level{color:#b58e79;font-size:.64rem;letter-spacing:.16em}.tier-card h3{margin:.75rem 0 .45rem;color:#eee1d7;font-family:Georgia,serif;font-size:1.55rem;font-weight:400}.tier-card p{max-width:270px;margin:0;color:#b9aeb2;font-size:.85rem;line-height:1.65}.tier-local{border-top:2px solid #77736c}.tier-regional{border-top:2px solid #8b8a68}.tier-national{border-top:2px solid #9a775c}.tier-legend{border-top:2px solid #a75e60}.tier-epic{border-top:2px solid #8066a1}.tier-transcendent{border-top:2px solid #c5a16d}.social-columns{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.2rem}.social-columns article{padding:1.5rem;border-left:1px solid rgba(190,151,111,.4);background:rgba(28,22,28,.55)}.column-symbol{color:#c49a75;font-size:1.5rem}.social-columns h3{margin:.7rem 0;color:#eaded5;font-family:Georgia,serif;font-size:1.35rem;font-weight:400}.social-columns p{margin:0;color:#b8adb0;font-size:.87rem;line-height:1.8}.level-explorer{display:grid;grid-template-columns:repeat(30,minmax(0,1fr));gap:1rem}.level-selector{grid-column:1/-1;display:grid;grid-template-columns:repeat(15,minmax(0,1fr));gap:.45rem}.level-button{min-height:42px;border:1px solid rgba(190,151,111,.2);background:#171319;color:#c8b8b2;border-radius:3px;cursor:pointer;transition:background .2s,border-color .2s,color .2s}.level-button:hover,.level-button.is-selected{border-color:#bd8c77;background:#6e303b;color:#fff}.level-detail{grid-column:1/-1;padding:clamp(1.4rem,3vw,2.5rem);border:1px solid rgba(190,151,111,.24);background:linear-gradient(135deg,#1c151c,#100e13);border-radius:5px}.level-detail-top{display:flex;justify-content:space-between;align-items:center;color:#c59a72;font-size:.68rem;letter-spacing:.18em}.level-detail-top strong{color:#a89a9b;font-weight:500}.level-detail-top b{color:#f1e4d9;font-size:1.2rem}.level-detail h3{margin:1rem 0 .4rem;color:#f0e4dc;font-family:Georgia,serif;font-size:clamp(1.7rem,3vw,2.4rem);font-weight:400}.level-lead{margin:0 0 1.5rem;color:#c9a99d;font-size:1.05rem}.detail-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.detail-grid>div{padding:1rem;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.055)}.detail-grid span{display:block;color:#c49a75;font-size:.65rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase}.detail-grid p{margin:.5rem 0 0;color:#c2b7ba;line-height:1.7;font-size:.9rem}.detail-example,.detail-holdings{grid-column:1/-1}.detail-holdings{border-color:rgba(190,151,111,.25)!important;background:rgba(110,70,45,.09)!important}.milestone-wealth-note{margin:0 0 1.2rem;color:#b9aeb2;font-size:.88rem;line-height:1.8;padding:1rem 1.2rem;border-left:2px solid rgba(190,151,111,.5);background:rgba(28,22,28,.45)}.level-nav{display:flex;justify-content:space-between;margin-top:1.5rem}.level-nav button{padding:.7rem 1rem;border:1px solid rgba(190,151,111,.28);background:transparent;color:#d4b69f;border-radius:3px;cursor:pointer}.level-nav button:disabled{opacity:.35;cursor:not-allowed}.economy-callout{display:flex;align-items:center;gap:1.3rem;margin:1.5rem 0;padding:1.5rem;border:1px solid rgba(190,151,111,.22);background:linear-gradient(110deg,rgba(104,54,53,.2),rgba(25,20,26,.7))}.coin-mark{flex:0 0 58px;display:grid;place-items:center;width:58px;height:58px;border:1px solid #b88d69;border-radius:50%;color:#d1a676;font-family:Georgia,serif;font-size:2rem}.economy-callout h3{margin:0 0 .4rem;color:#eee0d4;font-family:Georgia,serif;font-size:1.35rem;font-weight:400}.economy-callout p{margin:0;color:#bcb0b2;line-height:1.7;font-size:.88rem}.wage-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin:1.3rem 0}.wage-card{padding:1.4rem;border:1px solid rgba(190,151,111,.18);background:#171319}.wage-featured{border-color:rgba(190,135,112,.55);background:linear-gradient(145deg,#2a1b20,#171319)}.wage-label,.wage-period{display:block;color:#bca9a7;font-size:.72rem}.wage-card strong{display:block;margin:.8rem 0 .1rem;color:#ead1b5;font-family:Georgia,serif;font-size:2.5rem;font-weight:400}.wage-card p{margin:.9rem 0 0;color:#b9aeb1;font-size:.83rem;line-height:1.7}.economy-note{margin:1rem 0;color:#9f969b;font-size:.78rem;line-height:1.8}.economy-note strong{color:#c7ad9a}.subsection-title{margin:2.5rem 0 .3rem;color:#e8dbd2;font-family:Georgia,serif;font-size:1.6rem;font-weight:400}.subsection-intro{color:#b8adb0;font-size:.88rem;line-height:1.7}.table-wrap,.reward-table-wrap{overflow-x:auto;margin:1rem 0}.economy-table,.reward-table{width:100%;border-collapse:collapse;min-width:650px}.economy-table th,.reward-table th{padding:.85rem 1rem;background:#241b22;color:#c9a88e;text-align:left;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase}.economy-table td,.reward-table td{padding:.85rem 1rem;border-bottom:1px solid rgba(190,151,111,.13);color:#bfb4b7;font-size:.84rem;line-height:1.6}.economy-table td strong,.reward-table td strong{color:#e7d8cd}.economy-table tbody tr:hover,.reward-table tbody tr:hover{background:rgba(255,255,255,.025)}
+    .tiamat-section{margin:4.5rem 0}.milestone-callout{margin:1.5rem 0 0;padding:1.1rem 1.25rem;border-left:2px solid rgba(190,151,111,.55);background:rgba(110,70,45,.09);color:#c9bec0;font-size:.88rem;line-height:1.75}.milestone-callout strong{display:block;margin-bottom:.25rem;color:#e1cbb8;font-family:Georgia,serif;font-size:1.08rem;font-weight:400}.milestone-callout p{margin:0}.tiamat-benchmark{display:grid;grid-template-columns:minmax(320px,.9fr) 1.1fr;gap:1.2rem}.tiamat-party{display:grid;grid-template-columns:repeat(5,minmax(68px,1fr));align-items:end;gap:.55rem;padding:1.4rem;border:1px solid rgba(190,151,111,.18);background:radial-gradient(circle at 50% 20%,rgba(160,47,76,.18),transparent 38%),linear-gradient(145deg,#21151d,#110e13)}.tiamat-party>div{min-height:150px;display:flex;flex-direction:column;justify-content:flex-end;padding:.75rem .55rem;border:1px solid rgba(190,151,111,.16);background:linear-gradient(160deg,rgba(201,167,124,.08),rgba(0,0,0,.18));text-align:center}.tiamat-party span{color:#c49a75;font-size:.62rem;letter-spacing:.16em}.tiamat-party strong{margin-top:.6rem;color:#d9cbc1;font-family:Georgia,serif;font-size:.78rem;font-weight:400}.tiamat-verdict{padding:clamp(1.4rem,3vw,2.2rem);border:1px solid rgba(190,151,111,.24);background:linear-gradient(135deg,#24171d,#100e13)}.tiamat-level{display:flex;justify-content:space-between;align-items:center;color:#c49a75;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase}.tiamat-level strong{color:#a99a9c;font-weight:500}.tiamat-level b{color:#f0e4dc;font-size:1.6rem}.tiamat-verdict h3{margin:1.2rem 0 .8rem;color:#eee1d7;font-family:Georgia,serif;font-size:clamp(1.45rem,3vw,2.2rem);font-weight:400}.tiamat-verdict>p{min-height:4.8em;margin:0;color:#c2b7ba;line-height:1.75}.tiamat-chance{margin-top:1.3rem}.tiamat-chance span{display:block;margin-bottom:.45rem;color:#bca9a7;font-size:.68rem;text-transform:uppercase;letter-spacing:.12em}.tiamat-chance>div{height:5px;overflow:hidden;background:#30252d}.tiamat-chance i{display:block;width:3%;height:100%;background:linear-gradient(90deg,#6e303b,#c49a75);transition:width .45s ease}
+    @media(max-width:850px){.tier-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.section-heading{display:block}.section-heading>p{margin-top:.7rem}.level-selector{grid-template-columns:repeat(10,minmax(0,1fr))}.tiamat-benchmark{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:600px){.tier-grid,.social-columns,.wage-grid,.tiamat-benchmark{grid-template-columns:1fr}.tier-card{min-height:145px}.level-selector{grid-template-columns:repeat(6,minmax(0,1fr))}.detail-grid{grid-template-columns:1fr}.detail-example{grid-column:auto}.economy-callout{align-items:flex-start}.coin-mark{flex-basis:44px;width:44px;height:44px;font-size:1.5rem}.level-nav button{font-size:.75rem}.tiamat-party{grid-template-columns:repeat(5,minmax(44px,1fr));overflow:hidden}.tiamat-party>div{min-height:120px;padding:.5rem .25rem}.tiamat-party strong{font-size:.68rem}.tiamat-verdict>p{min-height:0}}
+  </style>
+</BaseLayout>
