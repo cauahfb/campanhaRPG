@@ -31,6 +31,7 @@ import { cantigaDoHerdeiro } from "./musicas/cantiga-do-herdeiro";
 import { rezeParaMim } from "./musicas/reze-para-mim";
 import { oMimico } from "./musicas/o-mimico";
 import { aQuedaDosFalsosDeuses } from "./musicas/a-queda-dos-falsos-deuses";
+import { libertacaoDaRainhaDragao, ritualDosCincoSacramentos } from "./livros/rituais-tiamat";
 
 /** Cada tipo de documento é uma "estante" da biblioteca. */
 export type DocumentoTipoId = "livro" | "manuscrito" | "carta" | "musica" | "registro";
@@ -158,6 +159,8 @@ export const documentos: Documento[] = [
   rezeParaMim,
   oMimico,
   aQuedaDosFalsosDeuses,
+  ritualDosCincoSacramentos,
+  libertacaoDaRainhaDragao,
 ];
 
 export const documentosOrdenados = [...documentos].sort((a, b) => a.titulo.localeCompare(b.titulo, "pt-BR"));
