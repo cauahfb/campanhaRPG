@@ -67,7 +67,7 @@ export const aGrandeJornada: Documento = {
             "",
             "Tem gente que quer peso no peito",
             "Ouro e prata como único jeito",
-            "Tranco a porta, escondo a chave",
+            "Tranca a porta, esconde a chave",
             "Mas essa vida não me cabe",
             "",
             "Prefiro a chuva e o frio no chão",
