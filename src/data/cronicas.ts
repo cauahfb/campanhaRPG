@@ -76,7 +76,7 @@ export function dataCalendarioParaOrdem(data: string): number {
 export const cronicas: Cronica[] = [
   {
     slug: "asura-o-reino-que-apodreceu-por-dentro",
-    titulo: "Asura: O Reino que Apodreceu por Dentro",
+    titulo: "Asura: O Reino Que Apodreceu Por Dentro",
     subtitulo: "O relato completo de Nemo Dattimare sobre a queda e a reconstrução de Asura",
     categoria: "intrigas",
     dataNoMundo: "10 de Kythorn de 1491",
@@ -93,7 +93,7 @@ export const cronicas: Cronica[] = [
   },
   {
     slug: "oakhuster-a-arvore-que-dava-frutos-a-morte",
-    titulo: "Oakhuster: a árvore que dava frutos à morte",
+    titulo: "Oakhuster: A Árvore Que Dava Frutos À Morte",
     subtitulo: "A aventura pela Gulthias, os Penumbras e a segunda vida de Perseu",
     categoria: "grandes-feitos",
     dataNoMundo: "1 de Flamerule de 1491",

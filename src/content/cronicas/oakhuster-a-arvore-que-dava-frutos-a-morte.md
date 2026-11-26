@@ -1,4 +1,4 @@
-## Tomo Único: Oakhuster: a árvore que dava frutos à morte
+## Tomo Único: Oakhuster: A árvore que dava frutos à morte
 
 *Por Nemo Dattimare, o Escriba das Profundezas*
 

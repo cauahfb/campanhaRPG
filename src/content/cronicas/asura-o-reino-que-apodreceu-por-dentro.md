@@ -1,7 +1,7 @@
 # As Crônicas de Nemo
 Dattimare
 
-## Tomo Único: Asura, o reino que apodreceu por dentro
+## Tomo Único: Asura, O reino que apodreceu por dentro
 
 *Por Nemo
 Dattimare, o Escriba das Profundezas*
