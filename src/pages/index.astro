@@ -101,6 +101,13 @@ const websiteSchema = {
 
     {destaque && <FeaturedStory story={destaque} />}
 
+    <aside class="home-cronica-alert" aria-label="Aviso de publicação das crônicas">
+      <span class="home-cronica-alert__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M12 3.5a8.5 8.5 0 1 0 0 17 8.5 8.5 0 0 0 0-17Z"/><path d="M12 7.5v5l3.2 2"/></svg>
+      </span>
+      <p><strong>Uma nova crônica todas as quintas-feiras, às 12h!</strong><span>Acompanhe os registros de Nemo Dattimare e descubra novas histórias da campanha.</span></p>
+    </aside>
+
     {stats.length >= 2 && <StatsStrip items={stats} />}
 
     <section class="home-section" aria-labelledby="explorar-titulo">

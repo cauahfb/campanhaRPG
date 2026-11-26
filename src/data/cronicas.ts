@@ -42,6 +42,8 @@ export interface Cronica {
   paragrafos: string[];
   /** slugs de /corvonescos/personagens/ envolvidos (opcional). */
   personagens?: string[];
+  /** Nomes de figuras citadas sem página própria no compêndio. */
+  marcacoes?: string[];
   locais?: string[];
   /** Marca que os Corvonescos participaram diretamente desta crônica. */
   presencaCorvonescos?: boolean;
@@ -75,8 +77,25 @@ export function dataCalendarioParaOrdem(data: string): number {
 
 export const cronicas: Cronica[] = [
   {
+    slug: "kiei-a-moeda-e-os-dois-mortos-de-neverwinter",
+    titulo: "Kiei: A Moeda e os Dois Mortos de Neverwinter",
+    subtitulo: "A Moeda de Graz'zt, a morte de Taric WolfGuard e os segredos sob o Carne e Sangue",
+    categoria: "tragedias",
+    dataNoMundo: "1 de Flamerule de 1491",
+    ordem: 1491,
+    resumo:
+      "Em busca de Aiki, Kiei segue uma pista até um bordel de Neverwinter, onde encontra prisioneiros, uma moeda demoníaca e dois homens que não sairão vivos daquela noite.",
+    paragrafos: [
+      "Kiei chegou a Neverwinter procurando uma mulher desaparecida e encontrou uma prisão escondida sob o bordel Carne e Sangue.",
+      "A busca terminou com a libertação dos prisioneiros, a posse da Moeda de Graz'zt e a morte de Barron Dusk e Taric WolfGuard.",
+    ],
+    locais: ["Neverwinter", "Asura", "Malatra"],
+    personagens: ["kiei", "perseu-starlight"],
+    presencaCorvonescos: true,
+  },
+  {
     slug: "asura-o-reino-que-apodreceu-por-dentro",
-    titulo: "Asura: O Reino Que Apodreceu Por Dentro",
+    titulo: "Asura: O Reino que apodreceu por Dentro",
     subtitulo: "O relato completo de Nemo Dattimare sobre a queda e a reconstrução de Asura",
     categoria: "intrigas",
     dataNoMundo: "10 de Kythorn de 1491",
@@ -93,7 +112,7 @@ export const cronicas: Cronica[] = [
   },
   {
     slug: "oakhuster-a-arvore-que-dava-frutos-a-morte",
-    titulo: "Oakhuster: A Árvore Que Dava Frutos À Morte",
+    titulo: "Oakhuster: A Árvore que Dava Frutos à Morte",
     subtitulo: "A aventura pela Gulthias, os Penumbras e a segunda vida de Perseu",
     categoria: "grandes-feitos",
     dataNoMundo: "1 de Flamerule de 1491",

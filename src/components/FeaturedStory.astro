@@ -28,19 +28,41 @@ const [first, ...rest] = story.paragrafos;
       {story.imagem ? (
         <img src={story.imagem.src} alt={story.imagem.alt} loading="lazy" decoding="async" />
       ) : (
-        <svg viewBox="0 0 240 160" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round">
-          <circle cx="186" cy="36" r="13" stroke-opacity=".55" />
-          <path d="M0 118H240" stroke-opacity=".7" />
-          <path d="M20 127H220M44 135H196" stroke-opacity=".28" stroke-dasharray="3 6" />
-          <path d="M72 118V34" />
-          <path d="M74 38V101L118 101Z" fill="rgba(160,47,76,.30)" />
-          <path d="M70 50V101L32 101Z" fill="rgba(160,47,76,.22)" />
-          <path d="M36 103H116L106 116H46Z" fill="rgba(201,167,124,.10)" />
-          <path d="M170 118V48" />
-          <path d="M172 54V106L206 106Z" fill="rgba(160,47,76,.22)" />
-          <path d="M148 108H202L194 118H156Z" fill="rgba(201,167,124,.10)" />
-          <path d="M226 118L218 74" stroke-opacity=".6" />
-          <path d="M218 74L212 80" stroke-opacity=".6" />
+        <svg viewBox="0 0 240 160" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round" role="img" aria-label="Uma moeda demoníaca junto a uma adaga sombria, símbolo dos dois mortos de Neverwinter">
+          <defs>
+            <radialGradient id="coin-glow" cx="50%" cy="42%" r="65%">
+              <stop offset="0" stop-color="#c9a77c" stop-opacity=".22" />
+              <stop offset="1" stop-color="#a02f4c" stop-opacity=".04" />
+            </radialGradient>
+            <linearGradient id="blade-shadow" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#c9a77c" stop-opacity=".72" />
+              <stop offset=".55" stop-color="#a02f4c" stop-opacity=".55" />
+              <stop offset="1" stop-color="#a02f4c" stop-opacity=".12" />
+            </linearGradient>
+          </defs>
+          <path d="M0 132H240" stroke-opacity=".55" />
+          <path d="M18 141H222M48 149H192" stroke-opacity=".2" stroke-dasharray="3 6" />
+
+          <!-- Moeda de Graz'zt -->
+          <circle cx="91" cy="72" r="43" fill="url(#coin-glow)" stroke="#c9a77c" stroke-opacity=".8" />
+          <circle cx="91" cy="72" r="36" stroke="#c9a77c" stroke-opacity=".45" />
+          <circle cx="91" cy="72" r="29" stroke="#a02f4c" stroke-opacity=".55" stroke-dasharray="2 4" />
+          <path d="M91 49C83 57 81 63 85 69C88 73 94 74 97 79C101 86 95 94 88 96M91 49C99 55 103 62 98 68C95 72 89 73 86 78C82 85 87 92 94 96" stroke="#c9a77c" stroke-width="1.5" />
+          <path d="M76 72H106M91 57V87" stroke="#c9a77c" stroke-opacity=".38" />
+          <path d="M91 23V29M91 115V121M42 72H48M134 72H140M56 37L61 42M121 102L126 107M56 107L61 102M121 42L126 37" stroke-opacity=".45" />
+
+          <!-- Adaga envolta em sombras -->
+          <path d="M157 24L174 83L165 92L148 33Z" fill="url(#blade-shadow)" stroke="#c9a77c" stroke-opacity=".7" />
+          <path d="M165 92L174 83L181 104L170 111Z" fill="#a02f4c" fill-opacity=".2" />
+          <path d="M150 100L180 91M158 106L174 89" stroke="#c9a77c" stroke-opacity=".65" />
+          <path d="M164 105L151 124M174 105L187 124" stroke="#a02f4c" stroke-opacity=".65" />
+          <path d="M151 124L187 124" stroke="#c9a77c" stroke-opacity=".45" />
+
+          <!-- Duas marcas funerárias -->
+          <path d="M26 132V111C26 104 31 100 37 100C43 100 48 104 48 111V132Z" fill="#a02f4c" fill-opacity=".12" stroke="#c9a77c" stroke-opacity=".55" />
+          <path d="M31 113H43M37 107V119" stroke="#c9a77c" stroke-opacity=".5" />
+          <path d="M199 132V115C199 108 204 104 210 104C216 104 221 108 221 115V132Z" fill="#a02f4c" fill-opacity=".12" stroke="#c9a77c" stroke-opacity=".55" />
+          <path d="M204 116H216M210 110V122" stroke="#c9a77c" stroke-opacity=".5" />
         </svg>
       )}
     </figure>

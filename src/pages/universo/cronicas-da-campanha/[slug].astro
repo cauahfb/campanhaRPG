@@ -9,6 +9,7 @@ import "../../../styles/corvonescos.css";
 import "../../../styles/cronicas.css";
 import textoAsura from "../../../content/cronicas/asura-o-reino-que-apodreceu-por-dentro.md?raw";
 import textoOakhuster from "../../../content/cronicas/oakhuster-a-arvore-que-dava-frutos-a-morte.md?raw";
+import textoKiei from "../../../content/cronicas/kiei-a-moeda-e-os-dois-mortos-de-neverwinter.md?raw";
 
 interface Props { cronica: Cronica }
 
@@ -22,9 +23,11 @@ const indice = cronicasOrdenadas.findIndex((item) => item.slug === cronica.slug)
 const maisNova = indice > 0 ? cronicasOrdenadas[indice - 1] : undefined;
 const maisAntiga = indice < cronicasOrdenadas.length - 1 ? cronicasOrdenadas[indice + 1] : undefined;
 const nomePersonagem = (slug: string) => personagens.find((p) => p.slug === slug)?.nome ?? slug;
-const textoManuscrito = cronica.slug === "oakhuster-a-arvore-que-dava-frutos-a-morte"
-  ? textoOakhuster
-  : textoAsura;
+const textoManuscrito = cronica.slug === "kiei-a-moeda-e-os-dois-mortos-de-neverwinter"
+  ? textoKiei
+  : cronica.slug === "oakhuster-a-arvore-que-dava-frutos-a-morte"
+    ? textoOakhuster
+    : textoAsura;
 const inicioTomo = textoManuscrito.indexOf("## Tomo");
 const blocosCronica = inicioTomo >= 0
   ? textoManuscrito.slice(inicioTomo).split(/\n\s*\n/).map((bloco) => bloco.trim()).filter(Boolean)
@@ -70,9 +73,16 @@ const blocosCronica = inicioTomo >= 0
         }) : cronica.paragrafos.map((texto) => <p>{texto}</p>)}
       </div>
 
-      {(cronica.personagens?.length || cronica.locais?.length || cronica.sessao !== undefined) && (
+      {cronica.presencaCorvonescos && (
+        <blockquote class="cronica-presenca">
+          Presença dos Corvonescos
+        </blockquote>
+      )}
+
+      {(cronica.personagens?.length || cronica.marcacoes?.length || cronica.locais?.length || cronica.sessao !== undefined) && (
         <footer class="session-chips cronica-chips">
           {cronica.personagens?.map((slug) => <a href={`/corvonescos/personagens/${slug}/`}>{nomePersonagem(slug)}</a>)}
+          {cronica.marcacoes?.map((nome) => <span>{nome}</span>)}
           {cronica.locais?.map((local) => <span>{local}</span>)}
           {cronica.sessao !== undefined && <a href={`/corvonescos/diario-de-bordo/#sessao-${cronica.sessao}`}>Sessão {cronica.sessao} no Diário de Bordo</a>}
         </footer>

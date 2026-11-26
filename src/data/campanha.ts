@@ -15,17 +15,16 @@ export interface DestaqueCampanha {
 
 export const destaque: DestaqueCampanha | null = {
   periodico: "Destaque da Campanha",
-  edicao: "Edição extraordinária",
-  dataNoMundo: "24 de Tarsakh, 1493",
-  manchete: "A Queda da Cidade das Velas",
-  subtitulo: "Luskan sucumbe depois que as divindades locais desaparecem sem deixar rastro",
+  edicao: "Nova crônica",
+  dataNoMundo: "1 de Flamerule de 1491",
+  manchete: "Kiei: A Moeda e os Dois Mortos de Neverwinter",
+  subtitulo: "A Moeda de Graz'zt, a morte de Taric WolfGuard e os segredos sob o Carne e Sangue",
   paragrafos: [
-    "Com o misterioso sumiço das divindades locais, Luskan mergulhou em degradação. A fome e a miséria, que pareciam coisa do passado, voltaram às ruas, e uma população sem amparo e sem respostas não soube lidar com a crise.",
-    "E os capitães? Já não havia marinheiros para defendê-los.",
+    "Em busca de Aiki, Kiei segue uma pista até um bordel de Neverwinter, onde encontra prisioneiros, uma moeda demoníaca e dois homens que não sairão vivos daquela noite.",
+    "Uma história de desaparecimento, libertação e consequências que agora passa a integrar os registros de Nemo Dattimare.",
   ],
+  link: { label: "Ler a crônica", href: "/universo/cronicas-da-campanha/kiei-a-moeda-e-os-dois-mortos-de-neverwinter/" },
 };
-
-
 
 
 
