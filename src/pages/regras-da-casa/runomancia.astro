@@ -183,9 +183,9 @@ import RulesLayout from "../../layouts/RulesLayout.astro";
         <tbody>
           <tr><td>Trivial</td><td>Truque ou efeito muito limitado</td><td>0</td><td>1</td></tr>
           <tr><td>Regular</td><td>Efeito comparável a magia de 1º ou 2º círculo</td><td>1</td><td>1</td></tr>
-          <tr><td>Difícil</td><td>Efeito comparável a magia de 3º ou 4º círculo</td><td>2</td><td>2</td></tr>
-          <tr><td>Complexa</td><td>Efeito comparável a magia de 5º a 7º círculo</td><td>4</td><td>4</td></tr>
-          <tr><td>Milagre</td><td>Efeito comparável a magia de 8º ou 9º círculo</td><td>7</td><td>8</td></tr>
+          <tr><td>Difícil</td><td>Efeito comparável a magia de 3º ou 4º círculo</td><td>3</td><td>2</td></tr>
+          <tr><td>Complexa</td><td>Efeito comparável a magia de 5º a 7º círculo</td><td>6</td><td>4</td></tr>
+          <tr><td>Milagre</td><td>Efeito comparável a magia de 8º ou 9º círculo</td><td>12</td><td>8</td></tr>
         </tbody>
       </table>
       <h3>Como o Mestre determina a Complexidade</h3>
@@ -226,19 +226,19 @@ import RulesLayout from "../../layouts/RulesLayout.astro";
       <h3>Estresse acumulado por Complexidade</h3>
       <table>
         <thead><tr><th>Complexidade</th><th>Estresse acumulado</th></tr></thead>
-        <tbody><tr><td>Trivial</td><td>0</td></tr><tr><td>Regular</td><td>1</td></tr><tr><td>Difícil</td><td>2</td></tr><tr><td>Complexa</td><td>4</td></tr><tr><td>Milagre</td><td>7</td></tr></tbody>
+        <tbody><tr><td>Trivial</td><td>0</td></tr><tr><td>Regular</td><td>1</td></tr><tr><td>Difícil</td><td>3</td></tr><tr><td>Complexa</td><td>6</td></tr><tr><td>Milagre</td><td>12</td></tr></tbody>
       </table>
       <h3>Estados de Estresse</h3>
       <table>
         <thead><tr><th>Estado</th><th>Estresse acima do limite</th><th>Efeito</th></tr></thead>
         <tbody>
           <tr><td><strong>Normal</strong></td><td>0 ou menos</td><td>Nenhum efeito adicional.</td></tr>
-          <tr><td><strong>Cansado</strong></td><td>1 a 5</td><td>Você sofre 1d4 de dano adicional sempre que sofrer dano.</td></tr>
-          <tr><td><strong>Exausto</strong></td><td>6 a 8</td><td>Mantém o efeito de Cansado. Sempre que tentar ativar uma magia não Trivial, faça uma salvaguarda de Constituição CD 12. Em caso de falha, a magia falha, mas o Estresse da tentativa é acumulado.</td></tr>
-          <tr><td><strong>Esgotado</strong></td><td>9 ou mais</td><td>Você morre instantaneamente ao tentar conjurar qualquer magia com runas, independentemente da Complexidade e mesmo que a magia falhe. Não há teste para evitar essa morte.</td></tr>
+          <tr><td><strong>Cansado</strong></td><td>1 a 3</td><td>Você sofre 1d4 de dano adicional sempre que sofrer dano.</td></tr>
+          <tr><td><strong>Exausto</strong></td><td>4 a 6</td><td>Mantém o efeito de Cansado. Sempre que tentar ativar uma magia não Trivial, faça uma salvaguarda de Constituição CD 12. Em caso de falha, a magia falha, mas o Estresse da tentativa é acumulado.</td></tr>
+          <tr><td><strong>Esgotado</strong></td><td>7 ou mais</td><td>Você morre assim que o seu Estresse atingir esse patamar, ao final da conjuração que o causou. Não há teste para evitar essa morte.</td></tr>
         </tbody>
       </table>
-      <p>A morte no estado Esgotado ocorre quando a tentativa de conjuração é realizada. A inscrição, a tinta e a ação são consumidas conforme as regras normais de ativação; a magia não precisa produzir efeito para que a consequência ocorra.</p>
+      <p>O Estresse é somado no momento da ativação. Se o total ultrapassar o limite em 7 ou mais, a magia é resolvida normalmente (mesmo que falhe ou seja resistida) e o conjurador morre em seguida. A morte não depende do estado em que o personagem estava antes de conjurar: o que importa é o total de Estresse depois da ativação. Em outras palavras, o Estresse de um único Milagre pode, por si só, matar um conjurador que já esteja próximo do limite.</p>
       <h3>Recuperação</h3>
       <p>Um descanso curto reduz <strong>3 pontos de Estresse</strong>. Um descanso longo zera o Estresse. A recuperação de pontos de vida e o uso de Dados de Vida seguem as regras normais de D&amp;D 5e. O Mestre pode determinar que um descanso não seja adequado quando o local for inseguro ou as condições forem extremamente precárias.</p>
     </section>
@@ -330,10 +330,10 @@ import RulesLayout from "../../layouts/RulesLayout.astro";
           <tr><td>Suporte médio ou maior</td><td>Permanece intacto; a inscrição se consome.</td></tr>
           <tr><td>Complexidade</td><td>Não há nível mínimo; qualquer iniciado pode tentar qualquer Complexidade.</td></tr>
           <tr><td>CD de escrita por Complexidade</td><td>Não se aplica. A CD de escrita depende somente da quantidade de partículas no suporte.</td></tr>
-          <tr><td>Estresse</td><td>0 / 1 / 2 / 4 / 7, de Trivial a Milagre.</td></tr>
+          <tr><td>Estresse</td><td>0 / 1 / 3 / 6 / 12, de Trivial a Milagre.</td></tr>
           <tr><td>Descanso curto</td><td>Reduz 3 pontos de Estresse.</td></tr>
           <tr><td>Descanso longo</td><td>Zera o Estresse.</td></tr>
-          <tr><td>Esgotado</td><td>Morre instantaneamente ao tentar conjurar, mesmo se a magia falhar.</td></tr>
+          <tr><td>Esgotado</td><td>7 ou mais de Estresse acima do limite: morre ao final da conjuração que atingiu esse patamar.</td></tr>
         </tbody>
       </table>
     </section>
